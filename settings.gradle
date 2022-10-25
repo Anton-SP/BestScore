@@ -16,3 +16,4 @@ rootProject.name = "BestScore"
 include ':app'
 include ':core'
 include ':repository'
+include ':database'

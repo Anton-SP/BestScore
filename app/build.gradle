@@ -33,6 +33,7 @@ dependencies {
     //Modules
     implementation project(Modules.core)
     implementation project(Modules.repository)
+    implementation project(Modules.database)
 
     //AndroidX
     implementation Design.appcompat

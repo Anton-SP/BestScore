@@ -17,6 +17,7 @@ object Modules {
     const val app = ":app"
     const val core = ":core"
     const val repository = ":repository"
+    const val database = ":database"
 }
 
 object Versions {

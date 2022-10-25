@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.bestscore.repository'
+    namespace 'com.bestscore.database'
 
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -29,7 +29,6 @@ dependencies {
 
     //Modules
     implementation project(Modules.core)
-    implementation project(Modules.database)
 
     //AndroidX
     implementation Design.appcompat
@@ -42,4 +41,8 @@ dependencies {
     //Dagger2
     implementation Dagger.dagger
 
+    //Room
+    implementation Room.runtime
+    kapt Room.compiler
+    implementation Room.roomKtx
 }
