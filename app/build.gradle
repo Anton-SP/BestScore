@@ -30,6 +30,9 @@ android {
 
 dependencies {
 
+    //Modules
+    implementation project(Modules.core)
+
     //AndroidX
     implementation Design.appcompat
 
