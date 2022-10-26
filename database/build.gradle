@@ -1,19 +1,16 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
 }
 
 android {
-    namespace 'com.bestscore'
+    namespace 'com.bestscore.database'
 
     defaultConfig {
-        applicationId Config.applicationId
-        versionCode Releases.versionCode
-        versionName Releases.versionName
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,14 +29,9 @@ dependencies {
 
     //Modules
     implementation project(Modules.core)
-    implementation project(Modules.repository)
-    implementation project(Modules.database)
 
     //AndroidX
     implementation Design.appcompat
-
-    //Design
-    implementation Design.material
 
     //Kotlin
     implementation Kotlin.core
@@ -48,26 +40,9 @@ dependencies {
 
     //Dagger2
     implementation Dagger.dagger
-    kapt Dagger.daggerCompiler
 
     //Room
     implementation Room.runtime
     kapt Room.compiler
     implementation Room.roomKtx
-
-    //Coil
-    implementation Coil.coil
-
-    //ViewBinding
-    implementation ViewBinding.viewBinding
-
-    //Navigation
-    implementation NavigationComponent.navigationFragment
-    implementation NavigationComponent.navigationUi
-
-    //Test
-    testImplementation TestImpl.junit
-    androidTestImplementation TestImpl.runner
-    androidTestImplementation TestImpl.espresso
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
