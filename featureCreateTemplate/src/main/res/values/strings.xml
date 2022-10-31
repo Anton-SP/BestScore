@@ -1,0 +1,4 @@
+<resources>
+    <string name="label_template_name">Введите название шаблона</string>
+    <string name="hint_template_name">Название</string>
+</resources>
