@@ -23,8 +23,8 @@ object Modules {
 
 object Versions {
     //Design
-    const val appcompat = "1.4.2"
-    const val material = "1.6.1"
+    const val appcompat = "1.5.1"
+    const val material = "1.7.0"
 
     //Kotlin
     const val core = "1.8.0"
@@ -49,7 +49,8 @@ object Versions {
     //Test
     const val jUnit = "4.13.2"
     const val runner = "1.2.0"
-    const val espressoCore = "3.2.0"
+    const val espressoCore = "3.4.0"
+    const val testExt = "1.1.3"
 
     //Navigation
     const val navigation = "2.5.1"
@@ -94,6 +95,7 @@ object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
     const val runner = "androidx.test:runner:${Versions.runner}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
 }
 
 object NavigationComponent {
