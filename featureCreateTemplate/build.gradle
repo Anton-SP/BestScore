@@ -31,6 +31,7 @@ android {
 }
 
 dependencies {
+    implementation project(Modules.core)
 
     implementation Kotlin.core
     implementation Design.appcompat
