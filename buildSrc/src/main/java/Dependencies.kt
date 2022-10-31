@@ -18,6 +18,7 @@ object Modules {
     const val core = ":core"
     const val repository = ":repository"
     const val database = ":database"
+    const val featureCreateTemplate = ":featureCreateTemplate"
 }
 
 object Versions {
