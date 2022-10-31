@@ -37,7 +37,9 @@
         android:id="@+id/tv_params_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_common"
+        android:layout_marginStart="@dimen/margin_common"
+        android:layout_marginTop="@dimen/margin_common"
+        android:layout_marginEnd="@dimen/margin_common"
         android:text="@string/label_params"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_params_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fab_play"/>
+        app:layout_constraintBottom_toTopOf="@id/fab_add_parameter"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_parameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginTop="@dimen/margin_common"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_params"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_play"
