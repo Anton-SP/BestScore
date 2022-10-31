@@ -33,12 +33,24 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tv_params_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_common"
+        android:text="@string/label_params"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_template_name"
+        app:layout_constraintBottom_toTopOf="@id/rv_params"/>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_params"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="@dimen/margin_common"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_template_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_params_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/fab_play"/>
 
