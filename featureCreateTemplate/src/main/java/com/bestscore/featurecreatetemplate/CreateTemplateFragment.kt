@@ -6,6 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-class CreateTemplateFragment : Fragment() {
+class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
 
 }
