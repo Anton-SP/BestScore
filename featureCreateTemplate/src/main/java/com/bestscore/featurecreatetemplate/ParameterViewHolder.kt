@@ -27,7 +27,9 @@ class ParameterViewHolder(
 
             edStartScore.setText(parameter.startValue.toString())
             edStartScore.addTextChangedListener {
-                parameter.startValue = it.toString().toInt()
+                if(it.toString().isNotBlank()) {
+                    parameter.startValue = it.toString().toInt()
+                }
             }
 
             swTakeWhenCalc.isChecked = parameter.takeWhenCalc
