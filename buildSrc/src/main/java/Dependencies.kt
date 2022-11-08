@@ -39,9 +39,9 @@ object Versions {
     const val coil = "2.1.0"
 
     //Room
-    const val roomKtx = "2.4.2"
-    const val runtime = "2.4.2"
-    const val roomCompiler = "2.4.2"
+    const val roomKtx = "2.4.3"
+    const val runtime = "2.4.3"
+    const val roomCompiler = "2.4.3"
 
     //ViewBinding
     const val viewBinding = "1.5.6"
@@ -54,6 +54,9 @@ object Versions {
 
     //Navigation
     const val navigation = "2.5.1"
+
+    //Fragment
+    const val fragmentKtx = "1.5.4"
 }
 
 object Design {
@@ -102,4 +105,8 @@ object NavigationComponent {
     const val navigationFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+}
+
+object Fragment {
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
 }

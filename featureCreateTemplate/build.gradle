@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -31,7 +32,14 @@ android {
 }
 
 dependencies {
+    implementation Fragment.fragmentKtx
+
     implementation project(Modules.core)
+    implementation project(Modules.database)
+    implementation project(Modules.repository)
+
+    implementation Kotlin.coroutinesCore
+    implementation Kotlin.coroutinesAndroid
 
     implementation Kotlin.core
     implementation Design.appcompat

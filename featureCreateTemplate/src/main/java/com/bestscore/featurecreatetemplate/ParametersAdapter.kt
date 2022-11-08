@@ -3,7 +3,7 @@ package com.bestscore.featurecreatetemplate
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bestscore.core.Parameter
+import com.bestscore.core.templates.Parameter
 import com.bestscore.featurecreatetemplate.databinding.ItemParameterBinding
 
 class ParametersAdapter(
@@ -36,4 +36,6 @@ class ParametersAdapter(
         parameters.removeAt(position)
         notifyItemRemoved(position)
     }
+
+    fun getCurrentList(): List<Parameter> = parameters
 }
