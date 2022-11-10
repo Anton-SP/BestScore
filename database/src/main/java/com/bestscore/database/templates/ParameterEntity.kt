@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     tableName = "parameters",
     indices = [
         Index(
-            value = ["player_name"], unique = false
+            value = ["parameter_name"], unique = false
         )
     ],
     foreignKeys = [
@@ -27,8 +27,8 @@ data class ParameterEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    @ColumnInfo(name = "player_name")
-    val playerName: String,
+    @ColumnInfo(name = "parameter_name")
+    val parameterName: String,
 
     @ColumnInfo(name = "start_value")
     val startValue: Int,

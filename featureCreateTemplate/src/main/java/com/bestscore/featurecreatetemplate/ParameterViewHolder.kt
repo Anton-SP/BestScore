@@ -1,9 +1,5 @@
 package com.bestscore.featurecreatetemplate
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.CompoundButton
-import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bestscore.core.templates.Parameter
@@ -20,9 +16,9 @@ class ParameterViewHolder(
                 onClickDelete.invoke(adapterPosition)
             }
 
-            edPlayerName.setText(parameter.playerName)
+            edPlayerName.setText(parameter.parameterName)
             edPlayerName.addTextChangedListener {
-                parameter.playerName = it.toString()
+                parameter.parameterName = it.toString()
             }
 
             edStartScore.setText(parameter.startValue.toString())

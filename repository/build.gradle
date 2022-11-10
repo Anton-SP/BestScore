@@ -30,6 +30,7 @@ dependencies {
     //Modules
     implementation project(Modules.core)
     implementation project(Modules.database)
+    implementation project(Modules.utils)
 
     //AndroidX
     implementation Design.appcompat

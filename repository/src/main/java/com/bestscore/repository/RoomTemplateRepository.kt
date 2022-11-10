@@ -1,9 +1,10 @@
-package com.bestscore.featurecreatetemplate
+package com.bestscore.repository
 
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
+import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.database.templates.TemplateDao
-import com.bestscore.repository.TemplateRepository
+import com.bestscore.utils.toEntity
 
 class RoomTemplateRepository(
     private val dao: TemplateDao

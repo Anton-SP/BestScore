@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
 import com.bestscore.database.di.DatabaseDi
-import com.bestscore.repository.TemplateRepository
+import com.bestscore.repository.RoomTemplateRepository
+import com.bestscore.core.templates.TemplateRepository
 import kotlinx.coroutines.launch
 
 class CreateTemplateViewModel(

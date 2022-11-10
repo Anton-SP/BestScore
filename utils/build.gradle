@@ -4,9 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.bestscore.core'
+    namespace 'com.bestscore.utils'
+    compileSdk 32
 
     defaultConfig {
+        minSdk 24
+        targetSdk 32
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -17,24 +21,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
-    //Kotlin
+    implementation project(Modules.core)
+    implementation project(Modules.database)
+
     implementation Kotlin.core
-    implementation Kotlin.coroutinesAndroid
-
-    //AndroidX
-    implementation Design.appcompat
-
-    //Design
-    implementation Design.material
-
-    //Dagger2
-    implementation Dagger.dagger
-
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.testExt
+    androidTestImplementation TestImpl.espresso
 }
