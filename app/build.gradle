@@ -34,6 +34,7 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.repository)
     implementation project(Modules.database)
+    implementation project(Modules.featureCreateTemplate)
 
     //AndroidX
     implementation Design.appcompat
@@ -44,6 +45,7 @@ dependencies {
     //Kotlin
     implementation Kotlin.core
     implementation Kotlin.stdlib
+    implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid
 
     //Dagger2

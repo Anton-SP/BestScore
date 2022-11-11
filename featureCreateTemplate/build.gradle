@@ -2,13 +2,16 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
 }
 
 android {
-    namespace 'com.bestscore.repository'
+    namespace 'com.bestscore.featurecreatetemplate'
+    compileSdk 32
 
     defaultConfig {
+        minSdk 24
+        targetSdk 32
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
@@ -19,28 +22,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
+    implementation ViewBinding.viewBinding
+    implementation Fragment.fragmentKtx
 
-    //Modules
     implementation project(Modules.core)
     implementation project(Modules.database)
-    implementation project(Modules.utils)
+    implementation project(Modules.repository)
 
-    //AndroidX
-    implementation Design.appcompat
-
-    //Kotlin
-    implementation Kotlin.core
-    implementation Kotlin.stdlib
+    implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid
 
-    //Dagger2
-    implementation Dagger.dagger
-
+    implementation Kotlin.core
+    implementation Design.appcompat
+    implementation Design.material
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.testExt
+    androidTestImplementation TestImpl.espresso
 }

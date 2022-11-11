@@ -11,6 +11,12 @@ android {
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -26,17 +32,15 @@ android {
 }
 
 dependencies {
-
-    //Modules
-    implementation project(Modules.core)
-
     //AndroidX
     implementation Design.appcompat
 
     //Kotlin
     implementation Kotlin.core
     implementation Kotlin.stdlib
+    implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid
+
 
     //Dagger2
     implementation Dagger.dagger

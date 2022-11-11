@@ -18,12 +18,14 @@ object Modules {
     const val core = ":core"
     const val repository = ":repository"
     const val database = ":database"
+    const val featureCreateTemplate = ":featureCreateTemplate"
+    const val utils = ":utils"
 }
 
 object Versions {
     //Design
-    const val appcompat = "1.4.2"
-    const val material = "1.6.1"
+    const val appcompat = "1.5.1"
+    const val material = "1.7.0"
 
     //Kotlin
     const val core = "1.8.0"
@@ -38,9 +40,9 @@ object Versions {
     const val coil = "2.1.0"
 
     //Room
-    const val roomKtx = "2.4.2"
-    const val runtime = "2.4.2"
-    const val roomCompiler = "2.4.2"
+    const val roomKtx = "2.4.3"
+    const val runtime = "2.4.3"
+    const val roomCompiler = "2.4.3"
 
     //ViewBinding
     const val viewBinding = "1.5.6"
@@ -48,10 +50,14 @@ object Versions {
     //Test
     const val jUnit = "4.13.2"
     const val runner = "1.2.0"
-    const val espressoCore = "3.2.0"
+    const val espressoCore = "3.4.0"
+    const val testExt = "1.1.3"
 
     //Navigation
     const val navigation = "2.5.1"
+
+    //Fragment
+    const val fragmentKtx = "1.5.4"
 }
 
 object Design {
@@ -93,10 +99,15 @@ object TestImpl {
     const val junit = "junit:junit:${Versions.jUnit}"
     const val runner = "androidx.test:runner:${Versions.runner}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
+    const val testExt = "androidx.test.ext:junit:${Versions.testExt}"
 }
 
 object NavigationComponent {
     const val navigationFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+}
+
+object Fragment {
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
 }
