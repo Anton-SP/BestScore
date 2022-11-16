@@ -1,8 +1,7 @@
 package com.bestscore
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bestscore.featurecreatetemplate.CreateTemplateFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.featurestartscreen.StartScreenFragment
 
 class MainActivity : AppCompatActivity() {

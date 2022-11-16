@@ -35,6 +35,7 @@ dependencies {
     implementation project(Modules.repository)
     implementation project(Modules.database)
     implementation project(Modules.featureCreateTemplate)
+    implementation project(Modules.featureStartScreen)
 
     //AndroidX
     implementation Design.appcompat
@@ -50,8 +51,6 @@ dependencies {
 
     //Dagger2
     implementation Dagger.dagger
-    implementation project(path: ':featureStartScreen')
-    implementation project(path: ':featureStartScreen')
     kapt Dagger.daggerCompiler
 
     //Room
