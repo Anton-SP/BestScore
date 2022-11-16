@@ -3,6 +3,7 @@ package com.bestscore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bestscore.featurecreatetemplate.CreateTemplateFragment
+import com.example.featurestartscreen.StartScreenFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container, CreateTemplateFragment())
+            .replace(R.id.fragment_container, StartScreenFragment())
             .commit()
     }
 }

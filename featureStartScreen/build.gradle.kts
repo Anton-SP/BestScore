@@ -39,6 +39,7 @@ dependencies {
     implementation(Design.appcompat)
     implementation(Design.material)
     implementation(ViewBinding.viewBinding)
+    implementation(project(mapOf("path" to ":featureCreateTemplate")))
     testImplementation(TestImpl.junit)
     androidTestImplementation(TestImpl.testExt)
     androidTestImplementation(TestImpl.espresso)

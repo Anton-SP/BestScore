@@ -50,6 +50,8 @@ dependencies {
 
     //Dagger2
     implementation Dagger.dagger
+    implementation project(path: ':featureStartScreen')
+    implementation project(path: ':featureStartScreen')
     kapt Dagger.daggerCompiler
 
     //Room
