@@ -19,6 +19,7 @@ object Modules {
     const val repository = ":repository"
     const val database = ":database"
     const val featureCreateTemplate = ":featureCreateTemplate"
+    const val featureStartScreen = ":featureStartScreen"
     const val utils = ":utils"
 }
 
