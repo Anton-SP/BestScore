@@ -42,6 +42,10 @@ dependencies {
     implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid
 
+    //Dagger2
+    implementation Dagger.dagger
+    kapt Dagger.daggerCompiler
+
     implementation Kotlin.core
     implementation Design.appcompat
     implementation Design.material
