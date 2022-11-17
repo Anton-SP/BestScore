@@ -1,21 +1,21 @@
 package com.bestscore.application
 
 import android.app.Application
-import android.widget.Toast
-import com.bestscore.database.di.DatabaseDi
+import com.bestscore.di.component.AppComponent
+import com.bestscore.di.component.DaggerAppComponent
+import com.bestscore.featurecreatetemplate.di.CreateTemplateDependenciesStore
 
-class BestScoreApp: Application() {
-    override fun onCreate() {
-        super.onCreate()
-        _instance = this
+class BestScoreApp : Application() {
 
-        DatabaseDi.initializeDb(instance.applicationContext)
-        Toast.makeText(applicationContext, "Init db", Toast.LENGTH_SHORT).show()
+    private val appComponent: AppComponent by lazy {
+        DaggerAppComponent
+            .builder()
+            .application(application = this)
+            .build()
     }
 
-    companion object {
-        private var _instance: BestScoreApp? = null
-        val instance
-            get() = _instance!!
+    override fun onCreate() {
+        super.onCreate()
+        CreateTemplateDependenciesStore.dependencies = appComponent
     }
 }

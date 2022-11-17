@@ -5,8 +5,9 @@ import com.bestscore.core.templates.Template
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.database.templates.TemplateDao
 import com.bestscore.utils.toEntity
+import javax.inject.Inject
 
-class RoomTemplateRepository(
+class RoomTemplateRepository @Inject constructor(
     private val dao: TemplateDao
 ) : TemplateRepository {
     override suspend fun create(template: Template, parameters: List<Parameter>) {
