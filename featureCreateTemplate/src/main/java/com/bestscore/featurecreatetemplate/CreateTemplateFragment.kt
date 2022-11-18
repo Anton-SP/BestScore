@@ -13,6 +13,8 @@ import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
 import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBinding
 import com.bestscore.featurecreatetemplate.di.CreateTemplateComponentViewModel
+import com.bestscore.utils.currentDate
+import java.util.Date
 import javax.inject.Inject
 
 class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
@@ -68,7 +70,9 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
 
             createTemplateViewModel.save(
                 template = Template(
-                    id = 0, name = binding.edTemplateName.text.toString()
+                    id = 0,
+                    name = binding.edTemplateName.text.toString(),
+                    createdAt = currentDate()
                 ), parameters = adapter.getCurrentList()
             )
         }
