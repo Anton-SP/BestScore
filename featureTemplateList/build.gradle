@@ -38,6 +38,7 @@ dependencies {
     implementation project(Modules.core)
     implementation project(Modules.database)
     implementation project(Modules.repository)
+    implementation project(Modules.utils)
 
     implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid

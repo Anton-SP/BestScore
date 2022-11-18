@@ -18,3 +18,9 @@ fun Template.toEntity() = TemplateEntity(
     name = name,
     createdAt = createdAt
 )
+
+fun TemplateEntity.toTemplate() = Template (
+    id = id,
+    name = name,
+    createdAt = createdAt
+)

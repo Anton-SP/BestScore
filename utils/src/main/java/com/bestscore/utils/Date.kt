@@ -9,3 +9,8 @@ fun currentDate(): Date {
     val date = df.format(Date(System.currentTimeMillis()))
     return df.parse(date)
 }
+
+fun formatDate(date: Date): String {
+    val df = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+    return df.format(date)
+}

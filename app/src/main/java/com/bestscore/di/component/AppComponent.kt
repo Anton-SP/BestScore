@@ -5,11 +5,12 @@ import com.bestscore.core.annotations.di.AppScope
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.di.modules.AppModule
 import com.bestscore.featurecreatetemplate.di.CreateTemplateDependencies
+import com.bestscore.featuretemplatelist.di.TemplatesListDependencies
 import dagger.BindsInstance
 import dagger.Component
 
 @[AppScope Component(modules = [AppModule::class])]
-interface AppComponent : CreateTemplateDependencies {
+interface AppComponent : CreateTemplateDependencies, TemplatesListDependencies {
 
     override val templateRepository: TemplateRepository
 
