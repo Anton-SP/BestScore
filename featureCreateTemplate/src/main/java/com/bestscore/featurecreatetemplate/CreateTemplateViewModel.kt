@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-class CreateTemplateViewModel(
+internal class CreateTemplateViewModel(
     private val repository: TemplateRepository
 ) : ViewModel() {
 

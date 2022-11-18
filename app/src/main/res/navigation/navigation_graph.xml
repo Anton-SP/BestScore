@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/startScreenFragment">
+
+    <fragment
+        android:id="@+id/startScreenFragment"
+        android:name="com.example.featurestartscreen.StartScreenFragment"
+        android:label="StartScreenFragment">
+        <action
+            android:id="@id/action_startScreenFragment_to_createTemplateFragment"
+            app:destination="@id/createTemplateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTemplateFragment"
+        android:name="com.bestscore.featurecreatetemplate.CreateTemplateFragment"
+        android:label="CreateTemplateFragment" />
+</navigation>
