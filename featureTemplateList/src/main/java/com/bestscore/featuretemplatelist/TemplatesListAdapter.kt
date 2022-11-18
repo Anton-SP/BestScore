@@ -7,14 +7,19 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bestscore.core.templates.Template
 import com.bestscore.featuretemplatelist.databinding.ItemTemplateBinding
 
-class TemplatesListAdapter()
+class TemplatesListAdapter(
+    private val onClickEdit: (Template) -> Unit,
+    private val onClickDelete: (Template) -> Unit
+)
     : ListAdapter<Template, TemplatesListViewHolder>(DiffUtilsItemCallbackImpl()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemplatesListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_template, parent, false)
 
         return TemplatesListViewHolder(
-            binding = ItemTemplateBinding.bind(view)
+            binding = ItemTemplateBinding.bind(view),
+            onClickEdit = onClickEdit,
+            onClickDelete = onClickDelete
         )
     }
 

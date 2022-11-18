@@ -29,7 +29,16 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
 
     private val binding: FragmentTemplatesListBinding by viewBinding()
 
-    private val adapter: TemplatesListAdapter by lazy { TemplatesListAdapter() }
+    private val adapter: TemplatesListAdapter by lazy {
+        TemplatesListAdapter(
+            onClickEdit = {
+                Toast.makeText(requireContext(), "Переход на редатирование", Toast.LENGTH_SHORT).show()
+            },
+            onClickDelete = {
+                Toast.makeText(requireContext(), "Заглушка на удаление", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
 
     override fun onAttach(context: Context) {
         ViewModelProvider(this)
