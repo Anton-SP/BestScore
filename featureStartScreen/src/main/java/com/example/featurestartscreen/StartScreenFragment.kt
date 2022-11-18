@@ -10,7 +10,7 @@ import com.bestscore.featurecreatetemplate.CreateTemplateFragment
 import com.example.featurestartscreen.databinding.FragmentStartScreenBinding
 
 class StartScreenFragment:Fragment(R.layout.fragment_start_screen) {
-    private val binding:FragmentStartScreenBinding by viewBinding()
+    private val binding: FragmentStartScreenBinding by viewBinding()
 
     private var containerId: ViewGroup? = null
 
