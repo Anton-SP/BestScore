@@ -1,0 +1,4 @@
+<resources>
+    <string name="content_description_delete">Удалить</string>
+    <string name="content_description_edit">Редактировать</string>
+</resources>

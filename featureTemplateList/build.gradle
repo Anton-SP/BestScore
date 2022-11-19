@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.bestscore.featurecreatetemplate'
+    namespace 'com.bestscore.featuretemplatelist'
     compileSdk 32
 
     defaultConfig {
