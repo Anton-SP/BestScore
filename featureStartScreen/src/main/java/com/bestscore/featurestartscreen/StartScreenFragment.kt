@@ -12,6 +12,17 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
 
     private val binding: FragmentStartScreenBinding by viewBinding()
 
+    private val adapter:StartScreenAdapter by lazy {
+        StartScreenAdapter(
+            onClickEdit = {
+                makeToast("Переход на редатирование")
+            },
+            onClickDelete = {
+                makeToast("Заглушка на удаление")
+            }
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
