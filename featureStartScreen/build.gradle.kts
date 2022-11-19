@@ -6,37 +6,38 @@ plugins {
 
 android {
     namespace = "com.example.featurestartscreen"
-    compileSdk = Config.compileSdk
-
-    defaultConfig {
-        minSdk = Config.minSdk
-        targetSdk = Config.targetSdk
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = Config.javaVersion
-        targetCompatibility = Config.javaVersion
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+//    compileSdk = Config.compileSdk
+//
+//    defaultConfig {
+//        minSdk = Config.minSdk
+//        targetSdk = Config.targetSdk
+//
+//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+//        consumerProguardFiles("consumer-rules.pro")
+//    }
+//
+//    buildTypes {
+//        release {
+//            isMinifyEnabled = false
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//        }
+//    }
+//    compileOptions {
+//        sourceCompatibility = Config.javaVersion
+//        targetCompatibility = Config.javaVersion
+//    }
+//    kotlinOptions {
+//        jvmTarget = "1.8"
+//    }
 }
 
 dependencies {
     //Modules
     implementation(project(Modules.core))
+    implementation(project(Modules.utils))
 
     //Kotlin
     implementation(Kotlin.core)
