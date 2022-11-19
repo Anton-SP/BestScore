@@ -2,36 +2,12 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.featurestartscreen"
-//    compileSdk = Config.compileSdk
-//
-//    defaultConfig {
-//        minSdk = Config.minSdk
-//        targetSdk = Config.targetSdk
-//
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        consumerProguardFiles("consumer-rules.pro")
-//    }
-//
-//    buildTypes {
-//        release {
-//            isMinifyEnabled = false
-//            proguardFiles(
-//                getDefaultProguardFile("proguard-android-optimize.txt"),
-//                "proguard-rules.pro"
-//            )
-//        }
-//    }
-//    compileOptions {
-//        sourceCompatibility = Config.javaVersion
-//        targetCompatibility = Config.javaVersion
-//    }
-//    kotlinOptions {
-//        jvmTarget = "1.8"
-//    }
+    namespace = "com.bestscore.featurestartscreen"
+
 }
 
 dependencies {
@@ -50,6 +26,17 @@ dependencies {
 
     //ViewBinding
     implementation(ViewBinding.viewBinding)
+
+    //Fragment
+    implementation(Fragment.fragmentKtx)
+
+    //Coroutines
+    implementation(Kotlin.coroutinesCore)
+    implementation(Kotlin.coroutinesAndroid)
+
+    //Dagger2
+    implementation(Dagger.dagger)
+    kapt(Dagger.daggerCompiler)
 
     //Navigation
     implementation(NavigationComponent.navigationFragment)
