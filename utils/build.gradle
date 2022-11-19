@@ -19,6 +19,12 @@ dependencies {
     //Fragment
     implementation Fragment.fragmentKtx
 
+    //AndroidX
+    implementation Design.appcompat
+
+    //Design
+    implementation Design.material
+
     //Tests
     testImplementation TestImpl.junit
     androidTestImplementation TestImpl.testExt
