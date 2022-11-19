@@ -37,6 +37,7 @@ android {
 dependencies {
     //Modules
     implementation(project(Modules.core))
+    implementation(project(Modules.utils))
 
     //Kotlin
     implementation(Kotlin.core)
