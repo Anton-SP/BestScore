@@ -5,6 +5,7 @@ import com.bestscore.core.templates.Template
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.database.templates.TemplateDao
 import com.bestscore.utils.toEntity
+import com.bestscore.utils.toTemplate
 import javax.inject.Inject
 
 class RoomTemplateRepository @Inject constructor(
@@ -15,5 +16,9 @@ class RoomTemplateRepository @Inject constructor(
         if (templateId > 0) {
             dao.insertParametersList(parameters = parameters.map { it.toEntity(templateId) })
         }
+    }
+
+    override suspend fun getTemplates(): List<Template> {
+        return dao.getTemplateList().map { entity -> entity.toTemplate() }
     }
 }

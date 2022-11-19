@@ -15,5 +15,12 @@ fun Parameter.toEntity(templateId: Long) = ParameterEntity(
 
 fun Template.toEntity() = TemplateEntity(
     id = 0,
-    name = name
+    name = name,
+    createdAt = createdAt
+)
+
+fun TemplateEntity.toTemplate() = Template (
+    id = id,
+    name = name,
+    createdAt = createdAt
 )

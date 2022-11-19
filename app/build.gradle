@@ -36,6 +36,7 @@ dependencies {
     implementation project(Modules.database)
     implementation project(Modules.featureCreateTemplate)
     implementation project(Modules.featureStartScreen)
+    implementation project(Modules.featureTemplateList)
 
     //AndroidX
     implementation Design.appcompat

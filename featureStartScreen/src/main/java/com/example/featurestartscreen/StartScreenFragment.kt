@@ -7,7 +7,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
 import com.example.featurestartscreen.databinding.FragmentStartScreenBinding
 
-
 class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
     private val binding: FragmentStartScreenBinding by viewBinding()
 
@@ -18,5 +17,4 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
             navigate(R.id.action_startScreenFragment_to_createTemplateFragment)
         }
     }
-
 }
