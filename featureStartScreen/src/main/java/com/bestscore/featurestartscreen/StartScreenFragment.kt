@@ -5,10 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
-import com.example.featurestartscreen.R
-import com.example.featurestartscreen.databinding.FragmentStartScreenBinding
+import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
+import com.bestscore.utils.makeToast
 
 class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
+
     private val binding: FragmentStartScreenBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -20,6 +21,12 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
             }
             buttonMyTemplates.setOnClickListener {
                 navigate(R.id.action_startScreenFragment_to_templatesListFragment)
+            }
+            fabDice.setOnClickListener {
+                makeToast("Заглушка на бросок кубика")
+            }
+            fabTimer.setOnClickListener {
+                makeToast("Заглушка на таймер")
             }
         }
     }
