@@ -13,8 +13,13 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonCreateTemplate.setOnClickListener {
-            navigate(R.id.action_startScreenFragment_to_createTemplateFragment)
+        with(binding) {
+            buttonCreateTemplate.setOnClickListener {
+                navigate(R.id.action_startScreenFragment_to_createTemplateFragment)
+            }
+            buttonMyTemplates.setOnClickListener {
+                navigate(R.id.action_startScreenFragment_to_templatesListFragment)
+            }
         }
     }
 }

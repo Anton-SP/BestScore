@@ -11,9 +11,16 @@
         <action
             android:id="@id/action_startScreenFragment_to_createTemplateFragment"
             app:destination="@id/createTemplateFragment" />
+        <action
+            android:id="@id/action_startScreenFragment_to_templatesListFragment"
+            app:destination="@id/templatesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTemplateFragment"
         android:name="com.bestscore.featurecreatetemplate.CreateTemplateFragment"
         android:label="CreateTemplateFragment" />
+    <fragment
+        android:id="@+id/templatesListFragment"
+        android:name="com.bestscore.featuretemplatelist.TemplatesListFragment"
+        android:label="TemplatesListFragment" />
 </navigation>
