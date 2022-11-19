@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -34,13 +35,29 @@ android {
 }
 
 dependencies {
+    //Modules
+    implementation(project(Modules.core))
 
+    //Kotlin
     implementation(Kotlin.core)
+
+    //AndroidX
     implementation(Design.appcompat)
+
+    //Design
     implementation(Design.material)
+
+    //ViewBinding
     implementation(ViewBinding.viewBinding)
-    implementation(project(mapOf("path" to ":featureCreateTemplate")))
+
+    //Navigation
+    implementation(NavigationComponent.navigationFragment)
+    implementation(NavigationComponent.navigationUi)
+
+    //Tests
     testImplementation(TestImpl.junit)
     androidTestImplementation(TestImpl.testExt)
     androidTestImplementation(TestImpl.espresso)
+
+
 }
