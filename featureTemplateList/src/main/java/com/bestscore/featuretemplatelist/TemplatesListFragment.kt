@@ -3,19 +3,17 @@ package com.bestscore.featuretemplatelist
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
-import kotlinx.coroutines.launch
+import com.bestscore.utils.makeToast
 import javax.inject.Inject
 
 class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
@@ -32,10 +30,10 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
     private val adapter: TemplatesListAdapter by lazy {
         TemplatesListAdapter(
             onClickEdit = {
-                Toast.makeText(requireContext(), "Переход на редатирование", Toast.LENGTH_SHORT).show()
+                makeToast("Переход на редатирование")
             },
             onClickDelete = {
-                Toast.makeText(requireContext(), "Заглушка на удаление", Toast.LENGTH_SHORT).show()
+                makeToast("Заглушка на удаление")
             }
         )
     }
@@ -72,7 +70,7 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
     }
 
     private fun checkState(state: TemplatesListViewModel.TemplatesListState) {
-        when(state) {
+        when (state) {
             is TemplatesListViewModel.TemplatesListState.Loading -> {
                 with(binding) {
                     rvTemplates.isVisible = false
@@ -91,8 +89,7 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
                     progress.isVisible = false
                     rvTemplates.isVisible = true
                 }
-
-                Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                makeToast(state.message)
             }
         }
     }
