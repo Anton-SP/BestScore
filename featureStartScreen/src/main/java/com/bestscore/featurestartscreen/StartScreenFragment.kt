@@ -39,15 +39,19 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         )
     }
 
-    override fun onAttach(context: Context) {
+    /*override fun onAttach(context: Context) {
         ViewModelProvider(this)
             .get<StartScreenComponentViewModel>()
             .newStartScreenComponent.inject(this)
         super.onAttach(context)
-    }
+    }*/
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ViewModelProvider(this)
+            .get<StartScreenComponentViewModel>()
+            .newStartScreenComponent.inject(this)
 
         initRecycler()
         collectFlow()
