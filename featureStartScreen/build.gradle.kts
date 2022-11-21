@@ -18,7 +18,6 @@ dependencies {
     implementation(project(Modules.repository))
     implementation(project(Modules.utils))
 
-
     //Kotlin
     implementation(Kotlin.core)
 

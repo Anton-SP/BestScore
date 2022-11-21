@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
@@ -39,19 +40,19 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         )
     }
 
-    /*override fun onAttach(context: Context) {
+    private val swipeController:SwipeController = SwipeController()
+
+    private val itemTouchHelper:ItemTouchHelper = ItemTouchHelper(swipeController)
+
+    override fun onAttach(context: Context) {
         ViewModelProvider(this)
             .get<StartScreenComponentViewModel>()
             .newStartScreenComponent.inject(this)
         super.onAttach(context)
-    }*/
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewModelProvider(this)
-            .get<StartScreenComponentViewModel>()
-            .newStartScreenComponent.inject(this)
 
         initRecycler()
         collectFlow()
@@ -78,7 +79,9 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         binding.rvLastTemplates.apply {
             adapter = this@StartScreenFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
+            itemTouchHelper.attachToRecyclerView(this)
         }
+
     }
 
     private fun collectFlow() {
