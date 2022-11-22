@@ -15,13 +15,13 @@ class StartScreenViewHolder(
             tvTemplateName.text = template.name
             tvTemplateCreatedAt.text = formatDate(template.createdAt)
 
-            btnEdit.setOnClickListener {
+           /* btnEdit.setOnClickListener {
                 onClickEdit.invoke(template)
-            }
+            }*/
 
-            btnDelete.setOnClickListener {
+            /*btnDelete.setOnClickListener {
                 onClickDelete.invoke(template)
-            }
+            }*/
         }
     }
 }
