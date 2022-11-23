@@ -4,7 +4,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
-import android.graphics.drawable.ColorDrawable
 import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -16,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 class SwipeController() :
     ItemTouchHelper.Callback() {
 
-
-    private val background: ColorDrawable = ColorDrawable()
     private var swipeBack: Boolean = false
     private var buttonsState: ButtonsState = ButtonsState.GONE
-    private val buttonWidth = 300f
+    private val buttonWidth = 250f
+    private val buttonInstance: RectF? = null
+    private var currentItemViewHolder: RecyclerView.ViewHolder? = null
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -59,47 +58,34 @@ class SwipeController() :
         isCurrentlyActive: Boolean
     ) {
         if (actionState == ACTION_STATE_SWIPE) {
-            setTouchListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-            drawButtons(c, viewHolder)
+            if (buttonsState != ButtonsState.GONE) {
+                var newDX = 0f
+                if (buttonsState == ButtonsState.RIGHT_VISIBLE) newDX = Math.min(dX, -buttonWidth)
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    newDX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            } else {
+                setTouchListener(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
         }
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-    }
-
-    private fun drawButtons(c: Canvas, viewHolder: RecyclerView.ViewHolder) {
-        val buttonWidthWithoutPadding = buttonWidth - 20
-        val corners = 16f
-        val itemView = viewHolder.itemView
-        val p = Paint()
-        val leftButton = RectF(
-            itemView.left.toFloat(),
-            itemView.top.toFloat(), itemView.left + buttonWidthWithoutPadding,
-            itemView.bottom.toFloat()
-        )
-        p.setColor(Color.BLUE)
-        c.drawRoundRect(leftButton, corners, corners, p)
-        drawText("EDIT", c, leftButton, p)
-        val rightButton = RectF(
-            itemView.right - buttonWidthWithoutPadding,
-            itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat()
-        )
-        p.setColor(Color.RED)
-        c.drawRoundRect(rightButton, corners, corners, p)
-        drawText("DELETE", c, rightButton, p)
-        var buttonInstance:RectF? = null
-        if (buttonsState === ButtonsState.LEFT_VISIBLE) {
-            buttonInstance = leftButton
-        } else if (buttonsState === ButtonsState.RIGHT_VISIBLE) {
-            buttonInstance = rightButton
+        if (buttonsState == ButtonsState.GONE) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
-    }
-
-    private fun drawText(text: String, c: Canvas, button: RectF, p: Paint) {
-        val textSize = 60f
-        p.setColor(Color.WHITE)
-        p.setAntiAlias(true)
-        p.setTextSize(textSize)
-        val textWidth: Float = p.measureText(text)
-        c.drawText(text, button.centerX() - textWidth / 2, button.centerY() + textSize / 2, p)
+        currentItemViewHolder = viewHolder
     }
 
     private fun setTouchListener(
@@ -128,7 +114,7 @@ class SwipeController() :
                             actionState,
                             isCurrentlyActive
                         )
-                        setItemsCliksble(recyclerView, false)
+                        setItemsClickable(recyclerView, false)
                     }
                 }
                 return false
@@ -190,9 +176,21 @@ class SwipeController() :
                             return false
                         }
                     })
-                    setItemsCliksble(recyclerView, true)
+                    setItemsClickable(recyclerView, true)
                     swipeBack = false
+
+                    if (buttonsState != null && buttonInstance != null && buttonInstance.contains(
+                            event.x,
+                            event.y
+                        )
+                    ) {
+                        if (buttonsState == ButtonsState.RIGHT_VISIBLE) {
+                            //todo right click
+                            // buttonsActions.onRightClicked(viewHolder.getAdapterPosition());
+                        }
+                    }
                     buttonsState = ButtonsState.GONE
+                    currentItemViewHolder = null
                 }
                 return false
             }
@@ -200,37 +198,88 @@ class SwipeController() :
 
     }
 
-
-    /*private fun setTouchListener(
-        c: Canvas,
+    private fun setItemsClickable(
         recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        dX: Float, dY: Float,
-        actionState: Int, isCurrentlyActive: Boolean
+        isClickable: Boolean
     ) {
-        recyclerView.setOnTouchListener { recycler, event ->
-            swipeBack =
-                event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP
-            if (swipeBack) {
-                if (dX < -buttonWidth) buttonsState = ButtonsState.RIGHT_VISIBLE
-
-                if (buttonsState != ButtonsState.GONE) {
-                    Log.d("HAPPY","HEY")
-                    setTouchDownListener(
-                        c,
-                        recyclerView,
-                        viewHolder,
-                        dX,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                    setItemsCliksble(recyclerView, false)
-                }
-            }
-            false
+        for (i in 0 until recyclerView.childCount) {
+            recyclerView.getChildAt(i).isClickable = isClickable
         }
     }
+
+    private fun drawButtons(c: Canvas, viewHolder: RecyclerView.ViewHolder) {
+        val buttonWidthWithoutPadding = buttonWidth - 20
+        val corners = 16f
+        val itemView = viewHolder.itemView
+        val p = Paint()
+        val leftButton = RectF(
+            itemView.left.toFloat(),
+            itemView.top.toFloat(), itemView.left + buttonWidthWithoutPadding,
+            itemView.bottom.toFloat()
+        )
+        p.setColor(Color.BLUE)
+        c.drawRoundRect(leftButton, corners, corners, p)
+        drawText("EDIT", c, leftButton, p)
+        val rightButton = RectF(
+            itemView.right - buttonWidthWithoutPadding,
+            itemView.top.toFloat(), itemView.right.toFloat(), itemView.bottom.toFloat()
+        )
+        p.setColor(Color.RED)
+        c.drawRoundRect(rightButton, corners, corners, p)
+        drawText("DELETE", c, rightButton, p)
+        var buttonInstance: RectF? = null
+        if (buttonsState === ButtonsState.LEFT_VISIBLE) {
+            buttonInstance = leftButton
+        } else if (buttonsState === ButtonsState.RIGHT_VISIBLE) {
+            buttonInstance = rightButton
+        }
+    }
+
+    private fun drawText(text: String, c: Canvas, button: RectF, p: Paint) {
+        val textSize = 60f
+        p.setColor(Color.WHITE)
+        p.setAntiAlias(true)
+        p.setTextSize(textSize)
+        val textWidth: Float = p.measureText(text)
+        c.drawText(text, button.centerX() - textWidth / 2, button.centerY() + textSize / 2, p)
+    }
+
+
+
+
+
+}
+
+/*private fun setTouchListener(
+      c: Canvas,
+      recyclerView: RecyclerView,
+      viewHolder: RecyclerView.ViewHolder,
+      dX: Float, dY: Float,
+      actionState: Int, isCurrentlyActive: Boolean
+  ) {
+      recyclerView.setOnTouchListener { recycler, event ->
+          swipeBack =
+              event.action == MotionEvent.ACTION_CANCEL || event.action == MotionEvent.ACTION_UP
+          if (swipeBack) {
+              if (dX < -buttonWidth) buttonsState = ButtonsState.RIGHT_VISIBLE
+
+              if (buttonsState != ButtonsState.GONE) {
+                  Log.d("HAPPY","HEY")
+                  setTouchDownListener(
+                      c,
+                      recyclerView,
+                      viewHolder,
+                      dX,
+                      dY,
+                      actionState,
+                      isCurrentlyActive
+                  )
+                  setItemsclickable(recyclerView, false)
+              }
+          }
+          false
+      }
+  }
 */
 
 
@@ -259,45 +308,33 @@ class SwipeController() :
     }*/
 
 
-    /*private fun setTouchUpListener(
-        c: Canvas,
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        dX: Float,
-        dY: Float,
-        actionState: Int,
-        isCurrentlyActive: Boolean
-    ) {
-        recyclerView.setOnTouchListener { recycler, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-                this.onChildDraw(
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    0F,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-                recyclerView.setOnTouchListener { v, event ->
-                    return@setOnTouchListener false
-                }
-                setItemsCliksble(recyclerView, true)
-                swipeBack = false
-                buttonsState = ButtonsState.GONE
+/*private fun setTouchUpListener(
+    c: Canvas,
+    recyclerView: RecyclerView,
+    viewHolder: RecyclerView.ViewHolder,
+    dX: Float,
+    dY: Float,
+    actionState: Int,
+    isCurrentlyActive: Boolean
+) {
+    recyclerView.setOnTouchListener { recycler, event ->
+        if (event.action == MotionEvent.ACTION_UP) {
+            this.onChildDraw(
+                c,
+                recyclerView,
+                viewHolder,
+                0F,
+                dY,
+                actionState,
+                isCurrentlyActive
+            )
+            recyclerView.setOnTouchListener { v, event ->
+                return@setOnTouchListener false
             }
-            false
+            setItemsclickable(recyclerView, true)
+            swipeBack = false
+            buttonsState = ButtonsState.GONE
         }
-    }*/
-
-    private fun setItemsCliksble(
-        recyclerView: RecyclerView,
-        isClickable: Boolean
-    ) {
-        for (i in 0 until recyclerView.childCount) {
-            recyclerView.getChildAt(i).isClickable = isClickable
-        }
+        false
     }
-
-
-}
+}*/
