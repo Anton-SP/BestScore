@@ -23,6 +23,8 @@ dependencies {
 
     //AndroidX
     implementation(Design.appcompat)
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 
     //Design
     implementation(Design.material)

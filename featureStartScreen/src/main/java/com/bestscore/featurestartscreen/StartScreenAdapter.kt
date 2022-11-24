@@ -12,6 +12,7 @@ class StartScreenAdapter(
     private val onClickEdit: (Template) -> Unit,
     private val onClickDelete: (Template) -> Unit
 ) : ListAdapter<Template, StartScreenViewHolder>(DiffUtilsItemCallbackImpl()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartScreenViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_last_template, parent, false)
