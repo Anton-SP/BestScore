@@ -6,15 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".StartScreenFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fab_dice">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_last_templates"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:listitem="@layout/item_last_template" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_dice"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_create_template"
         app:layout_constraintEnd_toStartOf="@id/fab_timer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="@dimen/start_screen_icon_max_size" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,10 +45,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/img_timer"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_create_template"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fab_dice"
-        app:layout_constraintTop_toTopOf="parent"
         app:maxImageSize="@dimen/start_screen_icon_max_size" />
 
     <com.google.android.material.button.MaterialButton
@@ -35,8 +57,7 @@
         android:text="@string/create_game"
         app:layout_constraintBottom_toTopOf="@id/button_my_templates"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fab_dice" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_my_templates"
@@ -45,7 +66,6 @@
         android:text="@string/my_games"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_create_template" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

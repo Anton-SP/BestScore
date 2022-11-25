@@ -2,4 +2,6 @@
 <resources>
     <string name="create_game">Создать игру</string>
     <string name="my_games">Мои игры</string>
+    <string name="button_edit_description">редактировать</string>
+    <string name="button_delete_description">удалить</string>
 </resources>

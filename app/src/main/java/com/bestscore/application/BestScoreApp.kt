@@ -4,6 +4,7 @@ import android.app.Application
 import com.bestscore.di.component.AppComponent
 import com.bestscore.di.component.DaggerAppComponent
 import com.bestscore.featurecreatetemplate.di.CreateTemplateDependenciesStore
+import com.bestscore.featurestartscreen.di.StartScreenDependenciesStore
 import com.bestscore.featuretemplatelist.di.TemplatesListDependenciesStore
 
 class BestScoreApp : Application() {
@@ -19,5 +20,6 @@ class BestScoreApp : Application() {
         super.onCreate()
         CreateTemplateDependenciesStore.dependencies = appComponent
         TemplatesListDependenciesStore.dependencies = appComponent
+        StartScreenDependenciesStore.dependencies = appComponent
     }
 }
