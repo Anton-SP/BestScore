@@ -5,10 +5,11 @@ import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
+const val BUTTONS_WIDTH = 96f
 
 class SwipeController(context: Context) : ItemTouchHelper.Callback() {
 
-    private val limitScrollX = dpToPx(96f, context)
+    private val limitScrollX = dpToPx(BUTTONS_WIDTH, context)
 
     private var currentScrollX = 0
     private var currentScrollXWhenInActive = 0

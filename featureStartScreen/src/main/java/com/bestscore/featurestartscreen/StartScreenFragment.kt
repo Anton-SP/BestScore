@@ -86,7 +86,6 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
             val itemTouchHelper = ItemTouchHelper(swipeController)
             itemTouchHelper.attachToRecyclerView(this)
 
-            //  setItemTouchHelper()
         }
 
     }
