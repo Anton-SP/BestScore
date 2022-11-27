@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calculated_score_label_text">Результирующий счет: </string>
+    <string name="item_score_label_text">Счёт: </string>
+    <string name="item_apply_score_change_btn_text">OK</string>
+    <string name="item_score_change_label_text">Изменить: </string>
+</resources>
