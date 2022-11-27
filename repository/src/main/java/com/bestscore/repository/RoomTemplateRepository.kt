@@ -11,11 +11,14 @@ import javax.inject.Inject
 class RoomTemplateRepository @Inject constructor(
     private val dao: TemplateDao
 ) : TemplateRepository {
-    override suspend fun create(template: Template, parameters: List<Parameter>) {
+    override suspend fun create(template: Template, parameters: List<Parameter>): Long {
         val templateId = dao.insertTemplate(template = template.toEntity())
         if (templateId > 0) {
             dao.insertParametersList(parameters = parameters.map { it.toEntity(templateId) })
+            return templateId
         }
+
+        return templateId
     }
 
     override suspend fun getTemplates(): List<Template> {
