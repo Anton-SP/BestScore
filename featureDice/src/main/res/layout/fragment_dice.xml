@@ -1,13 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DiceFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DiceFragment"
+    android:background="@color/primary_color">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/tv_coin_toss_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_toss"
+        android:textSize="@dimen/dice_primary_text_size"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin_title_horizontal"
+        android:layout_marginTop="@dimen/margin_title_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/iv_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_image_horizontal"
+        android:layout_marginTop="@dimen/margin_image_vertical"
+        android:src="@drawable/coin_svgrepo_com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_coin_toss_label"/>
+
+    <TextView
+        android:id="@+id/tv_coin_toss_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Результат: Решка(пока статик)"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_margin_result_horizontal"
+        app:layout_constraintStart_toEndOf="@id/iv_coin"
+        app:layout_constraintTop_toTopOf="@id/iv_coin"
+        app:layout_constraintBottom_toBottomOf="@id/iv_coin"/>
+
+    <TextView
+        android:id="@+id/tv_dice_toss_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dice_toss"
+        android:textSize="@dimen/dice_primary_text_size"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin_title_horizontal"
+        android:layout_marginTop="@dimen/margin_title_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_coin"/>
+
+    <ImageView
+        android:id="@+id/iv_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_image_horizontal"
+        android:layout_marginTop="@dimen/margin_image_vertical"
+        android:src="@drawable/dice_svgrepo_com_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_toss_label"/>
+
+    <TextView
+        android:id="@+id/tv_dice_toss_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Результат: 1-6 (пока статик)"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_margin_result_horizontal"
+        app:layout_constraintStart_toEndOf="@id/iv_dice"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_1d4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dice_mode_vertically_margin"
+        android:text="@string/mode_1d4"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_dice"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d6"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_1d6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d6"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d8"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_1d8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d8"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d6"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d12"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_1d12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d12"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d8"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_2d4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/raw_margin_2d"
+        android:text="@string/mode_2d4"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d6"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_2d6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d6"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d8"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_2d8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d8"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d6"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d12"/>
+
+    <TextView
+        android:id="@+id/tv_dice_mode_2d12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d12"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_primary_text_size"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d8"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/btn_vertically_margin"
+        android:text="@string/roll_the_dice"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toEndOf="@id/tv_dice_mode_2d12"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_2d4"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
