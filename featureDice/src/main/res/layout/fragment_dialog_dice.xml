@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DiceFragment"
+    tools:context=".DiceDialogFragment"
     android:background="@color/primary_color">
 
     <TextView
@@ -172,7 +172,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/btn_vertically_margin"
         android:text="@string/roll_the_dice"
+        android:textColor="@color/primary_color"
+        android:textSize="@dimen/dice_primary_text_size"
         android:textAllCaps="false"
+        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="@id/tv_dice_mode_2d4"
         app:layout_constraintEnd_toEndOf="@id/tv_dice_mode_2d12"
         app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_2d4"/>
