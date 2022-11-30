@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
@@ -56,8 +57,15 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
 
     private fun initRecycler() {
         binding.rvTemplates.apply {
+
+            binding.swipeRefreshLayout.setOnRefreshListener {
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
             adapter = this@TemplatesListFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
+            val swipeController = SwipeController(requireContext())
+            val itemTouchHelper = ItemTouchHelper(swipeController)
+            itemTouchHelper.attachToRecyclerView(this)
         }
     }
 
