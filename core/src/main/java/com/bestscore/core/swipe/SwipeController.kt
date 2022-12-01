@@ -1,4 +1,4 @@
-package com.bestscore.featuretemplatelist
+package com.bestscore.core.swipe
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 const val BUTTONS_WIDTH = 96f
 
-class SwipeController(context: Context) : ItemTouchHelper.Callback()  {
+class SwipeController(context: Context) : ItemTouchHelper.Callback() {
 
     private val limitScrollX = dpToPx(BUTTONS_WIDTH, context)
 
@@ -105,4 +105,5 @@ class SwipeController(context: Context) : ItemTouchHelper.Callback()  {
     private fun dpToPx(dpValue: Float, context: Context): Int {
         return (dpValue * context.resources.displayMetrics.density).toInt()
     }
+
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bestscore.core.swipe.SwipeController
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
 import com.bestscore.utils.makeToast

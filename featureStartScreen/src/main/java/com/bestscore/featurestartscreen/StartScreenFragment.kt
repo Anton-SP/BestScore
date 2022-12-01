@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
+import com.bestscore.core.swipe.SwipeController
 import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
 import com.bestscore.featurestartscreen.di.StartScreenComponentViewModel
 import com.bestscore.utils.makeToast
