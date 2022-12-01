@@ -168,6 +168,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_roll_dice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/btn_vertically_margin"
