@@ -36,7 +36,7 @@
         android:text="Результат: Решка(пока статик)"
         android:textColor="@color/white"
         android:textSize="@dimen/dice_secondary_text_size"
-        android:layout_marginStart="@dimen/dice_margin_result_horizontal"
+        android:layout_marginStart="@dimen/dice_result_label_horizontal_margin"
         app:layout_constraintStart_toEndOf="@id/iv_coin"
         app:layout_constraintTop_toTopOf="@id/iv_coin"
         app:layout_constraintBottom_toBottomOf="@id/iv_coin"/>
@@ -64,14 +64,48 @@
         app:layout_constraintTop_toBottomOf="@id/tv_dice_toss_label"/>
 
     <TextView
-        android:id="@+id/tv_dice_toss_result"
+        android:id="@+id/tv_dice_toss_result_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Результат: 1-6 (пока статик)"
+        android:text="@string/result"
         android:textColor="@color/white"
         android:textSize="@dimen/dice_secondary_text_size"
-        android:layout_marginStart="@dimen/dice_margin_result_horizontal"
+        android:layout_marginStart="@dimen/dice_result_label_horizontal_margin"
         app:layout_constraintStart_toEndOf="@id/iv_dice"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/first_dice_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin_2x"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_toss_result_label"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/hyphen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="-"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin"
+        app:layout_constraintStart_toEndOf="@id/first_dice_result"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/second_dice_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin"
+        app:layout_constraintStart_toEndOf="@id/hyphen"
         app:layout_constraintTop_toTopOf="@id/iv_dice"
         app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
 

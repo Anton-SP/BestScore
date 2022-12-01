@@ -5,8 +5,12 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuredice.databinding.FragmentDialogDiceBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private val binding: FragmentDialogDiceBinding by viewBinding()
@@ -14,11 +18,33 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private var diceMode: DiceMode? = null
     private var selectedDiceModeViewId: Int? = null
 
+    private val diceViewModel: DiceViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initDiceModeViews()
         initRollDiceBtn()
+
+        collectDiceResult()
+    }
+
+    private fun collectDiceResult() {
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            diceViewModel.firstDiceState().collect { value ->
+                if (value != 0) {
+                    binding.firstDiceResult.text = value.toString()
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            diceViewModel.secondDiceState().collect { value ->
+                if (value != 0) {
+                    binding.secondDiceResult.text = value.toString()
+                }
+            }
+        }
     }
 
     private fun initRollDiceBtn() {
@@ -30,6 +56,12 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
             val view = view?.findViewById<TextView>(selectedDiceModeViewId!!)
             Toast.makeText(requireContext(), "${view!!.text}", Toast.LENGTH_SHORT).show()
+
+            diceMode?.let { mode ->
+                viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                    diceViewModel.rollDice(mode)
+                }
+            }
         }
     }
 
