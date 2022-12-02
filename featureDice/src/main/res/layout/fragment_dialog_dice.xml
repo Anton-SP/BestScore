@@ -42,15 +42,12 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_coin"/>
 
     <Button
+        style="@style/DialogButton"
         android:id="@+id/btn_toss_coin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dialog_btn_margin"
-        android:textColor="@color/primary_color"
         android:text="@string/to_toss_coin"
-        android:textSize="@dimen/dice_primary_text_size"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="@id/btn_roll_dice"
         app:layout_constraintTop_toBottomOf="@id/iv_coin"
         app:layout_constraintEnd_toEndOf="@id/btn_roll_dice"/>
@@ -126,115 +123,96 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_1d4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dice_mode_vertically_margin"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_1d4"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_dice"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d6"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_1d6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_1d6"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d4"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d8"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_1d8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_1d8"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d6"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d12"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_1d12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_1d12"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d8"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_2d4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/raw_margin_2d"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_2d4"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_1d4"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d6"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_2d6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_2d6"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d4"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d8"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_2d8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_2d8"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d6"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
         app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d12"/>
 
     <TextView
+        style="@style/DiceMode"
         android:id="@+id/tv_dice_mode_2d12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dice_mode_padding"
         android:text="@string/mode_2d12"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dice_primary_text_size"
         app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d8"
         app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
+        style="@style/DialogButton"
         android:id="@+id/btn_roll_dice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dialog_btn_margin"
         android:text="@string/roll_the_dice"
-        android:textColor="@color/primary_color"
-        android:textSize="@dimen/dice_primary_text_size"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="@id/tv_dice_mode_2d4"
         app:layout_constraintEnd_toEndOf="@id/tv_dice_mode_2d12"
         app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_2d4"/>
@@ -248,6 +226,5 @@
         android:contentDescription="@string/close_content_desc"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
