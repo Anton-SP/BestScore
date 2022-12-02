@@ -1,4 +1,4 @@
-package com.bestscore.featuredice.coin
+package com.bestscore.featuredice
 
 enum class TossResult {
     HEADS,

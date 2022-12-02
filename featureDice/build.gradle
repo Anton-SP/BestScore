@@ -33,6 +33,7 @@ android {
 dependencies {
     //Modules
     implementation project(Modules.core)
+    implementation project(Modules.utils)
 
     //ViewBinding
     implementation ViewBinding.viewBinding

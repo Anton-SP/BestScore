@@ -1,4 +1,4 @@
-package com.bestscore.featuredice.dice
+package com.bestscore.featuredice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,9 +13,22 @@ class DiceViewModel : ViewModel() {
     private val diceState = MutableStateFlow(RollResult())
     fun diceState(): StateFlow<RollResult?> = diceState
 
+    private val tossState = MutableStateFlow<TossState?>(null)
+    fun coinState(): StateFlow<TossState?> = tossState
+
     suspend fun rollDice(diceMode: DiceMode) {
         diceState.value = RollResult()
         roll(diceMode)
+    }
+
+    fun tossCoin() {
+        viewModelScope.launch {
+            tossState.emit(TossState.Toss)
+            delay(2000)
+            val random = Random.nextInt(0, 2)
+            val result = if (random == 1) TossResult.HEADS else TossResult.TAILS
+            tossState.emit(TossState.Ready(result = result))
+        }
     }
 
     private suspend fun roll(mode: DiceMode) {
@@ -68,5 +81,10 @@ class DiceViewModel : ViewModel() {
             secondDef.await()
         }
 
+    }
+
+    sealed class TossState {
+        object Toss : TossState()
+        data class Ready(val result: TossResult) : TossState()
     }
 }

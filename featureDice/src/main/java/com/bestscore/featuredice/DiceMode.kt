@@ -1,4 +1,4 @@
-package com.bestscore.featuredice.dice
+package com.bestscore.featuredice
 
 enum class DiceMode {
     MODE_1D4,

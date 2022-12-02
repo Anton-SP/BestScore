@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -13,24 +12,22 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bestscore.featuredice.coin.CoinViewModel
-import com.bestscore.featuredice.coin.TossResult
 import com.bestscore.featuredice.databinding.FragmentDialogDiceBinding
-import com.bestscore.featuredice.dice.DiceMode
-import com.bestscore.featuredice.dice.DiceViewModel
+import com.bestscore.utils.makeToast
 import kotlinx.coroutines.launch
 
 class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private val binding: FragmentDialogDiceBinding by viewBinding (createMethod = CreateMethod.INFLATE)
 
-    private var diceMode: DiceMode? = null
+    private var diceMode: DiceMode = DiceMode.MODE_1D6
     private var selectedDiceModeViewId: Int? = null
 
     private val diceViewModel: DiceViewModel by viewModels()
-    private val coinViewModel: CoinViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(binding.root, savedInstanceState)
+
+        selectDiceMode(binding.tvDiceMode1d6)
 
         initDiceModeViews()
         initRollDiceButton()
@@ -69,14 +66,14 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
     private fun collectCoinResult() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            coinViewModel.coinState().collect { state ->
+            diceViewModel.coinState().collect { state ->
                 state?.let {
                     when (state) {
-                        is CoinViewModel.TossState.Toss -> {
+                        is DiceViewModel.TossState.Toss -> {
                             binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
                         }
 
-                        is CoinViewModel.TossState.Ready -> {
+                        is DiceViewModel.TossState.Ready -> {
                             val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
                             binding.tvCoinTossResult.text = text
                         }
@@ -94,22 +91,20 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                 secondDiceResult.text = null
             }
 
-            if (diceMode == null || selectedDiceModeViewId == null) {
-                Toast.makeText(requireContext(), "Выберите режим", Toast.LENGTH_SHORT).show()
+            if (selectedDiceModeViewId == null) {
+                makeToast("Выберите режим")
                 return@setOnClickListener
             }
 
-            diceMode?.let { mode ->
-                viewLifecycleOwner.lifecycle.coroutineScope.launch {
-                    diceViewModel.rollDice(mode)
-                }
+            viewLifecycleOwner.lifecycle.coroutineScope.launch {
+                diceViewModel.rollDice(diceMode)
             }
         }
     }
 
     private fun initTossCoinButton() {
         binding.btnTossCoin.setOnClickListener {
-            coinViewModel.tossCoin()
+            diceViewModel.tossCoin()
         }
     }
 
@@ -123,48 +118,48 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
         with (binding) {
             tvDiceMode1d4.setOnClickListener {
                 diceMode = DiceMode.MODE_1D4
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode1d6.setOnClickListener {
                 diceMode = DiceMode.MODE_1D6
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode1d8.setOnClickListener {
                 diceMode = DiceMode.MODE_1D8
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode1d12.setOnClickListener {
                 diceMode = DiceMode.MODE_1D12
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode2d4.setOnClickListener {
                 diceMode = DiceMode.MODE_2D4
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode2d6.setOnClickListener {
                 diceMode = DiceMode.MODE_2D6
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode2d8.setOnClickListener {
                 diceMode = DiceMode.MODE_2D8
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
 
             tvDiceMode2d12.setOnClickListener {
                 diceMode = DiceMode.MODE_2D12
-                onClickDiceMode(diceModeView = it)
+                selectDiceMode(diceModeView = it)
             }
         }
 
     }
 
-    private fun onClickDiceMode(diceModeView: View) {
+    private fun selectDiceMode(diceModeView: View) {
         val background = diceModeView.background
 
         selectedDiceModeViewId?.let { selectedViewId ->
