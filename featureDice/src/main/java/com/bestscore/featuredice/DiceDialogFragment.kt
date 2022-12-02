@@ -1,14 +1,17 @@
 package com.bestscore.featuredice
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuredice.coin.CoinViewModel
 import com.bestscore.featuredice.coin.TossResult
@@ -18,7 +21,7 @@ import com.bestscore.featuredice.dice.DiceViewModel
 import kotlinx.coroutines.launch
 
 class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
-    private val binding: FragmentDialogDiceBinding by viewBinding()
+    private val binding: FragmentDialogDiceBinding by viewBinding (createMethod = CreateMethod.INFLATE)
 
     private var diceMode: DiceMode? = null
     private var selectedDiceModeViewId: Int? = null
@@ -27,7 +30,7 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private val coinViewModel: CoinViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(binding.root, savedInstanceState)
 
         initDiceModeViews()
         initRollDiceButton()
@@ -35,6 +38,12 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
         collectDiceResult()
         collectCoinResult()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return AlertDialog.Builder(requireContext())
+            .setView(binding.root)
+            .create()
     }
 
     private fun collectDiceResult() {
