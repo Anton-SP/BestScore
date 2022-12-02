@@ -21,10 +21,10 @@ class DiceViewModel : ViewModel() {
 
     private suspend fun roll(mode: DiceMode) {
         val maxValue =  when (mode) {
-            DiceMode.MODE_1D4, DiceMode.MODE_2D4 -> 4
-            DiceMode.MODE_1D6, DiceMode.MODE_2D6  -> 6
-            DiceMode.MODE_1D8, DiceMode.MODE_2D8 -> 8
-            DiceMode.MODE_1D12, DiceMode.MODE_2D12 -> 12
+            DiceMode.MODE_1D4, DiceMode.MODE_2D4 -> 5
+            DiceMode.MODE_1D6, DiceMode.MODE_2D6  -> 7
+            DiceMode.MODE_1D8, DiceMode.MODE_2D8 -> 9
+            DiceMode.MODE_1D12, DiceMode.MODE_2D12 -> 13
         }
 
         val onlyOneFirst: Boolean =
