@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuredice.databinding.FragmentDialogDiceBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
@@ -24,31 +24,38 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
         super.onViewCreated(view, savedInstanceState)
 
         initDiceModeViews()
-        initRollDiceBtn()
+        initRollDiceButton()
 
         collectDiceResult()
     }
 
     private fun collectDiceResult() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            diceViewModel.firstDiceState().collect { value ->
-                if (value != 0) {
-                    binding.firstDiceResult.text = value.toString()
-                }
-            }
-        }
+            diceViewModel.diceState().collect { rollResult ->
+                rollResult?.let { result ->
+                    if (result.firstDice != 0) {
+                        binding.firstDiceResult.text = result.firstDice.toString()
+                    }
 
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            diceViewModel.secondDiceState().collect { value ->
-                if (value != 0) {
-                    binding.secondDiceResult.text = value.toString()
+                    if (result.secondDice != 0) {
+                        binding.hyphen.isVisible = true
+                        binding.secondDiceResult.text = result.secondDice.toString()
+                    } else {
+                        binding.hyphen.isVisible = false
+                    }
                 }
             }
         }
     }
 
-    private fun initRollDiceBtn() {
+    private fun initRollDiceButton() {
         binding.btnRollDice.setOnClickListener {
+            with(binding) {
+                firstDiceResult.text = null
+                hyphen.isVisible = false
+                secondDiceResult.text = null
+            }
+
             if (diceMode == null || selectedDiceModeViewId == null) {
                 Toast.makeText(requireContext(), "Выберите режим", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

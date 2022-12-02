@@ -10,20 +10,16 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 class DiceViewModel : ViewModel() {
-    private val firstDiceState = MutableStateFlow(0)
-    private val secondDiceState = MutableStateFlow(0)
+    private val diceState = MutableStateFlow(RollResult())
 
-    fun firstDiceState(): StateFlow<Int> = firstDiceState
-    fun secondDiceState(): StateFlow<Int> = secondDiceState
+    fun diceState(): StateFlow<RollResult?> = diceState
 
     suspend fun rollDice(diceMode: DiceMode) {
-        firstDiceState.value = 0
-        secondDiceState.value = 0
-        val turnoverCount = Random.nextInt(2,7) + 1
-        roll(turnoverCount, diceMode)
+        diceState.value = RollResult()
+        roll(diceMode)
     }
 
-    private suspend fun roll(turnoverCount: Int, mode: DiceMode) {
+    private suspend fun roll(mode: DiceMode) {
         val maxValue =  when (mode) {
             DiceMode.MODE_1D4, DiceMode.MODE_2D4 -> 4
             DiceMode.MODE_1D6, DiceMode.MODE_2D6  -> 6
@@ -36,25 +32,37 @@ class DiceViewModel : ViewModel() {
 
         if (onlyOneFirst) {
             viewModelScope.launch {
+                val turnoverCount = Random.nextInt(2,8)
                 repeat(turnoverCount) {
                     delay(500)
-                    firstDiceState.emit(Random.nextInt(Random.nextInt(maxValue) + 1))
+                    diceState.emit(
+                        RollResult(firstDice = Random.nextInt(1, maxValue))
+                    )
                 }
             }
         } else {
             val firstDef = viewModelScope.async {
+                val turnoverCount = Random.nextInt(2,8)
                 repeat(turnoverCount) {
                     delay(500)
-                    firstDiceState.emit(Random.nextInt(Random.nextInt(maxValue) + 1))
+                    diceState.emit(
+                        diceState.value.copy(
+                            firstDice = Random.nextInt(1, maxValue)
+                        )
+                    )
                 }
             }
 
             val secondDef = viewModelScope.async {
+                val turnoverCount = Random.nextInt(2,8)
                 repeat(turnoverCount) {
                     delay(500)
-                    secondDiceState.emit(Random.nextInt(Random.nextInt(maxValue) + 1))
+                    diceState.emit(
+                        diceState.value.copy(
+                            secondDice = Random.nextInt(1, maxValue)
+                        )
+                    )
                 }
-
             }
 
             firstDef.await()

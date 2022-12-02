@@ -11,4 +11,5 @@
     <string name="mode_2d12">2d12</string>
     <string name="roll_the_dice">Бросить кости</string>
     <string name="result">Результат:</string>
+    <string name="hyphen">-</string>
 </resources>
