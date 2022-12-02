@@ -1,4 +1,4 @@
-package com.bestscore.featuredice
+package com.bestscore.featuredice.dice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,6 @@ import kotlin.random.Random
 
 class DiceViewModel : ViewModel() {
     private val diceState = MutableStateFlow(RollResult())
-
     fun diceState(): StateFlow<RollResult?> = diceState
 
     suspend fun rollDice(diceMode: DiceMode) {
@@ -22,7 +21,7 @@ class DiceViewModel : ViewModel() {
     private suspend fun roll(mode: DiceMode) {
         val maxValue =  when (mode) {
             DiceMode.MODE_1D4, DiceMode.MODE_2D4 -> 5
-            DiceMode.MODE_1D6, DiceMode.MODE_2D6  -> 7
+            DiceMode.MODE_1D6, DiceMode.MODE_2D6 -> 7
             DiceMode.MODE_1D8, DiceMode.MODE_2D8 -> 9
             DiceMode.MODE_1D12, DiceMode.MODE_2D12 -> 13
         }

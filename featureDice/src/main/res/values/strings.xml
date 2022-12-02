@@ -12,4 +12,8 @@
     <string name="roll_the_dice">Бросить кости</string>
     <string name="result">Результат:</string>
     <string name="hyphen">-</string>
+    <string name="toss_in_proccess">Бросаем монетку</string>
+    <string name="heads">Орел</string>
+    <string name="tails">Решка</string>
+    <string name="to_toss_coin">Бросить монетку</string>
 </resources>

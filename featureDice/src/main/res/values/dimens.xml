@@ -16,4 +16,5 @@
     <dimen name="dice_result_margin">4dp</dimen>
     <dimen name="dice_result_margin_2x">8dp</dimen>
     <dimen name="dice_mode_padding">4dp</dimen>
+    <dimen name="coin_btn_margin">16dp</dimen>
 </resources>

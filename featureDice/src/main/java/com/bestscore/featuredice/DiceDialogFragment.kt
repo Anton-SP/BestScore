@@ -10,7 +10,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bestscore.featuredice.coin.CoinViewModel
+import com.bestscore.featuredice.coin.TossResult
 import com.bestscore.featuredice.databinding.FragmentDialogDiceBinding
+import com.bestscore.featuredice.dice.DiceMode
+import com.bestscore.featuredice.dice.DiceViewModel
 import kotlinx.coroutines.launch
 
 class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
@@ -20,14 +24,17 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private var selectedDiceModeViewId: Int? = null
 
     private val diceViewModel: DiceViewModel by viewModels()
+    private val coinViewModel: CoinViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initDiceModeViews()
         initRollDiceButton()
+        initTossCoinButton()
 
         collectDiceResult()
+        collectCoinResult()
     }
 
     private fun collectDiceResult() {
@@ -43,6 +50,25 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                         binding.secondDiceResult.text = result.secondDice.toString()
                     } else {
                         binding.hyphen.isVisible = false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun collectCoinResult() {
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            coinViewModel.coinState().collect { state ->
+                state?.let {
+                    when (state) {
+                        is CoinViewModel.TossState.Toss -> {
+                            binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
+                        }
+
+                        is CoinViewModel.TossState.Ready -> {
+                            val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
+                            binding.tvCoinTossResult.text = text
+                        }
                     }
                 }
             }
@@ -67,6 +93,12 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                     diceViewModel.rollDice(mode)
                 }
             }
+        }
+    }
+
+    private fun initTossCoinButton() {
+        binding.btnTossCoin.setOnClickListener {
+            coinViewModel.tossCoin()
         }
     }
 

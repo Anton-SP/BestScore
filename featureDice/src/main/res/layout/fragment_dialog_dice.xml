@@ -41,6 +41,20 @@
         app:layout_constraintTop_toTopOf="@id/iv_coin"
         app:layout_constraintBottom_toBottomOf="@id/iv_coin"/>
 
+    <Button
+        android:id="@+id/btn_toss_coin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/coin_btn_margin"
+        android:textColor="@color/primary_color"
+        android:text="@string/to_toss_coin"
+        android:textSize="@dimen/dice_primary_text_size"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/white"
+        app:layout_constraintStart_toStartOf="@id/btn_roll_dice"
+        app:layout_constraintTop_toBottomOf="@id/iv_coin"
+        app:layout_constraintEnd_toEndOf="@id/btn_roll_dice"/>
+
     <TextView
         android:id="@+id/tv_dice_toss_label"
         android:layout_width="wrap_content"
@@ -51,7 +65,7 @@
         android:layout_marginStart="@dimen/margin_title_horizontal"
         android:layout_marginTop="@dimen/margin_title_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_coin"/>
+        app:layout_constraintTop_toBottomOf="@id/btn_toss_coin"/>
 
     <ImageView
         android:id="@+id/iv_dice"

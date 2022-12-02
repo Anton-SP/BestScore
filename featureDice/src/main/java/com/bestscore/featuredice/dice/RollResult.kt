@@ -1,4 +1,4 @@
-package com.bestscore.featuredice
+package com.bestscore.featuredice.dice
 
 data class RollResult(
     val firstDice: Int = 0,
