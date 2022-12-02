@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -61,9 +62,6 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                 return@setOnClickListener
             }
 
-            val view = view?.findViewById<TextView>(selectedDiceModeViewId!!)
-            Toast.makeText(requireContext(), "${view!!.text}", Toast.LENGTH_SHORT).show()
-
             diceMode?.let { mode ->
                 viewLifecycleOwner.lifecycle.coroutineScope.launch {
                     diceViewModel.rollDice(mode)
@@ -120,11 +118,15 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private fun onClickDiceMode(diceModeView: View) {
         val background = diceModeView.background
 
-        selectedDiceModeViewId?.let {
-            requireView().findViewById<TextView>(selectedDiceModeViewId!!).background = background
+        selectedDiceModeViewId?.let { selectedViewId ->
+            val selectedView = requireView().findViewById<TextView>(selectedViewId)
+            selectedView.background = background
+            selectedView.setTextColor(requireContext().getColor(com.bestscore.core.R.color.white))
+
         }
 
-        diceModeView.setBackgroundColor(requireContext().getColor(com.bestscore.core.R.color.black))
+        diceModeView.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_dice_mode)
+        (diceModeView as TextView).setTextColor(requireContext().getColor(com.bestscore.core.R.color.black))
         selectedDiceModeViewId = diceModeView.id
     }
 }
