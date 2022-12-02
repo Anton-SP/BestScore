@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DiceDialogFragment"
+    android:background="@color/primary_color">
+
+    <TextView
+        android:id="@+id/tv_coin_toss_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coin_toss"
+        android:textSize="@dimen/dice_primary_text_size"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin_title_horizontal"
+        android:layout_marginTop="@dimen/margin_title_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_image_horizontal"
+        android:layout_marginTop="@dimen/margin_image_vertical"
+        android:src="@drawable/coin_svgrepo_com"
+        android:contentDescription="@string/coin_content_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_coin_toss_label"/>
+
+    <TextView
+        android:id="@+id/tv_coin_toss_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_label_horizontal_margin"
+        app:layout_constraintStart_toEndOf="@id/iv_coin"
+        app:layout_constraintTop_toTopOf="@id/iv_coin"
+        app:layout_constraintBottom_toBottomOf="@id/iv_coin"/>
+
+    <Button
+        style="@style/DialogButton"
+        android:id="@+id/btn_toss_coin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_btn_margin"
+        android:text="@string/to_toss_coin"
+        app:layout_constraintStart_toStartOf="@id/btn_roll_dice"
+        app:layout_constraintTop_toBottomOf="@id/iv_coin"
+        app:layout_constraintEnd_toEndOf="@id/btn_roll_dice"/>
+
+    <TextView
+        android:id="@+id/tv_dice_toss_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dice_toss"
+        android:textSize="@dimen/dice_primary_text_size"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/margin_title_horizontal"
+        android:layout_marginTop="@dimen/margin_title_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_toss_coin"/>
+
+    <ImageView
+        android:id="@+id/iv_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_image_horizontal"
+        android:layout_marginTop="@dimen/margin_image_vertical"
+        android:src="@drawable/dice_svgrepo_com_1"
+        android:contentDescription="@string/dice_content_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_toss_label"/>
+
+    <TextView
+        android:id="@+id/tv_dice_toss_result_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_label_horizontal_margin"
+        app:layout_constraintStart_toEndOf="@id/iv_dice"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/first_dice_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin_2x"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_toss_result_label"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/hyphen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/hyphen"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@id/first_dice_result"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        android:id="@+id/second_dice_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dice_secondary_text_size"
+        android:layout_marginStart="@dimen/dice_result_margin"
+        app:layout_constraintStart_toEndOf="@id/hyphen"
+        app:layout_constraintTop_toTopOf="@id/iv_dice"
+        app:layout_constraintBottom_toBottomOf="@id/iv_dice"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_1d4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dice_mode_vertically_margin"
+        android:text="@string/mode_1d4"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_dice"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d6"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_1d6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d6"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d8"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_1d8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d8"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d6"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_1d12"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_1d12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_1d12"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_1d8"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_2d4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/raw_margin_2d"
+        android:text="@string/mode_2d4"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_1d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d6"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_2d6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d6"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d8"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_2d8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d8"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d6"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toStartOf="@id/tv_dice_mode_2d12"/>
+
+    <TextView
+        style="@style/DiceMode"
+        android:id="@+id/tv_dice_mode_2d12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mode_2d12"
+        app:layout_constraintStart_toEndOf="@id/tv_dice_mode_2d8"
+        app:layout_constraintTop_toTopOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        style="@style/DialogButton"
+        android:id="@+id/btn_roll_dice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_btn_margin"
+        android:text="@string/roll_the_dice"
+        app:layout_constraintStart_toStartOf="@id/tv_dice_mode_2d4"
+        app:layout_constraintEnd_toEndOf="@id/tv_dice_mode_2d12"
+        app:layout_constraintTop_toBottomOf="@id/tv_dice_mode_2d4"/>
+
+    <ImageButton
+        android:id="@+id/btn_close_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_close_24"
+        android:background="@color/primary_color"
+        android:contentDescription="@string/close_content_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dice_primary_text_size">20sp</dimen>
+    <dimen name="dice_secondary_text_size">16sp</dimen>
+
+    <dimen name="margin_title_horizontal">26dp</dimen>
+    <dimen name="margin_title_vertical">18dp</dimen>
+
+    <dimen name="margin_image_horizontal">54dp</dimen>
+    <dimen name="margin_image_vertical">16dp</dimen>
+    <dimen name="dice_result_label_horizontal_margin">20dp</dimen>
+    <dimen name="dice_mode_vertically_margin">36dp</dimen>
+
+    <dimen name="raw_margin_2d">20dp</dimen>
+    <dimen name="dice_result_margin">4dp</dimen>
+    <dimen name="dice_result_margin_2x">8dp</dimen>
+    <dimen name="dice_mode_padding">4dp</dimen>
+    <dimen name="dialog_btn_margin">16dp</dimen>
+</resources>

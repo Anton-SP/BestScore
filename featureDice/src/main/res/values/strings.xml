@@ -1,0 +1,22 @@
+<resources>
+    <string name="coin_toss">Бросок монеты:</string>
+    <string name="dice_toss">Бросок кубиков:</string>
+    <string name="mode_1d4">1d4</string>
+    <string name="mode_1d6">1d6</string>
+    <string name="mode_1d8">1d8</string>
+    <string name="mode_1d12">1d12</string>
+    <string name="mode_2d4">2d4</string>
+    <string name="mode_2d6">2d6</string>
+    <string name="mode_2d8">2d8</string>
+    <string name="mode_2d12">2d12</string>
+    <string name="roll_the_dice">Бросить кости</string>
+    <string name="result">Результат:</string>
+    <string name="hyphen">-</string>
+    <string name="toss_in_proccess">Бросаем монетку</string>
+    <string name="heads">Орел</string>
+    <string name="tails">Решка</string>
+    <string name="to_toss_coin">Бросить монетку</string>
+    <string name="coin_content_desc">coin</string>
+    <string name="dice_content_desc">dice</string>
+    <string name="close_content_desc">close</string>
+</resources>

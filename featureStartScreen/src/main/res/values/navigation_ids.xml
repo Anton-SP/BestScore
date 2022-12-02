@@ -2,4 +2,5 @@
 <resources>
     <item name="action_startScreenFragment_to_createTemplateFragment" type="id"/>
     <item name="action_startScreenFragment_to_templatesListFragment" type="id"/>
+    <item name="action_startScreenFragment_to_diceDialogFragment" type="id" />
 </resources>
