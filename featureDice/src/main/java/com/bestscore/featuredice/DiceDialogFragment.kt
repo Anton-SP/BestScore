@@ -35,6 +35,7 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
         initDiceModeViews()
         initRollDiceButton()
         initTossCoinButton()
+        initCloseButton()
 
         collectDiceResult()
         collectCoinResult()
@@ -109,6 +110,12 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     private fun initTossCoinButton() {
         binding.btnTossCoin.setOnClickListener {
             coinViewModel.tossCoin()
+        }
+    }
+
+    private fun initCloseButton() {
+        binding.btnCloseDialog.setOnClickListener {
+            dialog?.cancel()
         }
     }
 
