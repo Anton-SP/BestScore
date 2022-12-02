@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_templatesListFragment_to_playGameFragment" type="id"/>
+</resources>
