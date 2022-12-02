@@ -16,4 +16,6 @@
     <string name="heads">Орел</string>
     <string name="tails">Решка</string>
     <string name="to_toss_coin">Бросить монетку</string>
+    <string name="coin_content_desc">coin</string>
+    <string name="dice_content_desc">dice</string>
 </resources>

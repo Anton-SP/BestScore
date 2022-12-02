@@ -26,6 +26,7 @@
         android:layout_marginStart="@dimen/margin_image_horizontal"
         android:layout_marginTop="@dimen/margin_image_vertical"
         android:src="@drawable/coin_svgrepo_com"
+        android:contentDescription="@string/coin_content_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_coin_toss_label"/>
 
@@ -33,7 +34,6 @@
         android:id="@+id/tv_coin_toss_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Результат: Решка(пока статик)"
         android:textColor="@color/white"
         android:textSize="@dimen/dice_secondary_text_size"
         android:layout_marginStart="@dimen/dice_result_label_horizontal_margin"
@@ -74,6 +74,7 @@
         android:layout_marginStart="@dimen/margin_image_horizontal"
         android:layout_marginTop="@dimen/margin_image_vertical"
         android:src="@drawable/dice_svgrepo_com_1"
+        android:contentDescription="@string/dice_content_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_dice_toss_label"/>
 
