@@ -1,4 +1,4 @@
-package com.bestscore.featurestartscreen
+package com.bestscore.core.swipe
 
 import android.content.Context
 import android.graphics.Canvas

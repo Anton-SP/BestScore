@@ -25,6 +25,7 @@ dependencies {
     implementation project(Modules.featureCreateTemplate)
     implementation project(Modules.featureStartScreen)
     implementation project(Modules.featureTemplateList)
+    implementation project(Modules.featureDice)
     implementation project(Modules.utils)
     implementation project(Modules.featurePlayGame)
 

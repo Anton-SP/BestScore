@@ -1,19 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.bestscore.featuretemplatelist'
+    namespace 'com.bestscore.featuredice'
 }
 
 dependencies {
-
     //Modules
     implementation project(Modules.core)
-    implementation project(Modules.database)
-    implementation project(Modules.repository)
     implementation project(Modules.utils)
 
     //ViewBinding
@@ -26,20 +22,11 @@ dependencies {
     implementation Kotlin.coroutinesCore
     implementation Kotlin.coroutinesAndroid
 
-    //Dagger2
-    implementation Dagger.dagger
-    kapt Dagger.daggerCompiler
-
-    //Navigation
-    implementation NavigationComponent.navigationFragment
-    implementation NavigationComponent.navigationUi
-
     //Kotlin
     implementation Kotlin.core
 
     //AndroidX
     implementation Design.appcompat
-    implementation Design.swipe
 
     //Design
     implementation Design.material
