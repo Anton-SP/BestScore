@@ -42,6 +42,7 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
+            .setCancelable(false)
             .setView(binding.root)
             .create()
     }
