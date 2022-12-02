@@ -168,10 +168,9 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
         val background = diceModeView.background
 
         selectedDiceModeViewId?.let { selectedViewId ->
-            val selectedView = requireView().findViewById<TextView>(selectedViewId)
+            val selectedView = binding.root.findViewById<TextView>(selectedViewId)
             selectedView.background = background
             selectedView.setTextColor(requireContext().getColor(com.bestscore.core.R.color.white))
-
         }
 
         diceModeView.background = ContextCompat.getDrawable(requireContext(), R.drawable.selected_dice_mode)
