@@ -39,6 +39,7 @@ dependencies {
 
     //AndroidX
     implementation Design.appcompat
+    implementation Design.swipe
 
     //Design
     implementation Design.material
