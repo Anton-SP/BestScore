@@ -45,16 +45,17 @@
             android:layout_height="wrap_content"
             android:text="@string/item_score_change_label_text"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
-            app:layout_constraintEnd_toStartOf="@+id/btn_item_apply_score_change"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_score" />
+            app:layout_constraintEnd_toStartOf="@id/et_item_score_change"
+            app:layout_constraintStart_toEndOf="@id/tv_item_score"/>
 
         <EditText
             android:id="@+id/et_item_score_change"
             style="@style/common_text"
             android:layout_width="@dimen/edit_text_item_score_change_width"
             android:layout_height="wrap_content"
+            android:inputType="number|numberSigned"
             app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
-            app:layout_constraintStart_toEndOf="@id/tv_item_score_change_label" />
+            app:layout_constraintEnd_toStartOf="@id/btn_item_apply_score_change" />
 
 
         <Button

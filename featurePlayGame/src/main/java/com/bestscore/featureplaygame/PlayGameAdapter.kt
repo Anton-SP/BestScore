@@ -7,10 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bestscore.core.templates.Parameter
 import com.bestscore.featureplaygame.databinding.ItemGameParameterBinding
+import com.bestscore.utils.makeSnackbar
 
 internal class PlayGameAdapter(
-    private val onApplyClickListener: () -> Unit
+    private val onApplyClickListener: (Int, Int) -> Unit
 ) : ListAdapter<Parameter, PlayGameAdapter.ParameterViewHolder>(ParameterItemCallback()) {
+
+    companion object {
+        const val EDIT_TEXT_IS_BLANK_ERR = "Заполните поле \"изменить\""
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParameterViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -20,19 +25,24 @@ internal class PlayGameAdapter(
     }
 
     override fun onBindViewHolder(holder: ParameterViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(parameter = currentList[position], index = position)
     }
 
     inner class ParameterViewHolder(
         private val binding: ItemGameParameterBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(parameter: Parameter) {
+        fun bind(parameter: Parameter, index: Int) {
             with(binding) {
                 tvItemParameterName.text = parameter.parameterName
                 tvItemScore.text = parameter.inGameValues.last().toString()
+                val value = etItemScoreChange.text
                 btnItemApplyScoreChange.setOnClickListener {
-                    onApplyClickListener
+                    if (value.isNotBlank()) {
+                        onApplyClickListener(index, value.toString().toInt())
+                    } else {
+                        binding.root.makeSnackbar(EDIT_TEXT_IS_BLANK_ERR)
+                    }
                 }
             }
         }
