@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -49,16 +48,17 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     private fun initViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
-            playGameViewModel.setData(template.parameters)
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 playGameViewModel.uiState.collect { uiState ->
                     renderData(uiState)
                 }
             }
         }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            playGameViewModel.setData(template.parameters) }
     }
 
-    private fun renderData(uiState: PlayGameUiState) {
+    private fun renderData(uiState: PlayGameUiState?) {
         when (uiState) {
             is PlayGameUiState.Error -> {
                 binding.loading.visibility = View.GONE
@@ -69,6 +69,10 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
             }
             is PlayGameUiState.Success -> {
                 adapter?.submitList(uiState.data)
+                binding.loading.visibility = View.GONE
+            }
+            else -> {
+                adapter?.submitList(template.parameters)
                 binding.loading.visibility = View.GONE
             }
         }

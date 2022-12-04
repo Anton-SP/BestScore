@@ -9,23 +9,24 @@ import kotlinx.coroutines.launch
 
 internal class PlayGameViewModel : ViewModel() {
 
-    private val _uiState: MutableStateFlow<PlayGameUiState> =
-        MutableStateFlow(PlayGameUiState.Loading)
+    private val _uiState: MutableStateFlow<PlayGameUiState?> =
+        MutableStateFlow(null)
 
-    val uiState: StateFlow<PlayGameUiState> = _uiState
+    val uiState: StateFlow<PlayGameUiState?> = _uiState
 
-    fun setData(data: List<Parameter>) {
-        viewModelScope.launch {
-            try {
-                _uiState.emit(PlayGameUiState.Success(data))
-            } catch (e: Exception) {
-                _uiState.emit(PlayGameUiState.Error(e))
-            }
-        }
-    }
+//    fun setData(data: List<Parameter>) {
+//        viewModelScope.launch {
+//            try {
+//                _uiState.emit(PlayGameUiState.Success(data))
+//            } catch (e: Exception) {
+//                _uiState.emit(PlayGameUiState.Error(e))
+//            }
+//        }
+//    }
 
     suspend fun changeParameterValue(changeRequest: ChangeValueRequestModel) {
         viewModelScope.launch {
+            _uiState.emit(PlayGameUiState.Loading)
             val data = changeRequest.data
             val index = changeRequest.index
             val parameter = changeRequest.data[index]

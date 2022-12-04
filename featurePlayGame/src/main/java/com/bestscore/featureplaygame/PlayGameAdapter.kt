@@ -54,7 +54,7 @@ internal class PlayGameAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Parameter, newItem: Parameter): Boolean {
-            return oldItem == newItem
+            return oldItem.inGameValues == newItem.inGameValues
         }
 
     }
