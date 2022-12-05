@@ -10,8 +10,8 @@ android {
 
 dependencies {
     //Modules
-    implementation(Modules.core)
-    implementation(Modules.utils)
+    implementation(project(Modules.core))
+    implementation(project(Modules.utils))
 
     //ViewBinding
     implementation(ViewBinding.viewBinding)

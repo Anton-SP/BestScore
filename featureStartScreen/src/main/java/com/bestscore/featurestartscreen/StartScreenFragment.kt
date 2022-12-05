@@ -69,7 +69,7 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
                 navigate(R.id.action_startScreenFragment_to_diceDialogFragment)
             }
             fabTimer.setOnClickListener {
-                makeToast("Заглушка на таймер")
+                navigate(R.id.action_startScreenFragment_to_timerDialogFragment)
             }
         }
     }

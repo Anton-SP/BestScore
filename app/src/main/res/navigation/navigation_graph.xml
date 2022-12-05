@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_startScreenFragment_to_diceDialogFragment"
             app:destination="@id/diceDialogFragment" />
+        <action
+            android:id="@+id/action_startScreenFragment_to_timerDialogFragment"
+            app:destination="@id/timerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTemplateFragment"
@@ -30,4 +33,8 @@
         android:id="@+id/diceDialogFragment"
         android:name="com.bestscore.featuredice.DiceDialogFragment"
         android:label="DiceDialogFragment" />
+    <dialog
+        android:id="@+id/timerDialogFragment"
+        android:name="com.bestscore.featuretimer.TimerDialogFragment"
+        android:label="TimerDialogFragment"/>
 </navigation>
