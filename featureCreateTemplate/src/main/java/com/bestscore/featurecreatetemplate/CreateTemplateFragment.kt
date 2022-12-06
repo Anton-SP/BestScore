@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.get
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.templates.Parameter
@@ -16,8 +14,7 @@ import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBin
 import com.bestscore.featurecreatetemplate.di.CreateTemplateComponentViewModel
 import com.bestscore.utils.currentDate
 import com.bestscore.utils.makeToast
-import kotlinx.coroutines.flow.collect
-import java.util.Date
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
@@ -83,10 +80,12 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
     }
 
     private fun collectState() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            createTemplateViewModel.getState().collect { state ->
-                state?.let {
-                    checkState(state)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                createTemplateViewModel.getState().collect { state ->
+                    state?.let {
+                        checkState(state)
+                    }
                 }
             }
         }

@@ -6,9 +6,11 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,6 +19,7 @@ import com.bestscore.core.swipe.SwipeController
 import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
 import com.bestscore.featurestartscreen.di.StartScreenComponentViewModel
 import com.bestscore.utils.makeToast
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -92,9 +95,11 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
     }
 
     private fun collectFlow() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            startScreenViewModel.getFlow().collect { state ->
-                checkState(state)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                startScreenViewModel.getFlow().collect { state ->
+                    checkState(state)
+                }
             }
         }
     }

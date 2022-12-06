@@ -6,9 +6,11 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,6 +18,7 @@ import com.bestscore.core.swipe.SwipeController
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
 import com.bestscore.utils.makeToast
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
@@ -71,9 +74,11 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
     }
 
     private fun collectFlow() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            templatesListViewModel.getFlow().collect { state ->
-                checkState(state)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                templatesListViewModel.getFlow().collect { state ->
+                    checkState(state)
+                }
             }
         }
     }
