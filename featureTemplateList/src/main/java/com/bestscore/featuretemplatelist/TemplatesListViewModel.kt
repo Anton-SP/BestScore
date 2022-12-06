@@ -15,27 +15,47 @@ import javax.inject.Provider
 class TemplatesListViewModel(
     private val repository: TemplateRepository
 ) : ViewModel() {
-    private val stateFlow = MutableStateFlow<TemplatesListState>(TemplatesListState.Loading)
+    private val listStateFlow = MutableStateFlow<TemplatesListState>(TemplatesListState.Loading)
+    fun getFlow(): StateFlow<TemplatesListState> = listStateFlow
 
-    fun getFlow(): StateFlow<TemplatesListState> = stateFlow
+    private val deleteStateFlow = MutableStateFlow<DeleteState>(DeleteState.Nothing)
+    fun getDeleteFlow(): StateFlow<DeleteState> = deleteStateFlow
 
     fun getTemplateList() {
-        stateFlow.value = TemplatesListState.Loading
+        listStateFlow.value = TemplatesListState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
             val templates = repository.getTemplates()
             if (templates.isNotEmpty()) {
-                stateFlow.emit(
+                listStateFlow.emit(
                     TemplatesListState.Success(data = templates)
                 )
             } else {
-                stateFlow.emit(
+                listStateFlow.emit(
                     TemplatesListState.Error(message = "Вы еще не добавили ни одного шаблона")
                 )
             }
         }
     }
 
+    fun deleteTemplate(template: Template) {
+        listStateFlow.value = TemplatesListState.Loading
+        viewModelScope.launch {
+            val result = repository.delete(template)
+
+            val emitData = if (result > 0) {
+                DeleteState.Success
+            } else {
+                DeleteState.Error("Не удалось удалить шаблон")
+            }
+
+            deleteStateFlow.emit(emitData)
+        }
+    }
+
+    fun notifiedAboutDeleteTemplate() {
+        deleteStateFlow.value = DeleteState.Nothing
+    }
 
     class Factory @Inject constructor(
         private val repositoryProvider: Provider<TemplateRepository>
@@ -50,6 +70,12 @@ class TemplatesListViewModel(
         data class Success(val data: List<Template>): TemplatesListState()
         data class Error(val message: String): TemplatesListState()
         object Loading: TemplatesListState()
+    }
+
+    sealed class DeleteState {
+        object Success : DeleteState()
+        data class Error(val message: String) : DeleteState()
+        object Nothing : DeleteState()
     }
 
 }

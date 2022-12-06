@@ -14,12 +14,16 @@ interface TemplateDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertParametersList(parameters: List<ParameterEntity>)
 
-    @Query("SELECT * FROM templates ORDER BY created_at DESC")
+    @Query("SELECT * FROM templates ORDER BY id DESC")
     fun getTemplateList(): List<TemplateEntity>
 
-    @Query("SELECT * FROM templates ORDER BY id DESC LIMIT 3")
+    @Query("SELECT * FROM templates ORDER BY id DESC LIMIT $LATEST_TEMPLATES_LIMIT")
     fun getLatestTemplateList(): List<TemplateEntity>
 
     @Delete
     suspend fun delete(template: TemplateEntity): Int
+
+    companion object {
+        const val LATEST_TEMPLATES_LIMIT = 3
+    }
 }

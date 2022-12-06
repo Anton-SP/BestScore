@@ -37,8 +37,8 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
             onClickEdit = {
                 makeToast("Переход на редатирование")
             },
-            onClickDelete = {
-                makeToast("Заглушка на удаление")
+            onClickDelete = { template ->
+                templatesListViewModel.deleteTemplate(template)
             }
         )
     }
@@ -54,7 +54,8 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecycler()
-        collectFlow()
+        collectListFlow()
+        collectDeleteFlow()
 
         templatesListViewModel.getTemplateList()
     }
@@ -73,11 +74,21 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
         }
     }
 
-    private fun collectFlow() {
+    private fun collectListFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 templatesListViewModel.getFlow().collect { state ->
                     checkState(state)
+                }
+            }
+        }
+    }
+
+    private fun collectDeleteFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                templatesListViewModel.getDeleteFlow().collect { state ->
+                    checkDeleteState(state)
                 }
             }
         }
@@ -105,6 +116,22 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
                 }
                 makeToast(state.message)
             }
+        }
+    }
+
+    private fun checkDeleteState(state: TemplatesListViewModel.DeleteState) {
+        when(state) {
+            is TemplatesListViewModel.DeleteState.Success -> {
+                makeToast(text = getString(R.string.delete_template_successfully))
+                templatesListViewModel.notifiedAboutDeleteTemplate()
+                templatesListViewModel.getTemplateList()
+            }
+
+            is TemplatesListViewModel.DeleteState.Error -> {
+                makeToast(text = state.message)
+                templatesListViewModel.notifiedAboutDeleteTemplate()
+            }
+            is TemplatesListViewModel.DeleteState.Nothing -> {}
         }
     }
 }
