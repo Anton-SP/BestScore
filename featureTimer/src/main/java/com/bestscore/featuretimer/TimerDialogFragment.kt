@@ -40,6 +40,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
        // secondsRemaining = 360L
         timerState = TimerState.Run
 
+        secondsRemaining = 60L
 
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
             override fun onFinish() {
