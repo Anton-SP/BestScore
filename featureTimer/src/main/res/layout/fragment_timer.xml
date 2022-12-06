@@ -8,6 +8,7 @@
         android:id="@+id/progress_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/double_margin"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -15,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:indicatorColor="@color/black"
+            app:trackThickness="@dimen/common_thickness_progress_line"
             app:indicatorSize="@dimen/progress_diametr"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +33,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -45,22 +48,22 @@
             android:id="@+id/fab_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/double_margin"
             android:src="@drawable/fab_start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:maxImageSize="@dimen/play_control_max_size" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/double_margin"
             android:src="@drawable/fab_stop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/fab_start"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:maxImageSize="@dimen/play_control_max_size" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -72,8 +75,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/fab_start"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:maxImageSize="@dimen/play_control_max_size" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

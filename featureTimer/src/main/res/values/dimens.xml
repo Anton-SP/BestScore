@@ -4,4 +4,5 @@
     <dimen name="timer_size">64sp</dimen>
     <dimen name="double_margin">16dp</dimen>
     <dimen name="play_control_max_size">42dp</dimen>
+    <dimen name="common_thickness_progress_line">10dp</dimen>
 </resources>
