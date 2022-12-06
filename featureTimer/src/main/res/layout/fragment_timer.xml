@@ -46,12 +46,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/double_margin"
-
             android:src="@drawable/fab_start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:maxImageSize="@dimen/play_control_max_size" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/double_margin"
+            android:src="@drawable/fab_stop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fab_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="@dimen/play_control_max_size" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/double_margin"
+            android:src="@drawable/fab_pause"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/fab_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxImageSize="@dimen/play_control_max_size" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
