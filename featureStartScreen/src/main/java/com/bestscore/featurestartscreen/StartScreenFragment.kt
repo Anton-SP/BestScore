@@ -39,12 +39,11 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
             onClickEdit = {
                 makeToast("Переход на редатирование")
             },
-            onClickDelete = {
-                makeToast("Заглушка на удаление")
+            onClickDelete = { template ->
+                startScreenViewModel.deleteTemplate(template)
             }
         )
     }
-
 
     override fun onAttach(context: Context) {
         ViewModelProvider(this)
@@ -57,7 +56,8 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecycler()
-        collectFlow()
+        collectListFlow()
+        collectDeleteFlow()
 
         startScreenViewModel.getTemplateList()
 
@@ -79,32 +79,39 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
 
     private fun initRecycler() {
         binding.rvLastTemplates.apply {
-
             binding.swipeRefreshLayout.setOnRefreshListener {
                 binding.swipeRefreshLayout.isRefreshing = false
-
             }
+
             adapter = this@StartScreenFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
             val swipeController = SwipeController(requireContext())
             val itemTouchHelper = ItemTouchHelper(swipeController)
             itemTouchHelper.attachToRecyclerView(this)
-
         }
-
     }
 
-    private fun collectFlow() {
+    private fun collectListFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                startScreenViewModel.getFlow().collect { state ->
-                    checkState(state)
+                startScreenViewModel.getListFlow().collect { state ->
+                    checkListState(state)
                 }
             }
         }
     }
 
-    private fun checkState(state: StartScreenViewModel.TemplatesListState) {
+    private fun collectDeleteFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                startScreenViewModel.getDeleteFlow().collect { state ->
+                    checkDeleteState(state)
+                }
+            }
+        }
+    }
+
+    private fun checkListState(state: StartScreenViewModel.TemplatesListState) {
         when (state) {
             is StartScreenViewModel.TemplatesListState.Loading -> {
                 with(binding) {
@@ -126,6 +133,22 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
                 }
                 makeToast(state.message)
             }
+        }
+    }
+
+    private fun checkDeleteState(state: StartScreenViewModel.DeleteState) {
+        when(state) {
+            is StartScreenViewModel.DeleteState.Success -> {
+                makeToast(text = getString(R.string.delete_template_successfully))
+                startScreenViewModel.notifiedAboutDeleteTemplate()
+                startScreenViewModel.getTemplateList()
+            }
+
+            is StartScreenViewModel.DeleteState.Error -> {
+                makeToast(text = state.message)
+                startScreenViewModel.notifiedAboutDeleteTemplate()
+            }
+            is StartScreenViewModel.DeleteState.Nothing -> {}
         }
     }
 

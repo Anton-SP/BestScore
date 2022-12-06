@@ -1,6 +1,7 @@
 package com.bestscore.database.templates
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,4 +19,7 @@ interface TemplateDao {
 
     @Query("SELECT * FROM templates ORDER BY id DESC LIMIT 3")
     fun getLatestTemplateList(): List<TemplateEntity>
+
+    @Delete
+    suspend fun delete(template: TemplateEntity): Int
 }

@@ -35,4 +35,7 @@ class RoomTemplateRepository @Inject constructor(
             return@withContext dao.getLatestTemplateList().map { entity -> entity.toTemplate() }
         }
 
+    override suspend fun delete(template: Template): Int = withContext(dispatchersProvider.io()) {
+        dao.delete(template.toEntity())
+    }
 }
