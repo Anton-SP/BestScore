@@ -33,6 +33,14 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(binding.root, savedInstanceState)
+         initPickers()
+
+       // binding.timerPicker.setIs24HourView(true)
+   /* binding.timerPicker.apply {
+        maxValue = 59
+        minValue = 0
+    }*/
+
 
         initTimer()
 
@@ -52,6 +60,17 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
             onTimerFinish()
         }
 
+    }
+
+    private fun initPickers() {
+        binding.minutesPicker.apply {
+            maxValue = 59
+            minValue = 0
+        }
+        binding.secondsPicker.apply {
+            maxValue = 59
+            minValue = 0
+        }
     }
 
     private fun initTimer() {
@@ -82,8 +101,15 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
             }
 
             TimerState.Stop -> {
+                binding.apply {
+                    minutesPicker.visibility = View.INVISIBLE
+                    secondsPicker.visibility = View.INVISIBLE
+                    timer.visibility = View.VISIBLE
+                    progressCircular.visibility = View.VISIBLE
+                }
+
                 timerState = TimerState.Run
-                secondsRemaining = 60L
+                secondsRemaining = binding.minutesPicker.value * 60L + binding.secondsPicker.value
                 updateButtons()
                 setNewTimerLength()
                 timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
@@ -113,7 +139,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         }
         if (timerState == TimerState.Run){
             //добавть значение таймера
-            timerLengthSeconds = 60L
+            timerLengthSeconds = secondsRemaining
         }
 
         binding.progressCircular.max = timerLengthSeconds.toInt()
@@ -133,7 +159,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun updateCountdownUI() {
         val minutesUntilFinished = secondsRemaining / 60
-        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished
+        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished*60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         binding.timer.text =
             "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
