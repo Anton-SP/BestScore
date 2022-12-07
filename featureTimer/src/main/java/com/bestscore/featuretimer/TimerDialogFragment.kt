@@ -32,6 +32,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         super.onViewCreated(binding.root, savedInstanceState)
         initPickers()
         initTimer()
+        dialog?.setCanceledOnTouchOutside(false)
 
         binding.fabStart.setOnClickListener { view ->
             startTimer()
