@@ -17,7 +17,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     private val binding: FragmentTimerBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
     private lateinit var timer: CountDownTimer
-    private var timerState = Stop
+    private var timerState = STOP
     private var timerLengthSeconds by Delegates.notNull<Long>()
     private var secondsRemaining by Delegates.notNull<Long>()
 
@@ -40,7 +40,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
         binding.fabPause.setOnClickListener { view ->
             timer.cancel()
-            timerState = Pause
+            timerState = PAUSE
             updateButtons()
         }
 
@@ -67,7 +67,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     }
 
     private fun initTimer() {
-        timerState = Stop
+        timerState = STOP
         timerLengthSeconds = 0L
         secondsRemaining = 0L
         updateButtons()
@@ -75,8 +75,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun startTimer() {
         when (timerState) {
-            Pause -> {
-                timerState = Run
+            PAUSE -> {
+                timerState = RUN
                 updateButtons()
                 setNewTimerLength()
                 timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
@@ -92,9 +92,9 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
                 }.start()
             }
 
-            Stop -> {
+            STOP -> {
                 hidePickers()
-                timerState = Run
+                timerState = RUN
                 secondsRemaining = binding.minutesPicker.value * 60L + binding.secondsPicker.value
                 updateButtons()
                 setNewTimerLength()
@@ -136,10 +136,10 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun setNewTimerLength() {
 
-        if (timerState == Stop) {
+        if (timerState == STOP) {
             timerLengthSeconds = 0
         }
-        if (timerState == Run) {
+        if (timerState == RUN) {
             timerLengthSeconds = secondsRemaining
         }
         binding.progressCircular.max = timerLengthSeconds.toInt()
@@ -147,7 +147,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun onTimerFinish() {
         showPickers()
-        timerState = Stop
+        timerState = STOP
         setNewTimerLength()
         binding.progressCircular.progress = 0
         secondsRemaining = timerLengthSeconds
@@ -167,17 +167,17 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     private fun updateButtons() {
         binding.apply {
             when (timerState) {
-                Run -> {
+                RUN -> {
                     fabStart.isEnabled = false
                     fabPause.isEnabled = true
                     fabStop.isEnabled = true
                 }
-                Pause -> {
+                PAUSE -> {
                     fabStart.isEnabled = true
                     fabPause.isEnabled = false
                     fabStop.isEnabled = true
                 }
-                Stop -> {
+                STOP -> {
                     fabStart.isEnabled = true
                     fabPause.isEnabled = false
                     fabStop.isEnabled = false
