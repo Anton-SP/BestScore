@@ -6,20 +6,19 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.coroutineScope
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuretimer.TimerState.*
 import com.bestscore.featuretimer.databinding.FragmentTimerBinding
-import com.bestscore.utils.makeToast
-import kotlin.properties.Delegates
 
 class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     private val binding: FragmentTimerBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
     private lateinit var timer: CountDownTimer
-    private var timerState = STOP
-    private var timerLengthSeconds by Delegates.notNull<Long>()
-    private var secondsRemaining by Delegates.notNull<Long>()
+
+    private val timerViewModel: TimerViewModel by viewModels()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
@@ -31,21 +30,19 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(binding.root, savedInstanceState)
         initPickers()
-        initTimer()
         dialog?.setCanceledOnTouchOutside(false)
+
+        collectTimerData()
 
         binding.fabStart.setOnClickListener { view ->
             startTimer()
         }
 
         binding.fabPause.setOnClickListener { view ->
-            timer.cancel()
-            timerState = PAUSE
-            updateButtons()
+            onTimerPause()
         }
 
         binding.fabStop.setOnClickListener { view ->
-            timer.cancel()
             onTimerFinish()
         }
 
@@ -54,6 +51,64 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         }
 
     }
+
+    private fun startTimer() {
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            timerViewModel.apply {
+                var seconds = binding.minutesPicker.value * 60L + binding.secondsPicker.value
+                if (seconds != 0L) {
+                    timerStart(binding.minutesPicker.value * 60L + binding.secondsPicker.value)
+                }
+            }
+        }
+    }
+
+    private fun collectTimerData() {
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            timerViewModel.timerConfig().collect() { timerData ->
+                timerData?.let {
+                    updateButtons(timerData.state)
+                    updatePickers(timerData.state)
+
+                    when (timerData.state) {
+                        RUN -> {
+                            setTimer(timerData.secondsRemaining)
+                            if (binding.progressCircular.max == 0) {
+                                binding.progressCircular.max = timerData.secondsRemaining.toInt()
+                            }
+                        }
+                        STOP -> {
+                            if (timerData.secondsRemaining != 0L) {
+                                timer.cancel()
+                            }
+                            binding.progressCircular.max = 0
+                        }
+                        PAUSE -> {
+                            timer.cancel()
+                        }
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    private fun setTimer(seconds: Long) {
+        var secondsRemaining = seconds
+        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
+
+            override fun onFinish() {
+                onTimerFinish()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsRemaining = millisUntilFinished / 1000
+                updateCountdownUI(secondsRemaining)
+            }
+        }.start()
+    }
+
 
     private fun initPickers() {
         binding.minutesPicker.apply {
@@ -66,107 +121,68 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         }
     }
 
-    private fun initTimer() {
-        timerState = STOP
-        timerLengthSeconds = 0L
-        secondsRemaining = 0L
-        updateButtons()
-    }
 
-    private fun startTimer() {
+    private fun updatePickers(timerState: TimerState) {
         when (timerState) {
-            PAUSE -> {
-                timerState = RUN
-                updateButtons()
-                setNewTimerLength()
-                timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
-
-                    override fun onFinish() {
-                        onTimerFinish()
-                    }
-
-                    override fun onTick(millisUntilFinished: Long) {
-                        secondsRemaining = millisUntilFinished / 1000
-                        updateCountdownUI()
-                    }
-                }.start()
+            RUN, PAUSE -> {
+                binding.apply {
+                    minutesPicker.visibility = View.INVISIBLE
+                    secondsPicker.visibility = View.INVISIBLE
+                    timer.visibility = View.VISIBLE
+                    progressCircular.visibility = View.VISIBLE
+                }
             }
-
             STOP -> {
-                hidePickers()
-                timerState = RUN
-                secondsRemaining = binding.minutesPicker.value * 60L + binding.secondsPicker.value
-                updateButtons()
-                setNewTimerLength()
-                timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
-                    override fun onFinish() {
-                        onTimerFinish()
-                    }
-
-                    override fun onTick(millisUntilFinished: Long) {
-                        secondsRemaining = millisUntilFinished / 1000
-                        updateCountdownUI()
-                    }
-                }.start()
-            }
-            else -> {
-                makeToast("Неверное состояние таймера")
+                binding.apply {
+                    minutesPicker.visibility = View.VISIBLE
+                    secondsPicker.visibility = View.VISIBLE
+                    timer.visibility = View.INVISIBLE
+                    progressCircular.visibility = View.INVISIBLE
+                }
             }
         }
-
-    }
-
-    private fun hidePickers() {
-        binding.apply {
-            minutesPicker.visibility = View.INVISIBLE
-            secondsPicker.visibility = View.INVISIBLE
-            timer.visibility = View.VISIBLE
-            progressCircular.visibility = View.VISIBLE
-        }
-    }
-
-    private fun showPickers() {
-        binding.apply {
-            minutesPicker.visibility = View.VISIBLE
-            secondsPicker.visibility = View.VISIBLE
-            timer.visibility = View.INVISIBLE
-            progressCircular.visibility = View.INVISIBLE
-        }
-    }
-
-    private fun setNewTimerLength() {
-
-        if (timerState == STOP) {
-            timerLengthSeconds = 0
-        }
-        if (timerState == RUN) {
-            timerLengthSeconds = secondsRemaining
-        }
-        binding.progressCircular.max = timerLengthSeconds.toInt()
     }
 
     private fun onTimerFinish() {
-        showPickers()
-        timerState = STOP
-        setNewTimerLength()
-        binding.progressCircular.progress = 0
-        secondsRemaining = timerLengthSeconds
-        updateButtons()
-        updateCountdownUI()
+        timer.cancel()
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            timerViewModel.changeTimerState(
+                TimerData(STOP)
+            )
+            binding.progressCircular.apply {
+                progress = 0
+                max = 0
+            }
+        }
     }
 
-    private fun updateCountdownUI() {
+    private fun onTimerPause() {
+        timer.cancel()
+        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
+            timerViewModel.changeTimerState(
+                TimerData(
+                    PAUSE,
+                    binding.progressCircular.max.toLong(),
+                    (binding.progressCircular.max - binding.progressCircular.progress).toLong()
+                )
+            )
+        }
+    }
+
+    private fun updateCountdownUI(secondsRemaining: Long) {
         val minutesUntilFinished = secondsRemaining / 60
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         binding.timer.text =
             "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-        binding.progressCircular.progress = (timerLengthSeconds - secondsRemaining).toInt()
+        binding.progressCircular.apply {
+            progress = (max - secondsRemaining).toInt()
+        }
     }
 
-    private fun updateButtons() {
+    private fun updateButtons(state: TimerState) {
         binding.apply {
-            when (timerState) {
+            when (state) {
                 RUN -> {
                     fabStart.isEnabled = false
                     fabPause.isEnabled = true
@@ -187,7 +203,9 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     }
 
     override fun onDestroyView() {
-        if (secondsRemaining != 0L) timer.cancel()
+        if (binding.progressCircular.progress != 0) {
+            timer.cancel()
+        }
         super.onDestroyView()
     }
 }
