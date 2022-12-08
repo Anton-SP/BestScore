@@ -30,11 +30,11 @@ internal class CreateTemplateViewModel(
         viewModelScope.launch {
             val templateId = repository.create(template = template)
             if (templateId > 0) {
-                createTemplateState.emit(CreateTemplateState.Success)
+                createTemplateState.emit(CreateTemplateState.Success(template))
             } else {
                 createTemplateState.emit(CreateTemplateState.Error("Не удалось сохранить шаблон"))
             }
-            createTemplateState.emit(null)
+//            createTemplateState.emit(null) //TODO нужна ли эта строчка?
         }
     }
 
@@ -48,7 +48,7 @@ internal class CreateTemplateViewModel(
     }
 
     sealed class CreateTemplateState {
-        object Success : CreateTemplateState()
+        data class Success(val template: Template) : CreateTemplateState()
         data class Error(val message: String) : CreateTemplateState()
     }
 }

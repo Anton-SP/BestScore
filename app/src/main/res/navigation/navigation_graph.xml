@@ -33,7 +33,8 @@
         android:label="CreateTemplateFragment">
         <action
             android:id="@id/action_createTemplateFragment_to_playGameFragment"
-            app:destination="@id/playGameFragment" />
+            app:destination="@id/playGameFragment"
+            app:popUpTo="@id/startScreenFragment" />
     </fragment>
 
     <fragment
@@ -52,7 +53,7 @@
     <dialog
         android:id="@+id/timerDialogFragment"
         android:name="com.bestscore.featuretimer.TimerDialogFragment"
-        android:label="TimerDialogFragment"/>
+        android:label="TimerDialogFragment" />
 
     <fragment
         android:id="@+id/playGameFragment"

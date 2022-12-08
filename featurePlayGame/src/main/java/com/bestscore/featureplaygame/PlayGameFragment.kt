@@ -15,7 +15,7 @@ import com.bestscore.featureplaygame.databinding.FragmentPlayGameBinding
 import com.bestscore.utils.makeToast
 import kotlinx.coroutines.launch
 
-class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
+internal class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     private val binding: FragmentPlayGameBinding by viewBinding()
 

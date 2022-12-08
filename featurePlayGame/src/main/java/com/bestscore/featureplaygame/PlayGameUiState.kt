@@ -2,7 +2,7 @@ package com.bestscore.featureplaygame
 
 import com.bestscore.core.templates.Parameter
 
-sealed class PlayGameUiState {
+internal sealed class PlayGameUiState {
     object Started : PlayGameUiState()
     data class Success(
         val data: List<Parameter>,
