@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.TempTemplate
@@ -31,12 +32,12 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 //        }
     private var template = TempTemplate(
         1,
-        "asdfghj",
+        "Некая игра",
         Date(9999999),
         listOf(
-            Parameter(1, "asd", 100, true),
-            Parameter(2, "dsa", 200, false),
-            Parameter(3, "dsaewq", 0, true),
+            Parameter(1, "Здоровье", 100, true),
+            Parameter(2, "Золото", 200, false),
+            Parameter(3, "Урон", 0, true),
         )
     )
 
@@ -54,26 +55,24 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
                 }
             }
         }
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            playGameViewModel.setData(template.parameters) }
     }
 
-    private fun renderData(uiState: PlayGameUiState?) {
+    private fun renderData(uiState: PlayGameUiState) {
         when (uiState) {
             is PlayGameUiState.Error -> {
-                binding.loading.visibility = View.GONE
                 makeToast(uiState.err.message.toString())
             }
-            PlayGameUiState.Loading -> {
-                binding.loading.visibility = View.VISIBLE
+            PlayGameUiState.Started -> {
+                playGameViewModel.setData(template)
             }
             is PlayGameUiState.Success -> {
                 adapter?.submitList(uiState.data)
-                binding.loading.visibility = View.GONE
-            }
-            else -> {
-                adapter?.submitList(template.parameters)
-                binding.loading.visibility = View.GONE
+                if (uiState.calculatedValue == null) {
+                    binding.tvCalculatedScoreLabel.visibility = View.INVISIBLE
+                } else {
+                    binding.tvCalculatedScoreLabel.visibility = View.VISIBLE
+                    binding.tvCalculatedScore.text = uiState.calculatedValue.toString()
+                }
             }
         }
     }
@@ -89,6 +88,7 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
             adapter?.submitList(template.parameters)
         }
         binding.rvGameParameters.adapter = adapter
+        binding.rvGameParameters.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun onApplyButtonClicked(index: Int, changeValue: Int) {

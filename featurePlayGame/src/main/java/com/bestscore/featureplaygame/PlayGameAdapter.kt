@@ -18,9 +18,10 @@ internal class PlayGameAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParameterViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_game_parameter, parent, false)
         return ParameterViewHolder(
-            binding = ItemGameParameterBinding.inflate(layoutInflater),
+            binding = ItemGameParameterBinding.bind(view)
         )
     }
 
@@ -36,10 +37,12 @@ internal class PlayGameAdapter(
             with(binding) {
                 tvItemParameterName.text = parameter.parameterName
                 tvItemScore.text = parameter.inGameValues.last().toString()
-                val value = etItemScoreChange.text
                 btnItemApplyScoreChange.setOnClickListener {
+                    val value = etItemScoreChange.text
                     if (value.isNotBlank()) {
                         onApplyClickListener(index, value.toString().toInt())
+                        tvItemScore.text = parameter.inGameValues.last().toString()
+                        etItemScoreChange.setText("")
                     } else {
                         binding.root.makeSnackbar(EDIT_TEXT_IS_BLANK_ERR)
                     }
@@ -50,11 +53,11 @@ internal class PlayGameAdapter(
 
     class ParameterItemCallback : DiffUtil.ItemCallback<Parameter>() {
         override fun areItemsTheSame(oldItem: Parameter, newItem: Parameter): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Parameter, newItem: Parameter): Boolean {
-            return oldItem.inGameValues == newItem.inGameValues
+            return oldItem == newItem
         }
 
     }
