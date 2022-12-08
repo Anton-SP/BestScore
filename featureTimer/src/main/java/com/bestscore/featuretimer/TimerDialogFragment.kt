@@ -219,19 +219,19 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
 
     private fun vibrate() {
-        if (Build.VERSION.SDK_INT >= 31) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibrator =
                 requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibrator.defaultVibrator.vibrate(
                 VibrationEffect.createOneShot(
-                    200,
+                    VIBRATION_LENGTH,
                     VibrationEffect.DEFAULT_AMPLITUDE
                 )
             )
         } else {
             val vibrator =
                 requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            if (Build.VERSION.SDK_INT >= 26) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 vibrator.vibrate(
                     VibrationEffect.createOneShot(
                         VIBRATION_LENGTH,
