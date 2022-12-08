@@ -8,15 +8,14 @@ import kotlinx.coroutines.launch
 
 class TimerViewModel : ViewModel() {
 
-    private val timerConfig = MutableStateFlow(TimerData())
-    fun timerConfig(): StateFlow<TimerData?> = timerConfig
-
+    private val timerData = MutableStateFlow(TimerData())
+    fun timerConfig(): StateFlow<TimerData?> = timerData
 
     suspend fun timerStart(seconds: Long) {
         viewModelScope.launch {
-            if (timerConfig.value.state == TimerState.STOP) {
-                timerConfig.emit(
-                    timerConfig.value.copy(
+            if (timerData.value.state == TimerState.STOP) {
+                timerData.emit(
+                    timerData.value.copy(
                         TimerState.RUN,
                         seconds,
                         seconds
@@ -24,9 +23,9 @@ class TimerViewModel : ViewModel() {
                 )
             }
 
-            if (timerConfig.value.state == TimerState.PAUSE) {
-                timerConfig.emit(
-                    timerConfig.value.copy(
+            if (timerData.value.state == TimerState.PAUSE) {
+                timerData.emit(
+                    timerData.value.copy(
                         TimerState.RUN
                     )
                 )
@@ -37,7 +36,7 @@ class TimerViewModel : ViewModel() {
 
     suspend fun changeTimerState(timerData: TimerData) {
         viewModelScope.launch {
-            timerConfig.emit(timerData)
+            this@TimerViewModel.timerData.emit(timerData)
         }
     }
 }

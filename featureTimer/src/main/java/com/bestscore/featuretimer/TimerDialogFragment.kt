@@ -2,8 +2,9 @@ package com.bestscore.featuretimer
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.os.Bundle
-import android.os.CountDownTimer
+import android.content.Context
+import android.content.DialogInterface
+import android.os.*
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -13,10 +14,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuretimer.TimerState.*
 import com.bestscore.featuretimer.databinding.FragmentTimerBinding
 
+const val VIBRATION_LENGTH = 1000L
+
 class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     private val binding: FragmentTimerBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
     private lateinit var timer: CountDownTimer
+
 
     private val timerViewModel: TimerViewModel by viewModels()
 
@@ -32,7 +36,10 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         initPickers()
         dialog?.setCanceledOnTouchOutside(false)
 
+
         collectTimerData()
+
+        binding.progressCircular.isIndeterminate = false
 
         binding.fabStart.setOnClickListener { view ->
             startTimer()
@@ -57,7 +64,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
             timerViewModel.apply {
                 var seconds = binding.minutesPicker.value * 60L + binding.secondsPicker.value
                 if (seconds != 0L) {
-                    timerStart(binding.minutesPicker.value * 60L + binding.secondsPicker.value)
+                    timerStart(seconds+1)
                 }
             }
         }
@@ -100,8 +107,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
             override fun onFinish() {
                 onTimerFinish()
+                showTimerEndDialog()
             }
-
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
                 updateCountdownUI(secondsRemaining)
@@ -145,6 +152,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun onTimerFinish() {
         timer.cancel()
+        vibrate()
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             timerViewModel.changeTimerState(
                 TimerData(STOP)
@@ -208,4 +216,48 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         }
         super.onDestroyView()
     }
+
+
+    private fun vibrate() {
+        if (Build.VERSION.SDK_INT >= 31) {
+            val vibrator =
+                requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibrator.defaultVibrator.vibrate(
+                VibrationEffect.createOneShot(
+                    200,
+                    VibrationEffect.DEFAULT_AMPLITUDE
+                )
+            )
+        } else {
+            val vibrator =
+                requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            if (Build.VERSION.SDK_INT >= 26) {
+                vibrator.vibrate(
+                    VibrationEffect.createOneShot(
+                        VIBRATION_LENGTH,
+                        VibrationEffect.DEFAULT_AMPLITUDE
+                    )
+                )
+            } else vibrator.vibrate(VIBRATION_LENGTH)
+        }
+    }
+
+    private fun showTimerEndDialog() {
+        val dialogClose = { dialog: DialogInterface, wich: Int ->
+            dialog.cancel()
+        }
+        val builder = AlertDialog.Builder(requireContext())
+
+        with(builder)
+        {
+            setTitle(getString(R.string.alert_timer_title))
+            setMessage(getString(R.string.alert_timer_message))
+            setPositiveButton(
+                getString(R.string.alert_timer_positive_label),
+                DialogInterface.OnClickListener(function = dialogClose)
+            )
+            show()
+        }
+    }
+
 }
