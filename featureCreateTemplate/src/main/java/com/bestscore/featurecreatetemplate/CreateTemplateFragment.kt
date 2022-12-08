@@ -16,8 +16,6 @@ import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBin
 import com.bestscore.featurecreatetemplate.di.CreateTemplateComponentViewModel
 import com.bestscore.utils.currentDate
 import com.bestscore.utils.makeToast
-import kotlinx.coroutines.flow.collect
-import java.util.Date
 import javax.inject.Inject
 
 class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
@@ -76,8 +74,9 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
                 template = Template(
                     id = 0,
                     name = binding.edTemplateName.text.toString(),
-                    createdAt = currentDate()
-                ), parameters = adapter.getCurrentList()
+                    createdAt = currentDate(),
+                    parameters = adapter.getCurrentList()
+                )
             )
         }
     }
@@ -93,7 +92,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
     }
 
     private fun checkState(state: CreateTemplateViewModel.CreateTemplateState) {
-        when(state) {
+        when (state) {
             is CreateTemplateViewModel.CreateTemplateState.Error -> {
                 makeToast(state.message)
             }
