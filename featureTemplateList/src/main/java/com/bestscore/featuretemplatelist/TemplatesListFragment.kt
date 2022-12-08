@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bestscore.core.navigation.navigate
 import com.bestscore.core.swipe.SwipeController
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
@@ -36,6 +37,9 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
             },
             onClickDelete = {
                 makeToast("Заглушка на удаление")
+            },
+            onClickRoot = {
+                navigate(R.id.action_templatesListFragment_to_playGameFragment, it)
             }
         )
     }
@@ -49,10 +53,12 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecycler()
         collectFlow()
+        getTemplateList()
+    }
 
+    private fun getTemplateList() {
         templatesListViewModel.getTemplateList()
     }
 

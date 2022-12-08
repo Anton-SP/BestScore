@@ -27,9 +27,13 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        template = navigationData as Template?
+        getTemplateData()
         initViews()
         initViewModel()
+    }
+
+    private fun getTemplateData() {
+        template = navigationData as Template?
     }
 
     private fun initViewModel() {
