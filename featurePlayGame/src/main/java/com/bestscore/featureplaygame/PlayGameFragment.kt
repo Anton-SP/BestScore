@@ -23,15 +23,11 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     private var adapter: PlayGameAdapter? = null
 
-    private val template =
-        if (navigationData != null) {
-            navigationData as Template
-        } else {
-            null
-        }
+    private var template: Template? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        template = navigationData as Template?
         initViews()
         initViewModel()
     }
@@ -74,7 +70,7 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
     private fun initAdapter() {
         adapter = PlayGameAdapter(::onApplyButtonClicked)
         if (template != null) {
-            adapter?.submitList(template.parameters)
+            adapter?.submitList(template?.parameters)
         }
         binding.rvGameParameters.adapter = adapter
         binding.rvGameParameters.layoutManager = LinearLayoutManager(requireContext())
@@ -94,5 +90,6 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
     override fun onDestroyView() {
         super.onDestroyView()
         adapter = null
+        template = null
     }
 }

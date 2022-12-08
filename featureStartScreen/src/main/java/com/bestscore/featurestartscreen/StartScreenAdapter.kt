@@ -10,7 +10,8 @@ import com.bestscore.featurestartscreen.databinding.ItemLastTemplateBinding
 
 class StartScreenAdapter(
     private val onClickEdit: (Template) -> Unit,
-    private val onClickDelete: (Template) -> Unit
+    private val onClickDelete: (Template) -> Unit,
+    private val onClickRoot: (Template) -> Unit
 ) : ListAdapter<Template, StartScreenViewHolder>(DiffUtilsItemCallbackImpl()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartScreenViewHolder {
@@ -20,7 +21,8 @@ class StartScreenAdapter(
         return StartScreenViewHolder(
             binding = ItemLastTemplateBinding.bind(view),
             onClickEdit = onClickEdit,
-            onClickDelete = onClickDelete
+            onClickDelete = onClickDelete,
+            onClickRoot = onClickRoot
         )
     }
 
