@@ -3,7 +3,7 @@ package com.bestscore.featureplaygame
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bestscore.core.templates.Parameter
-import com.bestscore.core.templates.TempTemplate
+import com.bestscore.core.templates.Template
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,17 +15,19 @@ internal class PlayGameViewModel : ViewModel() {
 
     val uiState: StateFlow<PlayGameUiState> = _uiState
 
-    fun setData(data: TempTemplate) {
-        viewModelScope.launch {
-            try {
-                _uiState.emit(
-                    PlayGameUiState.Success(
-                        data = data.parameters,
-                        calculatedValue = calculateTotalScore(data.parameters)
+    fun setData(data: Template?) {
+        if (data != null) {
+            viewModelScope.launch {
+                try {
+                    _uiState.emit(
+                        PlayGameUiState.Success(
+                            data = data.parameters,
+                            calculatedValue = calculateTotalScore(data.parameters)
+                        )
                     )
-                )
-            } catch (e: Exception) {
-                _uiState.emit(PlayGameUiState.Error(e))
+                } catch (e: Exception) {
+                    _uiState.emit(PlayGameUiState.Error(e))
+                }
             }
         }
     }

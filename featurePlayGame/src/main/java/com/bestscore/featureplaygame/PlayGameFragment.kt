@@ -9,12 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bestscore.core.templates.Parameter
-import com.bestscore.core.templates.TempTemplate
+import com.bestscore.core.navigation.navigationData
+import com.bestscore.core.templates.Template
 import com.bestscore.featureplaygame.databinding.FragmentPlayGameBinding
 import com.bestscore.utils.makeToast
 import kotlinx.coroutines.launch
-import java.util.*
 
 class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
@@ -24,22 +23,12 @@ class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     private var adapter: PlayGameAdapter? = null
 
-    //    private var template =
-//        if (navigationData != null) {
-//            navigationData as Template
-//        } else {
-//            null
-//        }
-    private var template = TempTemplate(
-        1,
-        "Некая игра",
-        Date(9999999),
-        listOf(
-            Parameter(1, "Здоровье", 100, true),
-            Parameter(2, "Золото", 200, false),
-            Parameter(3, "Урон", 0, true),
-        )
-    )
+    private val template =
+        if (navigationData != null) {
+            navigationData as Template
+        } else {
+            null
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -18,4 +18,7 @@ interface TemplateDao {
 
     @Query("SELECT * FROM templates ORDER BY id DESC LIMIT 3")
     fun getLatestTemplateList(): List<TemplateEntity>
+
+    @Query("SELECT * FROM parameters WHERE template_id = :templateId")
+    fun getTemplateParameters(templateId:Long): List<ParameterEntity>
 }
