@@ -23,7 +23,7 @@ class StartScreenViewModel (
         stateFlow.value = TemplatesListState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
-            val templates = repository.getTemplates()
+            val templates = repository.getLatestTemplates()
             if (templates.isNotEmpty()) {
                 stateFlow.emit(
                     TemplatesListState.Success(data = templates)

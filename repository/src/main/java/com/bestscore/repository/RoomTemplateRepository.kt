@@ -24,4 +24,9 @@ class RoomTemplateRepository @Inject constructor(
     override suspend fun getTemplates(): List<Template> {
         return dao.getTemplateList().map { entity -> entity.toTemplate() }
     }
+
+    override suspend fun getLatestTemplates(): List<Template> {
+       return dao.getLatestTemplateList().map { entity -> entity.toTemplate() }
+    }
+
 }

@@ -69,9 +69,7 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
                 navigate(R.id.action_startScreenFragment_to_diceDialogFragment)
             }
             fabTimer.setOnClickListener {
-//                makeToast("Заглушка на таймер")
-                //FIXME - временно даю переход на игровой фрагмент
-                navigate(R.id.action_startScreenFragment_to_playGameFragment)
+                navigate(R.id.action_startScreenFragment_to_timerDialogFragment)
             }
         }
     }

@@ -22,6 +22,7 @@ object Modules {
     const val featureStartScreen = ":featureStartScreen"
     const val featureTemplateList = ":featureTemplateList"
     const val featureDice = ":featureDice"
+    const val featureTimer = ":featureTimer"
     const val utils = ":utils"
     const val featurePlayGame = ":featurePlayGame"
 }
