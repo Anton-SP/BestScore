@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -16,14 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
 import com.bestscore.core.swipe.SwipeController
+import com.bestscore.core.templates.ui.BaseTemplateListFragment
+import com.bestscore.core.templates.ui.TemplateDeleteState
+import com.bestscore.core.templates.ui.TemplateListState
 import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
 import com.bestscore.featurestartscreen.di.StartScreenComponentViewModel
 import com.bestscore.utils.makeToast
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
+class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_screen) {
 
     @Inject
     internal lateinit var startScreenViewModelFactory: dagger.Lazy<StartScreenViewModel.Factory>
@@ -111,22 +112,22 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         }
     }
 
-    private fun checkListState(state: StartScreenViewModel.TemplatesListState) {
+    private fun checkListState(state: TemplateListState) {
         when (state) {
-            is StartScreenViewModel.TemplatesListState.Loading -> {
+            is TemplateListState.Loading -> {
                 with(binding) {
                     rvLastTemplates.isVisible = false
                     progress.isVisible = true
                 }
             }
-            is StartScreenViewModel.TemplatesListState.Success -> {
+            is TemplateListState.Success -> {
                 with(binding) {
                     progress.isVisible = false
                     rvLastTemplates.isVisible = true
                 }
                 adapter.submitList(state.data)
             }
-            is StartScreenViewModel.TemplatesListState.Error -> {
+            is TemplateListState.Error -> {
                 with(binding) {
                     progress.isVisible = false
                     rvLastTemplates.isVisible = true
@@ -136,19 +137,19 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
         }
     }
 
-    private fun checkDeleteState(state: StartScreenViewModel.DeleteState) {
+    private fun checkDeleteState(state: TemplateDeleteState) {
         when(state) {
-            is StartScreenViewModel.DeleteState.Success -> {
+            is TemplateDeleteState.Success -> {
                 makeToast(text = getString(R.string.delete_template_successfully))
                 startScreenViewModel.notifiedAboutDeleteTemplate()
                 startScreenViewModel.getTemplateList()
             }
 
-            is StartScreenViewModel.DeleteState.Error -> {
+            is TemplateDeleteState.Error -> {
                 makeToast(text = state.message)
                 startScreenViewModel.notifiedAboutDeleteTemplate()
             }
-            is StartScreenViewModel.DeleteState.Nothing -> {}
+            is TemplateDeleteState.Nothing -> {}
         }
     }
 

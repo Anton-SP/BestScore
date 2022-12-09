@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -15,13 +14,16 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.swipe.SwipeController
+import com.bestscore.core.templates.ui.BaseTemplateListFragment
+import com.bestscore.core.templates.ui.TemplateDeleteState
+import com.bestscore.core.templates.ui.TemplateListState
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
 import com.bestscore.utils.makeToast
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
+class TemplatesListFragment : BaseTemplateListFragment(R.layout.fragment_templates_list) {
 
     @Inject
     internal lateinit var templatesListViewModelFactory: dagger.Lazy<TemplatesListViewModel.Factory>
@@ -77,8 +79,8 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
     private fun collectListFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                templatesListViewModel.getFlow().collect { state ->
-                    checkState(state)
+                templatesListViewModel.getListFlow().collect { state ->
+                    checkListState(state)
                 }
             }
         }
@@ -94,22 +96,22 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
         }
     }
 
-    private fun checkState(state: TemplatesListViewModel.TemplatesListState) {
+    private fun checkListState(state: TemplateListState) {
         when (state) {
-            is TemplatesListViewModel.TemplatesListState.Loading -> {
+            is TemplateListState.Loading -> {
                 with(binding) {
                     rvTemplates.isVisible = false
                     progress.isVisible = true
                 }
             }
-            is TemplatesListViewModel.TemplatesListState.Success -> {
+            is TemplateListState.Success -> {
                 with(binding) {
                     progress.isVisible = false
                     rvTemplates.isVisible = true
                 }
                 adapter.submitList(state.data)
             }
-            is TemplatesListViewModel.TemplatesListState.Error -> {
+            is TemplateListState.Error -> {
                 with(binding) {
                     progress.isVisible = false
                     rvTemplates.isVisible = true
@@ -119,19 +121,19 @@ class TemplatesListFragment : Fragment(R.layout.fragment_templates_list) {
         }
     }
 
-    private fun checkDeleteState(state: TemplatesListViewModel.DeleteState) {
+    private fun checkDeleteState(state: TemplateDeleteState) {
         when(state) {
-            is TemplatesListViewModel.DeleteState.Success -> {
+            is TemplateDeleteState.Success -> {
                 makeToast(text = getString(R.string.delete_template_successfully))
                 templatesListViewModel.notifiedAboutDeleteTemplate()
                 templatesListViewModel.getTemplateList()
             }
 
-            is TemplatesListViewModel.DeleteState.Error -> {
+            is TemplateDeleteState.Error -> {
                 makeToast(text = state.message)
                 templatesListViewModel.notifiedAboutDeleteTemplate()
             }
-            is TemplatesListViewModel.DeleteState.Nothing -> {}
+            is TemplateDeleteState.Nothing -> {}
         }
     }
 }
