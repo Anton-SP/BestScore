@@ -16,6 +16,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.swipe.SwipeController
 import com.bestscore.core.templates.ui.BaseTemplateListFragment
 import com.bestscore.core.templates.ui.TemplateDeleteState
+import com.bestscore.core.templates.ui.TemplateListAdapter
 import com.bestscore.core.templates.ui.TemplateListState
 import com.bestscore.featuretemplatelist.databinding.FragmentTemplatesListBinding
 import com.bestscore.featuretemplatelist.di.TemplatesListComponentViewModel
@@ -34,8 +35,8 @@ class TemplatesListFragment : BaseTemplateListFragment(R.layout.fragment_templat
 
     private val binding: FragmentTemplatesListBinding by viewBinding()
 
-    private val adapter: TemplatesListAdapter by lazy {
-        TemplatesListAdapter(
+    private val adapter: TemplateListAdapter by lazy {
+        TemplateListAdapter(
             onClickEdit = {
                 makeToast("Переход на редатирование")
             },

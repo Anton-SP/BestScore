@@ -1,30 +1,30 @@
-package com.bestscore.featurestartscreen
+package com.bestscore.core.templates.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import com.bestscore.core.templates.Template
 import androidx.recyclerview.widget.DiffUtil
-import com.bestscore.featurestartscreen.databinding.ItemLastTemplateBinding
+import androidx.recyclerview.widget.ListAdapter
+import com.bestscore.core.R
+import com.bestscore.core.databinding.ItemTemplateBinding
+import com.bestscore.core.templates.Template
 
-
-class StartScreenAdapter(
+class TemplateListAdapter(
     private val onClickEdit: (Template) -> Unit,
     private val onClickDelete: (Template) -> Unit
-) : ListAdapter<Template, StartScreenViewHolder>(DiffUtilsItemCallbackImpl()) {
+) : ListAdapter<Template, TemplateViewHolder>(DiffUtilsItemCallbackImpl()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StartScreenViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemplateViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_last_template, parent, false)
+            .inflate(R.layout.item_template, parent, false)
 
-        return StartScreenViewHolder(
-            binding = ItemLastTemplateBinding.bind(view),
+        return TemplateViewHolder(
+            binding = ItemTemplateBinding.bind(view),
             onClickEdit = onClickEdit,
             onClickDelete = onClickDelete
         )
     }
 
-    override fun onBindViewHolder(holder: StartScreenViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TemplateViewHolder, position: Int) {
         holder.bind(template = currentList[position])
     }
 }

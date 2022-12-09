@@ -17,6 +17,7 @@ import com.bestscore.core.navigation.navigate
 import com.bestscore.core.swipe.SwipeController
 import com.bestscore.core.templates.ui.BaseTemplateListFragment
 import com.bestscore.core.templates.ui.TemplateDeleteState
+import com.bestscore.core.templates.ui.TemplateListAdapter
 import com.bestscore.core.templates.ui.TemplateListState
 import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
 import com.bestscore.featurestartscreen.di.StartScreenComponentViewModel
@@ -35,8 +36,8 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
 
     private val binding: FragmentStartScreenBinding by viewBinding()
 
-    private val adapter: StartScreenAdapter by lazy {
-        StartScreenAdapter(
+    private val adapter: TemplateListAdapter by lazy {
+        TemplateListAdapter(
             onClickEdit = {
                 makeToast("Переход на редатирование")
             },
