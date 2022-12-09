@@ -25,6 +25,7 @@ class ParameterViewHolder(
             edStartScore.addTextChangedListener {
                 if(it.toString().isNotBlank()) {
                     parameter.startValue = it.toString().toInt()
+                    parameter.inGameValues[0] = it.toString().toInt()
                 }
             }
 

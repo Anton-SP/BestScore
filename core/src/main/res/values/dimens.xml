@@ -8,4 +8,18 @@
     <dimen name="text_size_name">20sp</dimen>
     <dimen name="fab_size">112dp</dimen>
     <dimen name="margin_bottom">24dp</dimen>
+    <!--  TextSize  -->
+    <dimen name="label_text_textSize">20sp</dimen>
+    <dimen name="common_text_textSize">16sp</dimen>
+
+    <!--  Padding  -->
+    <dimen name="common_padding">8dp</dimen>
+
+    <!--  Margin  -->
+    <dimen name="common_margin">8dp</dimen>
+
+    <!--  ItemCardDimens  -->
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+
 </resources>

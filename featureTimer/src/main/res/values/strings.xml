@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="zero_countdown_timer">00:00</string>
+    <string name="alert_timer_title">Таймер</string>
+    <string name="alert_timer_message">Время вышло</string>
+    <string name="alert_timer_positive_label">OK</string>
+</resources>

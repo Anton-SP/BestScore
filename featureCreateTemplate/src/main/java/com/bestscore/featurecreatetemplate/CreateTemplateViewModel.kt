@@ -18,8 +18,8 @@ internal class CreateTemplateViewModel(
     private val createTemplateState = MutableStateFlow<CreateTemplateState?>(null)
     fun getState(): StateFlow<CreateTemplateState?> = createTemplateState
 
-    fun save(template: Template, parameters: List<Parameter>) {
-        val validationResult = Validator().validate(template, parameters)
+    fun save(template: Template) {
+        val validationResult = Validator().validate(template, template.parameters)
 
         if (validationResult.success.not()) {
             createTemplateState.value = CreateTemplateState.Error(validationResult.message)
@@ -28,13 +28,13 @@ internal class CreateTemplateViewModel(
         }
 
         viewModelScope.launch {
-            val templateId = repository.create(template = template, parameters = parameters)
+            val templateId = repository.create(template = template)
             if (templateId > 0) {
-                createTemplateState.emit(CreateTemplateState.Success)
+                createTemplateState.emit(CreateTemplateState.Success(template))
             } else {
                 createTemplateState.emit(CreateTemplateState.Error("Не удалось сохранить шаблон"))
             }
-            createTemplateState.emit(null)
+//            createTemplateState.emit(null) //TODO нужна ли эта строчка?
         }
     }
 
@@ -48,7 +48,7 @@ internal class CreateTemplateViewModel(
     }
 
     sealed class CreateTemplateState {
-        object Success : CreateTemplateState()
+        data class Success(val template: Template) : CreateTemplateState()
         data class Error(val message: String) : CreateTemplateState()
     }
 }

@@ -10,9 +10,9 @@ import com.bestscore.core.templates.Template
 
 class TemplateListAdapter(
     private val onClickEdit: (Template) -> Unit,
-    private val onClickDelete: (Template) -> Unit
+    private val onClickDelete: (Template) -> Unit,
+    private val onClickRoot: (Template) -> Unit
 ) : ListAdapter<Template, TemplateViewHolder>(DiffUtilsItemCallbackImpl()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TemplateViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_template, parent, false)
@@ -20,7 +20,8 @@ class TemplateListAdapter(
         return TemplateViewHolder(
             binding = ItemTemplateBinding.bind(view),
             onClickEdit = onClickEdit,
-            onClickDelete = onClickDelete
+            onClickDelete = onClickDelete,
+            onClickRoot = onClickRoot
         )
     }
 

@@ -8,6 +8,7 @@ data class Parameter(
     var id: Long,
     var parameterName: String,
     var startValue: Int,
-    var takeWhenCalc: Boolean
+    var takeWhenCalc: Boolean,
+    var inGameValues: MutableList<Int> = mutableListOf(startValue)
 ) : Parcelable
 

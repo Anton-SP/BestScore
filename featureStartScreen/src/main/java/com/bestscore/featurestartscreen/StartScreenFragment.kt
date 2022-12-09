@@ -43,6 +43,9 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
             },
             onClickDelete = { template ->
                 startScreenViewModel.deleteTemplate(template)
+            },
+            onClickRoot = {
+                navigate(R.id.action_startScreenFragment_to_playGameFragment, it)
             }
         )
     }
@@ -56,13 +59,15 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecycler()
+
         collectListFlow()
         collectDeleteFlow()
+        getTemplateList()
+        initButtonsAndFabs()
+    }
 
-        startScreenViewModel.getTemplateList()
-
+    private fun initButtonsAndFabs() {
         with(binding) {
             buttonCreateTemplate.setOnClickListener {
                 navigate(R.id.action_startScreenFragment_to_createTemplateFragment)
@@ -74,9 +79,13 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
                 navigate(R.id.action_startScreenFragment_to_diceDialogFragment)
             }
             fabTimer.setOnClickListener {
-                makeToast("Заглушка на таймер")
+                navigate(R.id.action_startScreenFragment_to_timerDialogFragment)
             }
         }
+    }
+
+    private fun getTemplateList() {
+        startScreenViewModel.getTemplateList()
     }
 
     private fun initRecycler() {

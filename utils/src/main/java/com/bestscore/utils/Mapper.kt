@@ -19,8 +19,18 @@ fun Template.toEntity() = TemplateEntity(
     createdAt = createdAt
 )
 
-fun TemplateEntity.toTemplate() = Template (
+fun TemplateEntity.toTemplate(parameters: List<Parameter>) = Template (
     id = id,
     name = name,
-    createdAt = createdAt
+    createdAt = createdAt,
+    parameters = parameters
 )
+
+fun List<ParameterEntity>.toParameters() = this.map {
+    Parameter(
+        id = it.id,
+        parameterName = it.parameterName,
+        startValue = it.startValue,
+        takeWhenCalc = it.takeWhenCalc
+    )
+}

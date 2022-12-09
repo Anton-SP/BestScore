@@ -26,4 +26,6 @@ interface TemplateDao {
     companion object {
         const val LATEST_TEMPLATES_LIMIT = 3
     }
+    @Query("SELECT * FROM parameters WHERE template_id = :templateId")
+    fun getTemplateParameters(templateId:Long): List<ParameterEntity>
 }

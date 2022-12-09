@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bestscore.core.navigation.navigate
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
 import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBinding
@@ -67,15 +68,17 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
 
         binding.fabPlay.setOnClickListener {
-            binding.rvParams.adapter
-
-            createTemplateViewModel.save(
-                template = Template(
-                    id = 0,
-                    name = binding.edTemplateName.text.toString(),
-                    createdAt = currentDate()
-                ), parameters = adapter.getCurrentList()
+//            binding.rvParams.adapter TODO нужна ли эта строчка?
+            val template = Template(
+                id = 0,
+                name = binding.edTemplateName.text.toString(),
+                createdAt = currentDate(),
+                parameters = adapter.getCurrentList()
             )
+            createTemplateViewModel.save(
+                template = template
+            )
+
         }
     }
 
@@ -92,12 +95,13 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
     }
 
     private fun checkState(state: CreateTemplateViewModel.CreateTemplateState) {
-        when(state) {
+        when (state) {
             is CreateTemplateViewModel.CreateTemplateState.Error -> {
                 makeToast(state.message)
             }
             is CreateTemplateViewModel.CreateTemplateState.Success -> {
                 makeToast("Шаблон успешно сохранен")
+                navigate(R.id.action_createTemplateFragment_to_playGameFragment, state.template)
             }
         }
     }

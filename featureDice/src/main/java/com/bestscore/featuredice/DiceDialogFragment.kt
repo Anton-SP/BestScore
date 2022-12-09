@@ -30,6 +30,8 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(binding.root, savedInstanceState)
 
+        dialog?.setCanceledOnTouchOutside(false)
+
         selectDiceMode(binding.tvDiceMode1d6)
 
         initDiceModeViews()

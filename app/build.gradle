@@ -26,7 +26,9 @@ dependencies {
     implementation project(Modules.featureStartScreen)
     implementation project(Modules.featureTemplateList)
     implementation project(Modules.featureDice)
+    implementation project(Modules.featureTimer)
     implementation project(Modules.utils)
+    implementation project(Modules.featurePlayGame)
 
     //AndroidX
     implementation Design.appcompat

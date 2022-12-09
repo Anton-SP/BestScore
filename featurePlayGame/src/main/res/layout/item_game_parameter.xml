@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/item_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_padding">
+
+        <TextView
+            android:id="@+id/tv_item_parameter_name"
+            style="@style/common_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Player 1" />
+
+        <TextView
+            android:id="@+id/tv_item_score_label"
+            style="@style/common_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_score_label_text"
+            app:layout_constraintBottom_toBottomOf="@id/btn_item_apply_score_change"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_score"
+            style="@style/common_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
+            app:layout_constraintStart_toEndOf="@id/tv_item_score_label"
+            tools:text="250" />
+
+        <TextView
+            android:id="@+id/tv_item_score_change_label"
+            style="@style/common_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_score_change_label_text"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
+            app:layout_constraintEnd_toStartOf="@id/et_item_score_change"
+            app:layout_constraintStart_toEndOf="@id/tv_item_score"/>
+
+        <EditText
+            android:id="@+id/et_item_score_change"
+            style="@style/common_text"
+            android:layout_width="@dimen/edit_text_item_score_change_width"
+            android:layout_height="wrap_content"
+            android:inputType="number|numberSigned"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
+            app:layout_constraintEnd_toStartOf="@id/btn_item_apply_score_change" />
+
+
+        <Button
+            android:id="@+id/btn_item_apply_score_change"
+            android:layout_width="@dimen/button_item_apply_score_change_width"
+            android:layout_height="wrap_content"
+            android:text="@string/item_apply_score_change_btn_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_parameter_name" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

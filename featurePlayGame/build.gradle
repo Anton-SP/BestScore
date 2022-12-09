@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    namespace 'com.bestscore.featureplaygame'
+}
+
+dependencies {
+
+    //Modules
+    implementation project(Modules.core)
+    implementation project(Modules.repository)
+    implementation project(Modules.utils)
+
+    //AndroidX
+    implementation Design.appcompat
+
+    //Design
+    implementation Design.material
+
+    //Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    implementation Kotlin.coroutinesCore
+    implementation Kotlin.coroutinesAndroid
+
+    //Dagger2
+    implementation Dagger.dagger
+    kapt Dagger.daggerCompiler
+
+    //ViewBinding
+    implementation ViewBinding.viewBinding
+
+    //Navigation
+    implementation NavigationComponent.navigationFragment
+    implementation NavigationComponent.navigationUi
+
+    //Fragment
+    implementation Fragment.fragmentKtx
+
+    //Tests
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.testExt
+    androidTestImplementation TestImpl.espresso
+}
