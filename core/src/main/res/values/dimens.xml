@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="start_screen_icon_max_size">72dp</dimen>
-    <dimen name="card_elevation">8dp</dimen>
     <dimen name="card_corner">4dp</dimen>
     <dimen name="min_height">48dp</dimen>
     <dimen name="padding_common">8dp</dimen>

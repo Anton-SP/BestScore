@@ -9,6 +9,7 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
+import com.bestscore.core.navigation.navigationData
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
 import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBinding
@@ -37,6 +38,9 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
     }
 
+    private var isEdit = false
+    private var editableTemplate: Template? = null
+
     override fun onAttach(context: Context) {
         ViewModelProvider(this)
             .get<CreateTemplateComponentViewModel>()
@@ -55,6 +59,16 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         initFab()
         collectState()
 
+        arguments?.let { args ->
+            isEdit = args.getBoolean("is_edit", false)
+            editableTemplate = args.getParcelable("template") as Template?
+
+            editableTemplate?.let { template ->
+                binding.edTemplateName.setText(template.name)
+                adapter.updateParameters(template.parameters)
+            }
+        }
+
     }
 
     private fun initRecycler() {
@@ -68,16 +82,24 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
 
         binding.fabPlay.setOnClickListener {
-//            binding.rvParams.adapter TODO нужна ли эта строчка?
-            val template = Template(
-                id = 0,
-                name = binding.edTemplateName.text.toString(),
-                createdAt = currentDate(),
-                parameters = adapter.getCurrentList()
-            )
-            createTemplateViewModel.save(
-                template = template
-            )
+            if (editableTemplate != null && isEdit) {
+                val copy = editableTemplate!!.copy(
+                    name = binding.edTemplateName.text.toString(),
+                    parameters = adapter.getCurrentList()
+                )
+                createTemplateViewModel.save(copy)
+            } else {
+                val template = Template(
+                    id = 0,
+                    name = binding.edTemplateName.text.toString(),
+                    createdAt = currentDate(),
+                    parameters = adapter.getCurrentList()
+                )
+                createTemplateViewModel.save(
+                    template = template
+                )
+            }
+
 
         }
     }

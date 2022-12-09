@@ -3,6 +3,7 @@ package com.bestscore.featuretemplatelist
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -38,8 +40,15 @@ class TemplatesListFragment : BaseTemplateListFragment(R.layout.fragment_templat
 
     private val adapter: TemplateListAdapter by lazy {
         TemplateListAdapter(
-            onClickEdit = {
-                makeToast("Переход на редатирование")
+            onClickEdit = { template ->
+                val bundle = bundleOf(
+                    "template" to template,
+                    "is_edit" to true
+                )
+                findNavController().navigate(
+                   R.id.action_templatesListFragment_to_createTemplateFragment,
+                    bundle
+                )
             },
             onClickDelete = { template ->
                 templatesListViewModel.deleteTemplate(template)

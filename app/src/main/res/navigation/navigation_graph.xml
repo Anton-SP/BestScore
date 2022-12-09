@@ -44,6 +44,9 @@
         <action
             android:id="@id/action_templatesListFragment_to_playGameFragment"
             app:destination="@id/playGameFragment" />
+        <action
+            android:id="@+id/action_templatesListFragment_to_createTemplateFragment"
+            app:destination="@id/createTemplateFragment" />
     </fragment>
 
     <dialog

@@ -1,5 +1,6 @@
 package com.bestscore.repository
 
+import com.bestscore.core.dispatchers.DispatchersProvider
 import com.bestscore.core.templates.Template
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.database.templates.TemplateDao
@@ -20,8 +21,7 @@ class RoomTemplateRepository @Inject constructor(
             return templateId
         }
 
-    override suspend fun getTemplates(): List<Template> = withContext(dispatchersProvider.io()) {
-        return@withContext dao.getTemplateList().map { entity -> entity.toTemplate() }
+        return -1
     }
 
     override suspend fun getTemplates(): List<Template> {
@@ -38,5 +38,9 @@ class RoomTemplateRepository @Inject constructor(
                 dao.getTemplateParameters(entity.id).toParameters()
             )
         }
+    }
+
+    override suspend fun delete(template: Template): Int {
+        return dao.delete(template.toEntity())
     }
 }
