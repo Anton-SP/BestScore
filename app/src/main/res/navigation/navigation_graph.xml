@@ -2,6 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
+
     app:startDestination="@id/startScreenFragment">
 
     <fragment
@@ -15,20 +16,36 @@
             android:id="@id/action_startScreenFragment_to_templatesListFragment"
             app:destination="@id/templatesListFragment" />
         <action
-            android:id="@+id/action_startScreenFragment_to_diceDialogFragment"
+            android:id="@id/action_startScreenFragment_to_diceDialogFragment"
             app:destination="@id/diceDialogFragment" />
         <action
-            android:id="@+id/action_startScreenFragment_to_timerDialogFragment"
+            android:id="@id/action_startScreenFragment_to_timerDialogFragment"
             app:destination="@id/timerDialogFragment" />
+        <action
+            android:id="@id/action_startScreenFragment_to_playGameFragment"
+            app:destination="@id/playGameFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/createTemplateFragment"
         android:name="com.bestscore.featurecreatetemplate.CreateTemplateFragment"
-        android:label="CreateTemplateFragment" />
+        android:label="CreateTemplateFragment">
+        <action
+            android:id="@id/action_createTemplateFragment_to_playGameFragment"
+            app:destination="@id/playGameFragment"
+            app:popUpTo="@id/startScreenFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/templatesListFragment"
         android:name="com.bestscore.featuretemplatelist.TemplatesListFragment"
-        android:label="TemplatesListFragment" />
+        android:label="TemplatesListFragment">
+        <action
+            android:id="@id/action_templatesListFragment_to_playGameFragment"
+            app:destination="@id/playGameFragment" />
+    </fragment>
+
     <dialog
         android:id="@+id/diceDialogFragment"
         android:name="com.bestscore.featuredice.DiceDialogFragment"
@@ -36,5 +53,11 @@
     <dialog
         android:id="@+id/timerDialogFragment"
         android:name="com.bestscore.featuretimer.TimerDialogFragment"
-        android:label="TimerDialogFragment"/>
+        android:label="TimerDialogFragment" />
+
+    <fragment
+        android:id="@+id/playGameFragment"
+        android:name="com.bestscore.featureplaygame.PlayGameFragment"
+        android:label="PlayGameFragment" />
+
 </navigation>

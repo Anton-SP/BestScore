@@ -8,7 +8,8 @@ import com.bestscore.utils.formatDate
 class TemplatesListViewHolder(
     private val binding: ItemTemplateBinding,
     private val onClickEdit: (Template) -> Unit,
-    private val onClickDelete: (Template) -> Unit
+    private val onClickDelete: (Template) -> Unit,
+    private val onClickRoot: (Template) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(template: Template) {
@@ -22,6 +23,10 @@ class TemplatesListViewHolder(
 
             btnDelete.setOnClickListener {
                 onClickDelete.invoke(template)
+            }
+
+            root.setOnClickListener {
+                onClickRoot(template)
             }
         }
     }

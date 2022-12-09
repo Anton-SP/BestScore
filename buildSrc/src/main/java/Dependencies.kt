@@ -24,6 +24,7 @@ object Modules {
     const val featureDice = ":featureDice"
     const val featureTimer = ":featureTimer"
     const val utils = ":utils"
+    const val featurePlayGame = ":featurePlayGame"
 }
 
 object Versions {

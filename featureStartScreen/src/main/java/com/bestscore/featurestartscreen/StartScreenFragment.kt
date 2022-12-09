@@ -38,6 +38,9 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
             },
             onClickDelete = {
                 makeToast("Заглушка на удаление")
+            },
+            onClickRoot = {
+                navigate(R.id.action_startScreenFragment_to_playGameFragment, it)
             }
         )
     }
@@ -52,12 +55,13 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecycler()
         collectFlow()
+        getTemplateList()
+        initButtonsAndFabs()
+    }
 
-        startScreenViewModel.getTemplateList()
-
+    private fun initButtonsAndFabs() {
         with(binding) {
             buttonCreateTemplate.setOnClickListener {
                 navigate(R.id.action_startScreenFragment_to_createTemplateFragment)
@@ -72,6 +76,10 @@ class StartScreenFragment : Fragment(R.layout.fragment_start_screen) {
                 navigate(R.id.action_startScreenFragment_to_timerDialogFragment)
             }
         }
+    }
+
+    private fun getTemplateList() {
+        startScreenViewModel.getTemplateList()
     }
 
     private fun initRecycler() {

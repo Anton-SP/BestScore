@@ -3,5 +3,6 @@
     <item name="action_startScreenFragment_to_createTemplateFragment" type="id"/>
     <item name="action_startScreenFragment_to_templatesListFragment" type="id"/>
     <item name="action_startScreenFragment_to_diceDialogFragment" type="id" />
+    <item name="action_startScreenFragment_to_playGameFragment" type="id" />
     <item name="action_startScreenFragment_to_timerDialogFragment" type="id"/>
 </resources>
