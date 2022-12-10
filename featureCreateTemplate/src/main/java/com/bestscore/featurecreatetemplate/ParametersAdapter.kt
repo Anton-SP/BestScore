@@ -38,4 +38,10 @@ class ParametersAdapter(
     }
 
     fun getCurrentList(): List<Parameter> = parameters
+
+    fun updateParameters(newParameters: List<Parameter>) {
+        parameters.clear()
+        parameters.addAll(newParameters)
+        notifyDataSetChanged()
+    }
 }

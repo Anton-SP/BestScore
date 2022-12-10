@@ -1,12 +1,13 @@
-package com.bestscore.featurestartscreen
+package com.bestscore.core.templates.ui
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bestscore.core.databinding.ItemTemplateBinding
 import com.bestscore.core.templates.Template
-import com.bestscore.featurestartscreen.databinding.ItemLastTemplateBinding
-import com.bestscore.utils.formatDate
+import java.text.SimpleDateFormat
+import java.util.*
 
-class StartScreenViewHolder(
-    private val binding: ItemLastTemplateBinding,
+class TemplateViewHolder(
+    val binding: ItemTemplateBinding,
     private val onClickEdit: (Template) -> Unit,
     private val onClickDelete: (Template) -> Unit,
     private val onClickRoot: (Template) -> Unit
@@ -16,13 +17,6 @@ class StartScreenViewHolder(
             tvTemplateName.text = template.name
             tvTemplateCreatedAt.text = formatDate(template.createdAt)
 
-            this.root.setOnClickListener {
-                onClickRoot(template)
-                if (this.root.scrollX != 0) {
-                    this.root.scrollTo(0, 0)
-                }
-            }
-
             btnEdit.setOnClickListener {
                 onClickEdit.invoke(template)
             }
@@ -30,10 +24,15 @@ class StartScreenViewHolder(
             btnDelete.setOnClickListener {
                 onClickDelete.invoke(template)
             }
+
+            root.setOnClickListener {
+                onClickRoot.invoke(template)
+            }
         }
     }
 
-    fun updateView() {
-        binding.root?.scrollTo(0, 0)
+    private fun formatDate(date: Date): String {
+        val df = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        return df.format(date)
     }
 }

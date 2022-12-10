@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_edit_description">редактировать</string>
+    <string name="button_delete_description">удалить</string>
+    <string name="delete_template_successfully">Шаблон успешно удален</string>
+</resources>

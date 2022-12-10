@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.get
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
+import com.bestscore.core.navigation.navigationData
 import com.bestscore.core.templates.Parameter
 import com.bestscore.core.templates.Template
 import com.bestscore.featurecreatetemplate.databinding.FragmentCreateTemplateBinding
 import com.bestscore.featurecreatetemplate.di.CreateTemplateComponentViewModel
 import com.bestscore.utils.currentDate
 import com.bestscore.utils.makeToast
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
@@ -38,6 +38,8 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
     }
 
+    private var editableTemplate: Template? = null
+
     override fun onAttach(context: Context) {
         ViewModelProvider(this)
             .get<CreateTemplateComponentViewModel>()
@@ -52,10 +54,10 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
             addParameter()
         }
 
+        checkIsEditTemplate()
         initRecycler()
         initFab()
         collectState()
-
     }
 
     private fun initRecycler() {
@@ -69,25 +71,42 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
 
         binding.fabPlay.setOnClickListener {
-//            binding.rvParams.adapter TODO нужна ли эта строчка?
-            val template = Template(
-                id = 0,
-                name = binding.edTemplateName.text.toString(),
-                createdAt = currentDate(),
-                parameters = adapter.getCurrentList()
-            )
-            createTemplateViewModel.save(
-                template = template
-            )
+            if (editableTemplate != null) {
+                val copy = editableTemplate!!.copy(
+                    name = binding.edTemplateName.text.toString(),
+                    createdAt = currentDate(),
+                    parameters = adapter.getCurrentList(),
+                )
+                createTemplateViewModel.save(copy)
+            } else {
+                val template = Template(
+                    id = 0,
+                    name = binding.edTemplateName.text.toString(),
+                    createdAt = currentDate(),
+                    parameters = adapter.getCurrentList()
+                )
+                createTemplateViewModel.save(
+                    template = template
+                )
+            }
+
 
         }
     }
 
+    private fun checkIsEditTemplate() {
+        editableTemplate = (navigationData as Template?)
+        editableTemplate?.let { template ->
+            binding.edTemplateName.setText(template.name)
+            adapter.updateParameters(template.parameters)
+        }
+    }
+
     private fun collectState() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            createTemplateViewModel.getState().collect { state ->
-                state?.let {
-                    checkState(state)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                createTemplateViewModel.getState().collect { state ->
+                    checkState(state = state)
                 }
             }
         }
@@ -102,6 +121,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
                 makeToast("Шаблон успешно сохранен")
                 navigate(R.id.action_createTemplateFragment_to_playGameFragment, state.template)
             }
+            is CreateTemplateViewModel.CreateTemplateState.Nothing -> {}
         }
     }
 
@@ -112,4 +132,5 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
             )
         )
     }
+
 }

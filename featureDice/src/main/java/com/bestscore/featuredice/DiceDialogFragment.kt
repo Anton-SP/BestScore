@@ -9,7 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.featuredice.databinding.FragmentDialogDiceBinding
@@ -48,18 +51,20 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     }
 
     private fun collectDiceResult() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            diceViewModel.diceState().collect { rollResult ->
-                rollResult?.let { result ->
-                    if (result.firstDice != 0) {
-                        binding.firstDiceResult.text = result.firstDice.toString()
-                    }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                diceViewModel.diceState().collect { rollResult ->
+                    rollResult?.let { result ->
+                        if (result.firstDice != 0) {
+                            binding.firstDiceResult.text = result.firstDice.toString()
+                        }
 
-                    if (result.secondDice != 0) {
-                        binding.hyphen.isVisible = true
-                        binding.secondDiceResult.text = result.secondDice.toString()
-                    } else {
-                        binding.hyphen.isVisible = false
+                        if (result.secondDice != 0) {
+                            binding.hyphen.isVisible = true
+                            binding.secondDiceResult.text = result.secondDice.toString()
+                        } else {
+                            binding.hyphen.isVisible = false
+                        }
                     }
                 }
             }

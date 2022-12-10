@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="start_screen_icon_max_size">72dp</dimen>
+    <dimen name="card_corner">4dp</dimen>
+    <dimen name="min_height">48dp</dimen>
+    <dimen name="padding_common">8dp</dimen>
+    <dimen name="text_size_name">20sp</dimen>
+    <dimen name="fab_size">112dp</dimen>
+    <dimen name="margin_bottom">24dp</dimen>
     <!--  TextSize  -->
     <dimen name="label_text_textSize">20sp</dimen>
     <dimen name="common_text_textSize">16sp</dimen>
