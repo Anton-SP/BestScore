@@ -38,7 +38,6 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
     }
 
-    private var isEdit = false
     private var editableTemplate: Template? = null
 
     override fun onAttach(context: Context) {
@@ -59,14 +58,10 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         initFab()
         collectState()
 
-        arguments?.let { args ->
-            isEdit = args.getBoolean("is_edit", false)
-            editableTemplate = args.getParcelable("template") as Template?
-
-            editableTemplate?.let { template ->
-                binding.edTemplateName.setText(template.name)
-                adapter.updateParameters(template.parameters)
-            }
+        editableTemplate = (navigationData as Template?)
+        editableTemplate?.let { template ->
+            binding.edTemplateName.setText(template.name)
+            adapter.updateParameters(template.parameters)
         }
 
     }
@@ -82,7 +77,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
 
         binding.fabPlay.setOnClickListener {
-            if (editableTemplate != null && isEdit) {
+            if (editableTemplate != null) {
                 val copy = editableTemplate!!.copy(
                     name = binding.edTemplateName.text.toString(),
                     parameters = adapter.getCurrentList()
