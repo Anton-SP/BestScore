@@ -1,6 +1,7 @@
 package com.bestscore.featuredice
 
 import android.app.Dialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -103,6 +104,9 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                 return@setOnClickListener
             }
 
+            val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.sound_dice_roll)
+            mediaPlayer.start()
+
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 diceViewModel.rollDice(diceMode)
             }
@@ -111,6 +115,8 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
     private fun initTossCoinButton() {
         binding.btnTossCoin.setOnClickListener {
+            val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.coin_toss)
+            mediaPlayer.start()
             diceViewModel.tossCoin()
         }
     }
