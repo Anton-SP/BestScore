@@ -15,8 +15,8 @@ abstract class BaseTemplateListViewModel(
     open fun getStateFlow() = stateFlow.asStateFlow()
 
     open fun deleteTemplate(template: Template) {
-        stateFlow.value = TemplateListState.Loading
         viewModelScope.launch {
+            stateFlow.emit(TemplateListState.Loading)
             try {
                 repository.delete(template)
                 stateFlow.emit(TemplateListState.DeleteSuccess)
