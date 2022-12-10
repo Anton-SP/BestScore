@@ -17,5 +17,8 @@ data class TemplateEntity(
     val name: String,
 
     @ColumnInfo(name = "created_at")
-    val createdAt: Date
+    val createdAt: Date,
+
+    @ColumnInfo(name = "updated_at")
+    val updatedAt: Date
 )
