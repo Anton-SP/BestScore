@@ -103,9 +103,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 createTemplateViewModel.getState().collect { state ->
-                    state?.let {
-                        checkState(state)
-                    }
+                    checkState(state = state)
                 }
             }
         }
@@ -120,6 +118,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
                 makeToast("Шаблон успешно сохранен")
                 navigate(R.id.action_createTemplateFragment_to_playGameFragment, state.template)
             }
+            is CreateTemplateViewModel.CreateTemplateState.Nothing -> {}
         }
     }
 
