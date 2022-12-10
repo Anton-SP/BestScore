@@ -54,16 +54,10 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
             addParameter()
         }
 
+        checkIsEditTemplate()
         initRecycler()
         initFab()
         collectState()
-
-        editableTemplate = (navigationData as Template?)
-        editableTemplate?.let { template ->
-            binding.edTemplateName.setText(template.name)
-            adapter.updateParameters(template.parameters)
-        }
-
     }
 
     private fun initRecycler() {
@@ -99,6 +93,14 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
         }
     }
 
+    private fun checkIsEditTemplate() {
+        editableTemplate = (navigationData as Template?)
+        editableTemplate?.let { template ->
+            binding.edTemplateName.setText(template.name)
+            adapter.updateParameters(template.parameters)
+        }
+    }
+
     private fun collectState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -129,4 +131,5 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
             )
         )
     }
+
 }
