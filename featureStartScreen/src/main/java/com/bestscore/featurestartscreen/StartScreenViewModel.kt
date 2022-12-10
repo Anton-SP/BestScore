@@ -16,16 +16,16 @@ class StartScreenViewModel (
 ) : BaseTemplateListViewModel(repository = repository) {
 
     override fun getTemplateList() {
-        listStateFlow.value = TemplateListState.Loading
+        stateFlow.value = TemplateListState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
             val templates = repository.getLatestTemplates()
             if (templates.isNotEmpty()) {
-                listStateFlow.emit(
-                    TemplateListState.Success(data = templates)
+                stateFlow.emit(
+                    TemplateListState.ListSuccess(data = templates)
                 )
             } else {
-                listStateFlow.emit(
+                stateFlow.emit(
                     TemplateListState.Error(message = MESSAGE_EMPTY_LIST)
                 )
             }

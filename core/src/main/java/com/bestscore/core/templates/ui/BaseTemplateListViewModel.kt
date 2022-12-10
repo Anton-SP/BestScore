@@ -11,29 +11,19 @@ import kotlinx.coroutines.launch
 abstract class BaseTemplateListViewModel(
     private val repository: TemplateRepository
 ) : ViewModel() {
-    protected val listStateFlow = MutableStateFlow<TemplateListState>(TemplateListState.Loading)
-    open fun getListFlow() = listStateFlow.asStateFlow()
-
-    private val deleteStateFlow = MutableStateFlow<TemplateDeleteState>(TemplateDeleteState.Nothing)
-    open fun getDeleteFlow() = deleteStateFlow.asStateFlow()
+    protected val stateFlow = MutableStateFlow<TemplateListState>(TemplateListState.Loading)
+    open fun getStateFlow() = stateFlow.asStateFlow()
 
     open fun deleteTemplate(template: Template) {
-        listStateFlow.value = TemplateListState.Loading
+        stateFlow.value = TemplateListState.Loading
         viewModelScope.launch {
-            val result = repository.delete(template)
-
-            val emitData = if (result > 0) {
-                TemplateDeleteState.Success
-            } else {
-                TemplateDeleteState.Error("Не удалось удалить шаблон")
+            try {
+                repository.delete(template)
+                stateFlow.emit(TemplateListState.DeleteSuccess)
+            } catch (e: Exception) {
+                stateFlow.emit(TemplateListState.Error(message = "Не удалось удалить шаблон"))
             }
-
-            deleteStateFlow.emit(emitData)
         }
-    }
-
-    open fun notifiedAboutDeleteTemplate() {
-        deleteStateFlow.value = TemplateDeleteState.Nothing
     }
 
     abstract fun getTemplateList()

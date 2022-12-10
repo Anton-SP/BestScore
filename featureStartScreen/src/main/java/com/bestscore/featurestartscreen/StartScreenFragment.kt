@@ -16,7 +16,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bestscore.core.navigation.navigate
 import com.bestscore.core.swipe.SwipeController
 import com.bestscore.core.templates.ui.BaseTemplateListFragment
-import com.bestscore.core.templates.ui.TemplateDeleteState
 import com.bestscore.core.templates.ui.TemplateListAdapter
 import com.bestscore.core.templates.ui.TemplateListState
 import com.bestscore.featurestartscreen.databinding.FragmentStartScreenBinding
@@ -65,7 +64,6 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
         initRecycler()
 
         collectListFlow()
-        collectDeleteFlow()
         getTemplateList()
         initButtonsAndFabs()
     }
@@ -108,18 +106,8 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
     private fun collectListFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                startScreenViewModel.getListFlow().collect { state ->
+                startScreenViewModel.getStateFlow().collect { state ->
                     checkListState(state)
-                }
-            }
-        }
-    }
-
-    private fun collectDeleteFlow() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                startScreenViewModel.getDeleteFlow().collect { state ->
-                    checkDeleteState(state)
                 }
             }
         }
@@ -133,7 +121,7 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
                     progress.isVisible = true
                 }
             }
-            is TemplateListState.Success -> {
+            is TemplateListState.ListSuccess -> {
                 with(binding) {
                     progress.isVisible = false
                     rvLastTemplates.isVisible = true
@@ -147,23 +135,10 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
                 }
                 makeToast(state.message)
             }
-        }
-    }
-
-    private fun checkDeleteState(state: TemplateDeleteState) {
-        when(state) {
-            is TemplateDeleteState.Success -> {
+            is TemplateListState.DeleteSuccess -> {
                 makeToast(text = getString(R.string.delete_template_successfully))
-                startScreenViewModel.notifiedAboutDeleteTemplate()
                 startScreenViewModel.getTemplateList()
             }
-
-            is TemplateDeleteState.Error -> {
-                makeToast(text = state.message)
-                startScreenViewModel.notifiedAboutDeleteTemplate()
-            }
-            is TemplateDeleteState.Nothing -> {}
         }
     }
-
 }
