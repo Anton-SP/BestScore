@@ -73,17 +73,19 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     }
 
     private fun collectCoinResult() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            diceViewModel.coinState().collect { state ->
-                state?.let {
-                    when (state) {
-                        is DiceViewModel.TossState.Toss -> {
-                            binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
-                        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                diceViewModel.coinState().collect { state ->
+                    state?.let {
+                        when (state) {
+                            is DiceViewModel.TossState.Toss -> {
+                                binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
+                            }
 
-                        is DiceViewModel.TossState.Ready -> {
-                            val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
-                            binding.tvCoinTossResult.text = text
+                            is DiceViewModel.TossState.Ready -> {
+                                val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
+                                binding.tvCoinTossResult.text = text
+                            }
                         }
                     }
                 }
