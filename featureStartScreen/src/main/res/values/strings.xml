@@ -2,5 +2,4 @@
 <resources>
     <string name="create_game">Создать игру</string>
     <string name="my_games">Мои игры</string>
-    <string name="delete_template_successfully">Шаблон успешно удален</string>
 </resources>

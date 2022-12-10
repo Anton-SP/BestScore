@@ -117,7 +117,7 @@ class TemplatesListFragment : BaseTemplateListFragment(R.layout.fragment_templat
                 makeToast(state.message)
             }
             is TemplateListState.DeleteSuccess -> {
-                makeToast(text = getString(R.string.delete_template_successfully))
+                makeToast(text = getString(com.bestscore.core.R.string.delete_template_successfully))
                 templatesListViewModel.getTemplateList()
             }
         }
