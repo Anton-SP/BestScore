@@ -9,6 +9,7 @@ data class Template(
     val id: Long,
     val name: String,
     val createdAt: Date,
+    val updatedAt: Date,
     val parameters: List<Parameter>,
 ) : Parcelable
 
