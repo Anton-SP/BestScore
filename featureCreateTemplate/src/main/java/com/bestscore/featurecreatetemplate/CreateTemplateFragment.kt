@@ -74,7 +74,8 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
             if (editableTemplate != null) {
                 val copy = editableTemplate!!.copy(
                     name = binding.edTemplateName.text.toString(),
-                    parameters = adapter.getCurrentList()
+                    createdAt = currentDate(),
+                    parameters = adapter.getCurrentList(),
                 )
                 createTemplateViewModel.save(copy)
             } else {
