@@ -18,7 +18,7 @@ class TemplatesListViewModel(
     override fun getTemplateList() {
         stateFlow.value = TemplateListState.Loading
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val templates = repository.getTemplates()
             if (templates.isNotEmpty()) {
                 stateFlow.emit(

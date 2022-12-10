@@ -14,7 +14,7 @@ interface TemplateDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertParametersList(parameters: List<ParameterEntity>)
 
-    @Query("SELECT * FROM templates ORDER BY id DESC")
+    @Query("SELECT * FROM templates ORDER BY created_at DESC")
     fun getTemplateList(): List<TemplateEntity>
 
     @Query("SELECT * FROM templates ORDER BY id DESC LIMIT $LATEST_TEMPLATES_LIMIT")

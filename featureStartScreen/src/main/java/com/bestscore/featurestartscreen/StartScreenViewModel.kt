@@ -18,7 +18,7 @@ class StartScreenViewModel (
     override fun getTemplateList() {
         stateFlow.value = TemplateListState.Loading
 
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             val templates = repository.getLatestTemplates()
             if (templates.isNotEmpty()) {
                 stateFlow.emit(
