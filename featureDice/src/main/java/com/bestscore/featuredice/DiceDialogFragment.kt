@@ -1,6 +1,7 @@
 package com.bestscore.featuredice
 
 import android.app.Dialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -72,17 +73,19 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
     }
 
     private fun collectCoinResult() {
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
-            diceViewModel.coinState().collect { state ->
-                state?.let {
-                    when (state) {
-                        is DiceViewModel.TossState.Toss -> {
-                            binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
-                        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                diceViewModel.coinState().collect { state ->
+                    state?.let {
+                        when (state) {
+                            is DiceViewModel.TossState.Toss -> {
+                                binding.tvCoinTossResult.text = getText(R.string.toss_in_proccess)
+                            }
 
-                        is DiceViewModel.TossState.Ready -> {
-                            val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
-                            binding.tvCoinTossResult.text = text
+                            is DiceViewModel.TossState.Ready -> {
+                                val text = if (state.result == TossResult.HEADS) getString(R.string.heads) else getString(R.string.tails)
+                                binding.tvCoinTossResult.text = text
+                            }
                         }
                     }
                 }
@@ -103,6 +106,9 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
                 return@setOnClickListener
             }
 
+            val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.sound_dice_roll)
+            mediaPlayer.start()
+
             viewLifecycleOwner.lifecycle.coroutineScope.launch {
                 diceViewModel.rollDice(diceMode)
             }
@@ -111,6 +117,8 @@ class DiceDialogFragment : DialogFragment(R.layout.fragment_dialog_dice) {
 
     private fun initTossCoinButton() {
         binding.btnTossCoin.setOnClickListener {
+            val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.coin_toss)
+            mediaPlayer.start()
             diceViewModel.tossCoin()
         }
     }
