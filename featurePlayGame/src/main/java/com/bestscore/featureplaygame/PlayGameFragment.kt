@@ -33,7 +33,12 @@ internal class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
         getTemplateData()
         initViews()
         initViewModel()
+        initMenu()
 
+
+    }
+
+    private fun initMenu() {
         binding.buttonMenu.setOnClickListener { view ->
             showMenu(view)
         }
@@ -41,7 +46,7 @@ internal class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
 
     private fun showMenu(view: View) {
         val menu = PopupMenu(requireContext(), view)
-        menu.inflate(R.menu.play_menu)
+        menu.inflate(R.menu.menu_play)
 
         menu.setOnMenuItemClickListener {
             when (it.itemId) {
