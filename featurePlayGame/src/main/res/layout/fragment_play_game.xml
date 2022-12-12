@@ -16,6 +16,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Название шаблона" />
 
+    <ImageButton
+        android:id="@+id/button_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_menu"
+        app:layout_constraintBottom_toTopOf="@id/rv_game_parameters"/>
+
     <TextView
         android:id="@+id/tv_calculated_score_label"
         style="@style/label_text"

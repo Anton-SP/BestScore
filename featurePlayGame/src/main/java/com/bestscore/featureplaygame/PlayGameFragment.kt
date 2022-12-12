@@ -1,7 +1,9 @@
 package com.bestscore.featureplaygame
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -9,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bestscore.core.navigation.navigate
 import com.bestscore.core.navigation.navigationData
 import com.bestscore.core.templates.Template
 import com.bestscore.featureplaygame.databinding.FragmentPlayGameBinding
@@ -30,6 +33,39 @@ internal class PlayGameFragment : Fragment(R.layout.fragment_play_game) {
         getTemplateData()
         initViews()
         initViewModel()
+
+        binding.buttonMenu.setOnClickListener { view ->
+            showMenu(view)
+        }
+    }
+
+    private fun showMenu(view: View) {
+        val menu = PopupMenu(requireContext(), view)
+        menu.inflate(R.menu.play_menu)
+
+        menu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_dice -> {
+                    navigate(R.id.action_playGameFragment_to_diceDialogFragment)
+                }
+                R.id.menu_timer -> {
+                    navigate(R.id.action_playGameFragment_to_timerDialogFragment)
+                }
+            }
+            false
+        }
+        try {
+            val fieldMPopup = PopupMenu::class.java.getDeclaredField("mPopup")
+            fieldMPopup.isAccessible = true
+            val mPopup = fieldMPopup.get(menu)
+            mPopup.javaClass
+                .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                .invoke(mPopup, true)
+        } catch (e: Exception) {
+            Log.e("Main", "Error showing menu icons.", e)
+        } finally {
+            menu.show()
+        }
     }
 
     private fun getTemplateData() {

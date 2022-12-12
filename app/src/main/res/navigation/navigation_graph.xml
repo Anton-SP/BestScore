@@ -61,6 +61,14 @@
     <fragment
         android:id="@+id/playGameFragment"
         android:name="com.bestscore.featureplaygame.PlayGameFragment"
-        android:label="PlayGameFragment" />
+        android:label="PlayGameFragment">
+        <action
+            android:id="@id/action_playGameFragment_to_diceDialogFragment"
+            app:destination="@id/diceDialogFragment" />
+        <action
+            android:id="@id/action_playGameFragment_to_timerDialogFragment"
+            app:destination="@id/timerDialogFragment" />
+
+    </fragment>
 
 </navigation>
