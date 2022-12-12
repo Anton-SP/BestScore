@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.media.MediaPlayer
 import android.os.*
 import android.view.View
 import androidx.fragment.app.DialogFragment
@@ -107,6 +108,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
             override fun onFinish() {
                 onTimerFinish()
+                playAlarm()
+                vibrate()
                 showTimerEndDialog()
             }
             override fun onTick(millisUntilFinished: Long) {
@@ -152,7 +155,6 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun onTimerFinish() {
         timer.cancel()
-        vibrate()
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             timerViewModel.changeTimerState(
                 TimerData(STOP)
@@ -162,6 +164,11 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
                 max = 0
             }
         }
+    }
+
+    private fun playAlarm() {
+        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.alarm)
+        mediaPlayer.start()
     }
 
     private fun onTimerPause() {
