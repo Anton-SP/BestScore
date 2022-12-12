@@ -5,11 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -94,9 +90,8 @@ class StartScreenFragment : BaseTemplateListFragment(R.layout.fragment_start_scr
             binding.swipeRefreshLayout.setOnRefreshListener {
                 binding.swipeRefreshLayout.isRefreshing = false
             }
-
             adapter = this@StartScreenFragment.adapter
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext()).apply { stackFromEnd = true }
             val swipeController = SwipeController(requireContext())
             val itemTouchHelper = ItemTouchHelper(swipeController)
             itemTouchHelper.attachToRecyclerView(this)

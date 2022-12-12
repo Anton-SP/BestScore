@@ -4,4 +4,6 @@
     <string name="item_score_label_text">Счёт: </string>
     <string name="item_apply_score_change_btn_text">OK</string>
     <string name="item_score_change_label_text">Изменить: </string>
+    <string name="label_dice_menu">Бросить кубики</string>
+    <string name="label_timer_menu">Таймер</string>
 </resources>
