@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.media.MediaPlayer
 import android.os.*
 import android.view.View
 import androidx.fragment.app.DialogFragment
@@ -20,7 +21,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     private val binding: FragmentTimerBinding by viewBinding(createMethod = CreateMethod.INFLATE)
 
     private lateinit var timer: CountDownTimer
-
+    private lateinit var alarm: MediaPlayer
+    private lateinit var tik: MediaPlayer
 
     private val timerViewModel: TimerViewModel by viewModels()
 
@@ -35,9 +37,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         super.onViewCreated(binding.root, savedInstanceState)
         initPickers()
         dialog?.setCanceledOnTouchOutside(false)
-
-
         collectTimerData()
+       // initSounds()
 
         binding.progressCircular.isIndeterminate = false
 
@@ -59,12 +60,17 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     }
 
+    private fun initSounds() {
+        alarm = MediaPlayer.create(requireContext(), R.raw.alarm)
+        tik = MediaPlayer.create(requireContext(), R.raw.tik)
+    }
+
     private fun startTimer() {
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             timerViewModel.apply {
                 var seconds = binding.minutesPicker.value * 60L + binding.secondsPicker.value
                 if (seconds != 0L) {
-                    timerStart(seconds+1)
+                    timerStart(seconds + 1)
                 }
             }
         }
@@ -80,6 +86,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
                     when (timerData.state) {
                         RUN -> {
                             setTimer(timerData.secondsRemaining)
+                            initSounds()
                             if (binding.progressCircular.max == 0) {
                                 binding.progressCircular.max = timerData.secondsRemaining.toInt()
                             }
@@ -87,11 +94,13 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
                         STOP -> {
                             if (timerData.secondsRemaining != 0L) {
                                 timer.cancel()
+                                tik.stop()
                             }
                             binding.progressCircular.max = 0
                         }
                         PAUSE -> {
                             timer.cancel()
+                            tik.pause()
                         }
 
                     }
@@ -107,8 +116,12 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
             override fun onFinish() {
                 onTimerFinish()
+                tik.stop()
+                alarm.start()
+                vibrate()
                 showTimerEndDialog()
             }
+
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
                 updateCountdownUI(secondsRemaining)
@@ -152,7 +165,6 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
 
     private fun onTimerFinish() {
         timer.cancel()
-        vibrate()
         viewLifecycleOwner.lifecycle.coroutineScope.launchWhenStarted {
             timerViewModel.changeTimerState(
                 TimerData(STOP)
@@ -181,6 +193,7 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
         val minutesUntilFinished = secondsRemaining / 60
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
+        if ((secondsRemaining <= 5L) && (!tik.isPlaying)) tik.start()
         binding.timer.text =
             "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
         binding.progressCircular.apply {
@@ -213,6 +226,8 @@ class TimerDialogFragment : DialogFragment(R.layout.fragment_timer) {
     override fun onDestroyView() {
         if (binding.progressCircular.progress != 0) {
             timer.cancel()
+            alarm.stop()
+            tik.stop()
         }
         super.onDestroyView()
     }
