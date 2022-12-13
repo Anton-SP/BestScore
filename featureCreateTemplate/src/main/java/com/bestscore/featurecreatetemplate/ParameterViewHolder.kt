@@ -12,17 +12,17 @@ class ParameterViewHolder(
 
     fun bind(parameter: Parameter) {
         with(binding) {
-            fabDeleteCard.setOnClickListener {
-                onClickDelete.invoke(adapterPosition)
+            btnDelete.setOnClickListener {
+                onClickDelete.invoke(bindingAdapterPosition)
             }
 
-            edPlayerName.setText(parameter.parameterName)
-            edPlayerName.addTextChangedListener {
+            edParameterName.setText(parameter.parameterName)
+            edParameterName.addTextChangedListener {
                 parameter.parameterName = it.toString()
             }
 
-            edStartScore.setText(parameter.startValue.toString())
-            edStartScore.addTextChangedListener {
+            edStartValue.setText(parameter.startValue.toString())
+            edStartValue.addTextChangedListener {
                 if(it.toString().isNotBlank()) {
                     parameter.startValue = it.toString().toInt()
                     parameter.inGameValues[0] = it.toString().toInt()

@@ -1,98 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_common">
+    android:layout_marginVertical="@dimen/margin_common"
+    android:layout_marginHorizontal="@dimen/margin_common_2x"
+    android:padding="@dimen/padding_common"
+    app:cardCornerRadius="@dimen/item_card_corner_radius"
+    app:cardElevation="@dimen/item_card_elevation">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_params"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/item_card_corner_radius"
-        app:cardElevation="@dimen/item_card_elevation"
-        app:layout_constraintEnd_toStartOf="@id/fab_delete_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="@dimen/padding_common">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_parameter_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_common">
+            android:hint="@string/label_parameter_name"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/tv_player_name_label"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_parameter_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_player_name"
-                app:layout_constraintBottom_toBottomOf="@id/ed_player_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ed_player_name" />
+                android:inputType="text"
+                android:maxLines="1"/>
 
-            <EditText
-                android:id="@+id/ed_player_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_common"
-                android:background="#EFEFEF"
-                android:padding="@dimen/padding_common"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/ed_start_score"
-                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_start_score_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_start_score"
-                app:layout_constraintBottom_toBottomOf="@id/ed_start_score"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/ed_start_score" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_start_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_common"
+            android:hint="@string/label_start_score"
+            app:endIconMode="clear_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_parameter_name"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <EditText
-                android:id="@+id/ed_start_score"
-                android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_start_value"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_common"
-                android:layout_marginEnd="@dimen/margin_common"
-                android:background="#EFEFEF"
                 android:inputType="number"
-                android:padding="@dimen/padding_common"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/sw_take_when_calc"
-                app:layout_constraintTop_toBottomOf="@id/ed_player_name" />
+                android:maxLines="1"/>
 
-            <TextView
-                android:id="@+id/tv_take_when_calc_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_take_when_calculating"
-                app:layout_constraintBottom_toBottomOf="@id/sw_take_when_calc"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/sw_take_when_calc" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/sw_take_when_calc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_common"
-                app:layout_constraintStart_toEndOf="@id/tv_take_when_calc_label"
-                app:layout_constraintTop_toBottomOf="@id/ed_start_score" />
+        <TextView
+            android:id="@+id/tv_take_when_calc_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_take_when_calculating"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/sw_take_when_calc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/sw_take_when_calc" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/sw_take_when_calc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_common"
+            app:layout_constraintStart_toEndOf="@id/tv_take_when_calc_label"
+            app:layout_constraintTop_toBottomOf="@id/til_start_value" />
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/common_margin"
+            android:text="@string/button_delete_description"
+            android:textAppearance="?attr/textAppearanceButton"
+            android:textColor="@color/primary_color"
+            app:layout_constraintTop_toBottomOf="@id/sw_take_when_calc"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_delete_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_common"
-        android:backgroundTint="@color/white"
-        android:src="@android:drawable/ic_menu_delete"
-        app:layout_constraintBottom_toBottomOf="@id/card_params"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/card_params"
-        app:layout_constraintTop_toTopOf="@id/card_params" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
