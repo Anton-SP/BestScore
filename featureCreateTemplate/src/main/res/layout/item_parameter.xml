@@ -71,13 +71,14 @@
             app:layout_constraintStart_toEndOf="@id/tv_take_when_calc_label"
             app:layout_constraintTop_toBottomOf="@id/til_start_value" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+        <TextView
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/common_margin"
             android:text="@string/button_delete_description"
+            android:textAppearance="?attr/textAppearanceButton"
+            android:textColor="@color/primary_color"
             app:layout_constraintTop_toBottomOf="@id/sw_take_when_calc"
             app:layout_constraintEnd_toEndOf="parent"/>
 
