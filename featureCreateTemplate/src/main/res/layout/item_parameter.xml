@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/margin_common"
     android:layout_marginHorizontal="@dimen/margin_common_2x"
+    android:layout_marginVertical="@dimen/margin_common"
     android:padding="@dimen/padding_common"
     app:cardCornerRadius="@dimen/item_card_corner_radius"
     app:cardElevation="@dimen/item_card_elevation">
@@ -20,16 +20,16 @@
             android:layout_height="wrap_content"
             android:hint="@string/label_parameter_name"
             app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_parameter_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="@integer/et_max_lines" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,16 +40,17 @@
             android:layout_marginTop="@dimen/margin_common"
             android:hint="@string/label_start_score"
             app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_parameter_name"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/til_parameter_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_start_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"/>
+                android:inputType="number|numberSigned"
+                android:maxLength="@integer/int_max_length"
+                android:maxLines="@integer/et_max_lines" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,8 +80,8 @@
             android:text="@string/button_delete_description"
             android:textAppearance="?attr/textAppearanceButton"
             android:textColor="@color/primary_color"
-            app:layout_constraintTop_toBottomOf="@id/sw_take_when_calc"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sw_take_when_calc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

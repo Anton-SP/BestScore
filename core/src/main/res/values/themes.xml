@@ -12,6 +12,8 @@
         <item name="colorOnSecondary">@color/on_secondary_color</item>
         <!-- Background -->
         <item name="android:windowBackground">@color/main_background</item>
+        <!-- StatusBar -->
+        <item name="colorPrimaryDark">@color/primary_variant_color</item>
 
     </style>
 
