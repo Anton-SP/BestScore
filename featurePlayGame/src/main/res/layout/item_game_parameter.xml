@@ -27,15 +27,17 @@
             android:layout_height="wrap_content"
             android:text="@string/item_score_label_text"
             app:layout_constraintBottom_toBottomOf="@id/btn_item_apply_score_change"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_item_apply_score_change" />
 
         <TextView
             android:id="@+id/tv_item_score"
             style="@style/common_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
+            app:layout_constraintBottom_toBottomOf="@id/btn_item_apply_score_change"
             app:layout_constraintStart_toEndOf="@id/tv_item_score_label"
+            app:layout_constraintTop_toTopOf="@id/btn_item_apply_score_change"
             tools:text="250" />
 
         <TextView
@@ -44,9 +46,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/item_score_change_label_text"
-            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
+            app:layout_constraintBottom_toBottomOf="@id/btn_item_apply_score_change"
             app:layout_constraintEnd_toStartOf="@id/et_item_score_change"
-            app:layout_constraintStart_toEndOf="@id/tv_item_score"/>
+            app:layout_constraintStart_toEndOf="@id/tv_item_score"
+            app:layout_constraintTop_toTopOf="@id/btn_item_apply_score_change" />
 
         <EditText
             android:id="@+id/et_item_score_change"
@@ -54,8 +57,10 @@
             android:layout_width="@dimen/edit_text_item_score_change_width"
             android:layout_height="wrap_content"
             android:inputType="number|numberSigned"
-            app:layout_constraintBottom_toBottomOf="@id/tv_item_score_label"
-            app:layout_constraintEnd_toStartOf="@id/btn_item_apply_score_change" />
+            android:maxLength="@integer/int_max_length"
+            app:layout_constraintBottom_toBottomOf="@id/btn_item_apply_score_change"
+            app:layout_constraintEnd_toStartOf="@id/btn_item_apply_score_change"
+            app:layout_constraintTop_toTopOf="@id/btn_item_apply_score_change" />
 
 
         <Button
