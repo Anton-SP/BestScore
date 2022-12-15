@@ -21,11 +21,17 @@ abstract class BaseTemplateListViewModel(
                 repository.delete(template)
                 stateFlow.emit(TemplateListState.DeleteSuccess)
             } catch (e: Exception) {
-                stateFlow.emit(TemplateListState.Error(message = "Не удалось удалить шаблон"))
+                stateFlow.emit(TemplateListState.Error(message = MESSAGE_DONT_FIND_TEMPLATE))
             }
         }
     }
 
     abstract fun getTemplateList()
+
+    companion object {
+        const val MESSAGE_DONT_FIND_TEMPLATE = "Не удалось удалить шаблон"
+        const val MESSAGE_EMPTY_LIST = "Вы еще не добавили ни одного шаблона"
+        const val MESSAGE_LIST_ERROR = "При загрузке списка шаблонов произошла ошибка"
+    }
 }
 
