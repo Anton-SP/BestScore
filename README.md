@@ -34,12 +34,9 @@
 
 - Петров Антон
   - github [@Anton-SP](https://github.com/Anton-SP)
-  - telegram [@PAS_dev](https://t.me/PAS_dev)
   
 - Негробов Дмитрий
   - github [@deffault](https://github.com/deffault)
-  - telegram [@deffau1t](https://t.me/deffau1t)
   
 - Макулин Павел
   - github [@VoltaireTheEvil](https://github.com/VoltaireTheEvil)
-  - telegram [@pavelmakulin](https://t.me/pavelmakulin)
