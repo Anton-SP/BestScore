@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.core.templates.ui.BaseTemplateListViewModel
 import com.bestscore.core.templates.ui.TemplateListState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
@@ -19,15 +18,16 @@ class TemplatesListViewModel(
         stateFlow.value = TemplateListState.Loading
 
         viewModelScope.launch {
-            val templates = repository.getTemplates()
-            if (templates.isNotEmpty()) {
+            try {
+                val templates = repository.getTemplates()
                 stateFlow.emit(
                     TemplateListState.ListSuccess(data = templates)
                 )
-            } else {
-                stateFlow.emit(
-                    TemplateListState.Error(message = "Вы еще не добавили ни одного шаблона")
-                )
+                if (templates.isEmpty()) {
+                    stateFlow.emit(TemplateListState.Error(MESSAGE_EMPTY_LIST))
+                }
+            } catch (e: Exception) {
+                stateFlow.emit(TemplateListState.Error(MESSAGE_LIST_ERROR))
             }
         }
     }

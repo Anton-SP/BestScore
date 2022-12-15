@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.bestscore.core.templates.TemplateRepository
 import com.bestscore.core.templates.ui.BaseTemplateListViewModel
 import com.bestscore.core.templates.ui.TemplateListState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
@@ -19,15 +18,16 @@ class StartScreenViewModel (
         stateFlow.value = TemplateListState.Loading
 
         viewModelScope.launch() {
-            val templates = repository.getLatestTemplates()
-            if (templates.isNotEmpty()) {
+            try {
+                val templates = repository.getLatestTemplates()
                 stateFlow.emit(
                     TemplateListState.ListSuccess(data = templates)
                 )
-            } else {
-                stateFlow.emit(
-                    TemplateListState.Error(message = MESSAGE_EMPTY_LIST)
-                )
+                if (templates.isEmpty()) {
+                    stateFlow.emit(TemplateListState.Error(MESSAGE_EMPTY_LIST))
+                }
+            } catch (e: Exception) {
+                stateFlow.emit(TemplateListState.Error(MESSAGE_LIST_ERROR))
             }
         }
     }
@@ -39,9 +39,5 @@ class StartScreenViewModel (
             require(modelClass == StartScreenViewModel::class.java)
             return StartScreenViewModel(repository = repositoryProvider.get()) as T
         }
-    }
-
-    companion object {
-        const val MESSAGE_EMPTY_LIST = "Вы еще не добавили ни одного шаблона"
     }
 }
