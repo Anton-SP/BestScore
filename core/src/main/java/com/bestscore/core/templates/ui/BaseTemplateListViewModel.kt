@@ -29,9 +29,9 @@ abstract class BaseTemplateListViewModel(
     abstract fun getTemplateList()
 
     companion object {
-        const val MESSAGE_DONT_FIND_TEMPLATE = "Не удалось удалить шаблон"
-        const val MESSAGE_EMPTY_LIST = "Вы еще не добавили ни одного шаблона"
-        const val MESSAGE_LIST_ERROR = "При загрузке списка шаблонов произошла ошибка"
+        const val MESSAGE_DONT_FIND_TEMPLATE = "Не удалось удалить игру"
+        const val MESSAGE_EMPTY_LIST = "Вы еще не добавили ни одной игры"
+        const val MESSAGE_LIST_ERROR = "При загрузке списка игр произошла ошибка"
     }
 }
 

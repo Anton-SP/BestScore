@@ -65,17 +65,16 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_create_template"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_start_screen_width"
             android:layout_height="wrap_content"
             android:text="@string/create_game"
-
             app:layout_constraintBottom_toTopOf="@id/button_my_templates"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_my_templates"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_start_screen_width"
             android:layout_height="wrap_content"
             android:text="@string/my_games"
             android:layout_marginBottom="@dimen/margin_bottom"

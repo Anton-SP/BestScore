@@ -29,6 +29,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="common_edit_text" parent="common_text">
+        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+    </style>
+
     <style name="item_card_view">
         <item name="android:layout_margin">@dimen/common_margin</item>
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>

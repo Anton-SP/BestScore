@@ -119,7 +119,7 @@ class CreateTemplateFragment : Fragment(R.layout.fragment_create_template) {
                 makeToast(state.message)
             }
             is CreateTemplateViewModel.CreateTemplateState.Success -> {
-                makeToast("Шаблон успешно сохранен")
+                makeToast("Игра успешно сохранена")
                 navigate(R.id.action_createTemplateFragment_to_playGameFragment, state.template)
             }
             is CreateTemplateViewModel.CreateTemplateState.Nothing -> {}

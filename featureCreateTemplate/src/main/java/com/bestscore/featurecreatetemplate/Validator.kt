@@ -8,7 +8,7 @@ class Validator {
         if (template.name.isBlank()) {
             return ValidationResult(
                 success = false,
-                message = "Заполните имя шаблона"
+                message = "Заполните имя игры"
             )
         }
 
