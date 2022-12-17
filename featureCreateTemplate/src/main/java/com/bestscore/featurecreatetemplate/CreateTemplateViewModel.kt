@@ -32,7 +32,7 @@ internal class CreateTemplateViewModel(
             if (templateId > 0) {
                 createTemplateState.emit(CreateTemplateState.Success(template))
             } else {
-                createTemplateState.emit(CreateTemplateState.Error("Не удалось сохранить шаблон"))
+                createTemplateState.emit(CreateTemplateState.Error("Не удалось сохранить игру"))
             }
         }
     }

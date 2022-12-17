@@ -1,5 +1,5 @@
 <resources>
-    <string name="label_template_name">Введите название шаблона</string>
+    <string name="label_template_name">Введите название игры</string>
     <string name="hint_template_name">Название</string>
     <string name="label_params"><u>Задайте отслеживаемые параметры:</u></string>
     <string name="label_parameter_name">Имя параметра</string>
