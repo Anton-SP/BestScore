@@ -53,7 +53,7 @@
 
         <EditText
             android:id="@+id/et_item_score_change"
-            style="@style/common_text"
+            style="@style/common_edit_text"
             android:layout_width="@dimen/edit_text_item_score_change_width"
             android:layout_height="wrap_content"
             android:inputType="number|numberSigned"

@@ -20,5 +20,6 @@
     <!--  ItemCardDimens  -->
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
+    <dimen name="cursor_drawable_width">1dp</dimen>
 
 </resources>
